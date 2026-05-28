@@ -2181,7 +2181,11 @@
     }
 
     if (uploads.length > 0) {
-      await supabaseClient.from('brief_files').insert(uploads);
+      const { error: filesError } = await supabaseClient.from('brief_files').insert(uploads);
+      if (filesError) {
+        // los archivos ya están en storage, solo no se registraron en la tabla
+        console.warn('archivos subidos pero no registrados en brief_files:', filesError.message);
+      }
     }
 
     return uploads.length;
@@ -2211,19 +2215,27 @@
         if (error) throw error;
         briefId = updatedId;
       } else {
+        // crear nuevo brief via función RPC (bypasea RLS de forma segura)
         const { data: inserted, error } = await supabaseClient
-          .from('briefs')
-          .insert({
-            data: data,
-            submitted_at: submitted ? new Date().toISOString() : null
-          })
-          .select('id, edit_token')
-          .single();
+          .rpc('create_brief', { p_data: data });
         if (error) throw error;
-        briefId = inserted.id;
-        editToken = inserted.edit_token;
+        if (!inserted || inserted.length === 0) throw new Error('no se recibió respuesta de create_brief');
+
+        briefId = inserted[0].id;
+        editToken = inserted[0].edit_token;
         currentBriefId = briefId;
         currentEditToken = editToken;
+
+        // si es submit final, marcar submitted_at via la función de update
+        if (submitted) {
+          const { error: submitError } = await supabaseClient
+            .rpc('update_brief_by_token', {
+              p_token: editToken,
+              p_data: data,
+              p_submitted: true
+            });
+          if (submitError) throw submitError;
+        }
       }
 
       await uploadFiles(briefId);
