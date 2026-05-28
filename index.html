@@ -2109,7 +2109,10 @@
       updateSubmitArea();
       showToast(isSubmitted ? 'brief enviado · puedes editarlo' : 'progreso cargado');
     } catch (err) {
-      console.error(err);
+      console.error('=== ERROR AL CARGAR ===');
+      console.error('Message:', err.message);
+      console.error('Full error:', JSON.stringify(err, null, 2));
+      console.error('=======================');
       showToast('link inválido o expirado');
     } finally {
       hideLoading();
@@ -2229,7 +2232,13 @@
 
       return { briefId, editToken };
     } catch (err) {
-      console.error(err);
+      console.error('=== ERROR AL GUARDAR ===');
+      console.error('Message:', err.message);
+      console.error('Code:', err.code);
+      console.error('Details:', err.details);
+      console.error('Hint:', err.hint);
+      console.error('Full error:', JSON.stringify(err, null, 2));
+      console.error('========================');
       showToast('error al guardar · revisa la consola');
       return null;
     } finally {
