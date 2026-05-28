@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>movdi · dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&family=Roboto+Mono:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Agrandir Narrow Black';
+    src: url('https://res.cloudinary.com/duy1hjauz/raw/upload/v1779811203/Agrandir-NarrowBlack_twtlax.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #0d0d0d;
+    --bg-elevated: #1a1a1a;
+    --bg-input: #242424;
+    --bg-hover: #2a2a2a;
+    --accent: #fe751d;
+    --accent-soft: rgba(254, 117, 29, 0.15);
+    --accent-hover: #ff8e3c;
+    --ink: #fafaf8;
+    --ink-soft: #a8a8a8;
+    --ink-muted: #6a6a6a;
+    --line: rgba(255,255,255,0.08);
+    --line-strong: rgba(255,255,255,0.16);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --danger: #ef4444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    font-weight: 300;
+  }
+
+  /* ============================================
+     LOGIN SCREEN
+  ============================================ */
+  .login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .login-screen::before {
+    content: '';
+    position: absolute;
+    top: -300px;
+    left: -200px;
+    width: 700px;
+    height: 700px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0.08;
+    filter: blur(120px);
+    pointer-events: none;
+  }
+
+  .login-box {
+    background: var(--bg-elevated);
+    padding: 56px 48px;
+    max-width: 440px;
+    width: 100%;
+    position: relative;
+    border: 1px solid var(--line);
+    z-index: 2;
+  }
+
+  .login-iso {
+    width: 48px;
+    height: auto;
+    margin-bottom: 32px;
+    display: block;
+  }
+
+  .login-title {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    line-height: 0.95;
+    margin-bottom: 12px;
+  }
+
+  .login-title em {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.85em;
+    text-transform: lowercase;
+    color: var(--accent);
+  }
+
+  .login-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 36px;
+    line-height: 1.5;
+  }
+
+  .login-field {
+    margin-bottom: 18px;
+  }
+
+  .login-field label {
+    display: block;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: lowercase;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  .login-field input {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--bg-input);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 0;
+    transition: border-color 0.2s;
+  }
+
+  .login-field input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 12px;
+    transition: background 0.2s;
+  }
+
+  .login-btn:hover { background: var(--accent-hover); }
+  .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .login-error {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    display: none;
+  }
+
+  .login-error.show { display: block; }
+
+  /* ============================================
+     DASHBOARD LAYOUT
+  ============================================ */
+  .dashboard {
+    display: none;
+    min-height: 100vh;
+  }
+  .dashboard.active { display: block; }
+
+  .topbar {
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+  }
+
+  .topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .topbar-iso {
+    width: 28px;
+    height: auto;
+  }
+
+  .topbar-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    font-weight: 400;
+  }
+
+  .topbar-title em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .topbar-user .user-name {
+    color: var(--ink);
+  }
+
+  .logout-btn {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    padding: 8px 14px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    text-transform: lowercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .logout-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .main {
+    padding: 40px 32px 80px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  /* ============================================
+     PAGE HEADER
+  ============================================ */
+  .page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .page-title {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 56px;
+    text-transform: uppercase;
+    line-height: 0.9;
+    margin-bottom: 8px;
+  }
+
+  .page-title em {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.8em;
+    text-transform: lowercase;
+    color: var(--accent);
+  }
+
+  .page-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+
+  /* ============================================
+     STATUS COUNTERS (PILLS)
+  ============================================ */
+  .status-counters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .counter-pill {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 130px;
+    text-align: left;
+  }
+
+  .counter-pill:hover {
+    border-color: var(--line-strong);
+    background: var(--bg-hover);
+  }
+
+  .counter-pill.active {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .counter-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+
+  .counter-pill.active .counter-label {
+    color: var(--accent);
+  }
+
+  .counter-value {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  /* ============================================
+     SEARCH BAR
+  ============================================ */
+  .search-bar {
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .search-bar input {
+    width: 100%;
+    padding: 14px 18px 14px 44px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    border-radius: 0;
+    transition: border-color 0.2s;
+  }
+
+  .search-bar input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .search-bar::before {
+    content: '⌕';
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-muted);
+    font-size: 18px;
+    pointer-events: none;
+  }
+
+  /* ============================================
+     BRIEFS LIST (TABLE)
+  ============================================ */
+  .briefs-table {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .table-header {
+    display: grid;
+    grid-template-columns: 2fr 1.3fr 1fr 1.3fr 110px 90px 50px;
+    gap: 16px;
+    padding: 14px 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+  }
+
+  .table-row {
+    display: grid;
+    grid-template-columns: 2fr 1.3fr 1fr 1.3fr 110px 90px 50px;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: background 0.15s;
+    align-items: center;
+  }
+
+  .table-row:last-child { border-bottom: none; }
+  .table-row:hover { background: var(--bg-hover); }
+
+  .col-company {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  .col-company .company-industry {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .col-contact {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .col-contact .contact-email {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    margin-top: 2px;
+  }
+
+  .col-date {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .col-assigned {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .col-files {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  .col-arrow {
+    color: var(--ink-muted);
+    text-align: right;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  .status-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--line-strong);
+  }
+
+  .status-tag.nuevo { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .status-tag.en_revision { background: rgba(251, 191, 36, 0.1); border-color: var(--warning); color: var(--warning); }
+  .status-tag.cotizado { background: rgba(74, 222, 128, 0.05); border-color: rgba(74, 222, 128, 0.4); color: var(--success); }
+  .status-tag.en_produccion { background: rgba(255,255,255,0.04); border-color: var(--line-strong); color: var(--ink); }
+  .status-tag.entregado { background: rgba(74, 222, 128, 0.12); border-color: var(--success); color: var(--success); }
+  .status-tag.archivado { background: transparent; border-color: var(--line); color: var(--ink-muted); }
+
+  .submitted-marker {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .draft-marker {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--ink-muted);
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .empty-state {
+    padding: 80px 32px;
+    text-align: center;
+    color: var(--ink-muted);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+  }
+
+  /* ============================================
+     DETAIL VIEW
+  ============================================ */
+  .detail-view {
+    display: none;
+  }
+
+  .detail-view.active { display: block; }
+
+  .detail-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    text-transform: lowercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    margin-bottom: 24px;
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .detail-back:hover { color: var(--accent); }
+
+  .detail-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .detail-company {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 56px;
+    text-transform: uppercase;
+    line-height: 0.95;
+    margin-bottom: 8px;
+  }
+
+  .detail-pitch {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 720px;
+  }
+
+  .detail-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .detail-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .detail-meta-item .label {
+    color: var(--ink-muted);
+    font-size: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.12em;
+  }
+
+  .detail-meta-item .value {
+    color: var(--ink);
+    font-size: 12px;
+  }
+
+  .detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 32px;
+  }
+
+  @media (max-width: 1024px) {
+    .detail-layout { grid-template-columns: 1fr; }
+  }
+
+  /* DETAIL CONTENT */
+  .detail-content section {
+    margin-bottom: 40px;
+  }
+
+  .detail-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .detail-section-number {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .detail-section-title {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
+  .detail-field {
+    margin-bottom: 18px;
+  }
+
+  .detail-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+
+  .detail-value {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.6;
+    font-weight: 300;
+    white-space: pre-wrap;
+  }
+
+  .detail-value.empty {
+    color: var(--ink-muted);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+  }
+
+  .detail-value a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft);
+  }
+
+  .detail-value a:hover { border-bottom-color: var(--accent); }
+
+  .color-palette {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .color-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .color-swatch {
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--line-strong);
+  }
+
+  .color-hex {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag-item {
+    padding: 6px 12px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: lowercase;
+  }
+
+  .ref-list {
+    margin-top: 8px;
+  }
+
+  .ref-item {
+    padding: 16px;
+    background: var(--bg-elevated);
+    border-left: 3px solid var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .ref-item .ref-num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+
+  .ref-item .ref-url {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    margin-bottom: 8px;
+    word-break: break-all;
+  }
+
+  .ref-item .ref-url a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+  .ref-item .ref-url a:hover { border-bottom-color: var(--accent); }
+
+  .ref-item .ref-note {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* DETAIL SIDEBAR */
+  .detail-sidebar {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+
+  .sidebar-panel {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .sidebar-panel-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-muted);
+    margin-bottom: 14px;
+  }
+
+  .status-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .status-option {
+    padding: 10px 12px;
+    background: var(--bg-input);
+    border: 1px solid transparent;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--ink-soft);
+    text-align: left;
+  }
+
+  .status-option:hover { background: var(--bg-hover); }
+
+  .status-option.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .sidebar-select,
+  .sidebar-textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    border-radius: 0;
+    transition: border-color 0.2s;
+  }
+
+  .sidebar-textarea {
+    min-height: 100px;
+    resize: vertical;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .sidebar-select:focus,
+  .sidebar-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .sidebar-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    margin-top: 12px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .sidebar-btn:hover { background: var(--accent-hover); }
+  .sidebar-btn.secondary {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+  }
+  .sidebar-btn.secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: var(--bg-input);
+    margin-bottom: 6px;
+    gap: 8px;
+  }
+
+  .file-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .file-name {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .file-meta {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-muted);
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+
+  .file-download {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    padding: 4px 8px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+
+  .file-download:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* LOADING + TOAST */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .loading-overlay.active { display: flex; }
+
+  .loading-spinner {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--line);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    color: var(--ink-soft);
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--accent);
+    color: var(--bg);
+    padding: 14px 24px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    transition: transform 0.3s ease;
+    z-index: 1100;
+    font-weight: 500;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* responsive */
+  @media (max-width: 768px) {
+    .main { padding: 24px 16px 60px; }
+    .page-title { font-size: 40px; }
+    .table-header { display: none; }
+    .table-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .col-arrow { display: none; }
+    .topbar { padding: 12px 16px; flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<!-- ===================== LOGIN SCREEN ===================== -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779810977/LOGO_ISO_tdmgn6.png" alt="movdi" class="login-iso" />
+    <h1 class="login-title">Bienvenida <em>de vuelta.</em></h1>
+    <p class="login-subtitle">Accede al dashboard interno para gestionar briefs de clientes.</p>
+
+    <form id="loginForm">
+      <div class="login-field">
+        <label>email</label>
+        <input type="email" id="loginEmail" required autocomplete="email" />
+      </div>
+      <div class="login-field">
+        <label>password</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password" />
+      </div>
+      <button type="submit" class="login-btn" id="loginBtn">→ Entrar</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== DASHBOARD ===================== -->
+<div class="dashboard" id="dashboard">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779810977/LOGO_ISO_tdmgn6.png" alt="movdi" class="topbar-iso" />
+      <div class="topbar-title"><em>movdi</em> · client briefs dashboard</div>
+    </div>
+    <div class="topbar-user">
+      <span class="user-name" id="userName">—</span>
+      <button class="logout-btn" id="logoutBtn">Salir</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- ===== LIST VIEW ===== -->
+    <div id="listView">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Briefs <em>recibidos.</em></h1>
+          <p class="page-subtitle">Todos los formularios que llegan de clientes potenciales.</p>
+        </div>
+      </div>
+
+      <div class="status-counters" id="statusCounters"></div>
+
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Buscar por empresa, contacto, email, industria..." />
+      </div>
+
+      <div class="briefs-table">
+        <div class="table-header">
+          <div>empresa</div>
+          <div>contacto</div>
+          <div>recibido</div>
+          <div>asignado a</div>
+          <div>status</div>
+          <div>archivos</div>
+          <div></div>
+        </div>
+        <div id="briefsList">
+          <div class="empty-state">Cargando briefs...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DETAIL VIEW ===== -->
+    <div class="detail-view" id="detailView">
+      <button class="detail-back" id="detailBack">← Volver a la lista</button>
+
+      <div class="detail-header">
+        <h1 class="detail-company" id="detailCompany">—</h1>
+        <p class="detail-pitch" id="detailPitch">—</p>
+        <div class="detail-meta">
+          <div class="detail-meta-item">
+            <span class="label">industria</span>
+            <span class="value" id="detailIndustry">—</span>
+          </div>
+          <div class="detail-meta-item">
+            <span class="label">recibido</span>
+            <span class="value" id="detailDate">—</span>
+          </div>
+          <div class="detail-meta-item">
+            <span class="label">contacto</span>
+            <span class="value" id="detailContact">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-layout">
+        <div class="detail-content" id="detailContent">
+          <!-- se llena dinámicamente -->
+        </div>
+
+        <aside class="detail-sidebar">
+
+          <div class="sidebar-panel">
+            <div class="sidebar-panel-title">status</div>
+            <div class="status-selector" id="statusSelector"></div>
+          </div>
+
+          <div class="sidebar-panel">
+            <div class="sidebar-panel-title">asignado a</div>
+            <select class="sidebar-select" id="assignSelect">
+              <option value="">— sin asignar —</option>
+            </select>
+            <button class="sidebar-btn" id="saveAssign">Guardar asignación</button>
+          </div>
+
+          <div class="sidebar-panel">
+            <div class="sidebar-panel-title">notas internas</div>
+            <textarea class="sidebar-textarea" id="internalNotes" placeholder="Notas privadas del equipo..."></textarea>
+            <button class="sidebar-btn" id="saveNotes">Guardar notas</button>
+          </div>
+
+          <div class="sidebar-panel">
+            <div class="sidebar-panel-title">archivos del cliente</div>
+            <div id="filesList">
+              <div style="color: var(--ink-muted); font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; padding: 8px 0;">Sin archivos.</div>
+            </div>
+          </div>
+
+          <div class="sidebar-panel">
+            <div class="sidebar-panel-title">link de edición del cliente</div>
+            <button class="sidebar-btn secondary" id="copyEditLink">↗ Copiar link</button>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" id="loadingText">cargando...</div>
+</div>
+
+<div class="toast" id="toast">guardado</div>
+
+<script>
+  // ============================================================
+  // SUPABASE
+  // ============================================================
+  const SUPABASE_URL = 'https://zvkgnwbwqfgkftuvqjji.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_fYShY5IycwcxxRqz9BRrhg_imK_p6_B';
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true }
+  });
+
+  const STATUSES = [
+    { value: 'nuevo', label: 'Nuevo' },
+    { value: 'en_revision', label: 'En revisión' },
+    { value: 'cotizado', label: 'Cotizado' },
+    { value: 'en_produccion', label: 'En producción' },
+    { value: 'entregado', label: 'Entregado' },
+    { value: 'archivado', label: 'Archivado' }
+  ];
+
+  let currentUser = null;
+  let currentTeamMember = null;
+  let currentBrief = null;
+  let allTeamMembers = [];
+  let currentFilter = null; // status filter
+  let currentSearch = '';
+  let listData = [];
+
+  // ============================================================
+  // UTILS
+  // ============================================================
+  function showLoading(text = 'cargando...') {
+    document.getElementById('loadingText').textContent = text;
+    document.getElementById('loadingOverlay').classList.add('active');
+  }
+  function hideLoading() {
+    document.getElementById('loadingOverlay').classList.remove('active');
+  }
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+  function escapeHTML(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+  function fmtDateTime(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleString('es-MX', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
+  function fmtBytes(b) {
+    if (!b) return '—';
+    if (b < 1024) return b + 'b';
+    if (b < 1024*1024) return (b/1024).toFixed(1) + 'kb';
+    return (b/(1024*1024)).toFixed(1) + 'mb';
+  }
+  function statusLabel(v) {
+    const s = STATUSES.find(s => s.value === v);
+    return s ? s.label : v;
+  }
+
+  // ============================================================
+  // AUTH
+  // ============================================================
+  async function checkSession() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+      await onLoginSuccess(session.user);
+    } else {
+      showLogin();
+    }
+  }
+
+  function showLogin() {
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('dashboard').classList.remove('active');
+  }
+
+  async function onLoginSuccess(user) {
+    currentUser = user;
+    // verifica que esté en team_members
+    const { data, error } = await supabaseClient
+      .rpc('list_team_members');
+
+    if (error) {
+      showLoginError('No tienes acceso al dashboard. Contacta a un admin.');
+      await supabaseClient.auth.signOut();
+      return;
+    }
+
+    allTeamMembers = data || [];
+    currentTeamMember = allTeamMembers.find(m => m.id === user.id);
+
+    if (!currentTeamMember) {
+      showLoginError('Tu usuario no está registrado en team_members.');
+      await supabaseClient.auth.signOut();
+      return;
+    }
+
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').classList.add('active');
+    document.getElementById('userName').textContent = currentTeamMember.name || currentTeamMember.email;
+
+    populateAssignSelect();
+    await loadBriefs();
+    await loadCounts();
+  }
+
+  function showLoginError(msg) {
+    const el = document.getElementById('loginError');
+    el.textContent = msg;
+    el.classList.add('show');
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const btn = document.getElementById('loginBtn');
+    const errEl = document.getElementById('loginError');
+
+    btn.disabled = true;
+    btn.textContent = 'verificando...';
+    errEl.classList.remove('show');
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+    btn.disabled = false;
+    btn.textContent = '→ Entrar';
+
+    if (error) {
+      showLoginError(error.message || 'Credenciales inválidas');
+      return;
+    }
+
+    await onLoginSuccess(data.user);
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await supabaseClient.auth.signOut();
+    currentUser = null;
+    currentTeamMember = null;
+    document.getElementById('dashboard').classList.remove('active');
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPassword').value = '';
+  });
+
+  // ============================================================
+  // LIST VIEW
+  // ============================================================
+  async function loadCounts() {
+    const { data, error } = await supabaseClient.rpc('get_brief_counts');
+    if (error) {
+      console.error(error);
+      return;
+    }
+    const counts = data || {};
+    const total = Object.values(counts).reduce((a, b) => a + b, 0);
+    const container = document.getElementById('statusCounters');
+    container.innerHTML = '';
+
+    // total
+    const totalPill = document.createElement('button');
+    totalPill.className = 'counter-pill' + (currentFilter === null ? ' active' : '');
+    totalPill.innerHTML = `<div class="counter-label">todos</div><div class="counter-value">${total}</div>`;
+    totalPill.addEventListener('click', () => { currentFilter = null; loadCounts(); loadBriefs(); });
+    container.appendChild(totalPill);
+
+    STATUSES.forEach(s => {
+      const pill = document.createElement('button');
+      pill.className = 'counter-pill' + (currentFilter === s.value ? ' active' : '');
+      const cnt = counts[s.value] || 0;
+      pill.innerHTML = `<div class="counter-label">${escapeHTML(s.label.toLowerCase())}</div><div class="counter-value">${cnt}</div>`;
+      pill.addEventListener('click', () => { currentFilter = s.value; loadCounts(); loadBriefs(); });
+      container.appendChild(pill);
+    });
+  }
+
+  async function loadBriefs() {
+    const listEl = document.getElementById('briefsList');
+    listEl.innerHTML = '<div class="empty-state">Cargando briefs...</div>';
+
+    const { data, error } = await supabaseClient.rpc('list_briefs', {
+      p_status: currentFilter,
+      p_search: currentSearch || null,
+      p_limit: 100,
+      p_offset: 0
+    });
+
+    if (error) {
+      console.error(error);
+      listEl.innerHTML = `<div class="empty-state">Error al cargar: ${escapeHTML(error.message)}</div>`;
+      return;
+    }
+
+    listData = data || [];
+
+    if (listData.length === 0) {
+      listEl.innerHTML = '<div class="empty-state">No hay briefs todavía.</div>';
+      return;
+    }
+
+    listEl.innerHTML = listData.map(b => {
+      const marker = b.submitted_at
+        ? '<span class="submitted-marker"></span>'
+        : '<span class="draft-marker" title="borrador"></span>';
+      const assigned = b.assigned_to ? escapeHTML(b.assigned_to) : '<span style="color: var(--ink-muted)">—</span>';
+      return `
+        <div class="table-row" data-id="${b.id}">
+          <div class="col-company">
+            ${marker}${escapeHTML(b.company_name || '(sin nombre)')}
+            <div class="company-industry">${escapeHTML(b.industry || '')}</div>
+          </div>
+          <div class="col-contact">
+            ${escapeHTML(b.contact_name || '—')}
+            <div class="contact-email">${escapeHTML(b.contact_email || '')}</div>
+          </div>
+          <div class="col-date">${fmtDate(b.submitted_at || b.created_at)}</div>
+          <div class="col-assigned">${assigned}</div>
+          <div><span class="status-tag ${b.status}">${escapeHTML(statusLabel(b.status))}</span></div>
+          <div class="col-files">${b.file_count || 0}</div>
+          <div class="col-arrow">→</div>
+        </div>
+      `;
+    }).join('');
+
+    listEl.querySelectorAll('.table-row').forEach(row => {
+      row.addEventListener('click', () => openDetail(row.dataset.id));
+    });
+  }
+
+  let searchTimer = null;
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      currentSearch = e.target.value.trim();
+      loadBriefs();
+    }, 300);
+  });
+
+  function populateAssignSelect() {
+    const sel = document.getElementById('assignSelect');
+    sel.innerHTML = '<option value="">— sin asignar —</option>';
+    allTeamMembers.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.email;
+      opt.textContent = `${m.name || m.email} (${m.role})`;
+      sel.appendChild(opt);
+    });
+  }
+
+  // ============================================================
+  // DETAIL VIEW
+  // ============================================================
+  async function openDetail(briefId) {
+    showLoading('cargando brief...');
+    const { data, error } = await supabaseClient.rpc('get_brief_detail', { p_brief_id: briefId });
+    hideLoading();
+
+    if (error) {
+      showToast('error al cargar el brief');
+      console.error(error);
+      return;
+    }
+
+    currentBrief = data;
+    renderDetail(data);
+    document.getElementById('listView').style.display = 'none';
+    document.getElementById('detailView').classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function closeDetail() {
+    document.getElementById('detailView').classList.remove('active');
+    document.getElementById('listView').style.display = 'block';
+    currentBrief = null;
+  }
+
+  document.getElementById('detailBack').addEventListener('click', closeDetail);
+
+  function renderDetail(brief) {
+    const d = brief.data || {};
+
+    document.getElementById('detailCompany').textContent = d.empresa?.nombre || '(sin nombre)';
+    document.getElementById('detailPitch').textContent = d.empresa?.pitch || '';
+    document.getElementById('detailIndustry').textContent = d.empresa?.industria || '—';
+    document.getElementById('detailDate').textContent = fmtDateTime(brief.submitted_at || brief.created_at);
+    document.getElementById('detailContact').textContent = `${d.contacto?.nombre || '—'} · ${d.contacto?.email || '—'}`;
+
+    // STATUS SELECTOR
+    const statusSel = document.getElementById('statusSelector');
+    statusSel.innerHTML = '';
+    STATUSES.forEach(s => {
+      const btn = document.createElement('button');
+      btn.className = 'status-option' + (brief.status === s.value ? ' active' : '');
+      btn.textContent = s.label;
+      btn.addEventListener('click', async () => {
+        await updateMeta({ p_status: s.value });
+        brief.status = s.value;
+        renderDetail(brief);
+        loadBriefs();
+        loadCounts();
+      });
+      statusSel.appendChild(btn);
+    });
+
+    // ASSIGN
+    document.getElementById('assignSelect').value = brief.assigned_to || '';
+
+    // NOTES
+    document.getElementById('internalNotes').value = brief.internal_notes || '';
+
+    // FILES
+    renderFiles(brief.files || []);
+
+    // CONTENT
+    renderDetailContent(d);
+  }
+
+  function renderDetailContent(d) {
+    const c = document.getElementById('detailContent');
+    const empty = '<span class="empty">sin completar</span>';
+    const v = (val) => val ? escapeHTML(val) : empty;
+    const vPre = (val) => val ? `<span style="white-space: pre-wrap">${escapeHTML(val)}</span>` : empty;
+
+    const colorChip = (label, hex) => `
+      <div class="color-chip">
+        <div class="color-swatch" style="background: ${escapeHTML(hex || '#000')}"></div>
+        <div class="color-hex">${escapeHTML(hex || '—')}</div>
+        <div style="font-family: 'Roboto Mono', monospace; font-size: 9px; color: var(--ink-muted); text-transform: lowercase;">${label}</div>
+      </div>
+    `;
+
+    const refsHTML = (d.referencias || []).map((r, i) => `
+      <div class="ref-item">
+        <div class="ref-num">REF ${String(i+1).padStart(2,'0')}</div>
+        ${r.url ? `<div class="ref-url"><a href="${escapeHTML(r.url)}" target="_blank" rel="noopener">${escapeHTML(r.url)}</a></div>` : ''}
+        ${r.notas ? `<div class="ref-note">${escapeHTML(r.notas)}</div>` : ''}
+      </div>
+    `).join('');
+
+    const tags = (arr) => {
+      if (!arr || !arr.length) return empty;
+      return `<div class="tag-list">${arr.map(t => `<span class="tag-item">${escapeHTML(t)}</span>`).join('')}</div>`;
+    };
+
+    c.innerHTML = `
+      <section>
+        <div class="detail-section-header">
+          <span class="detail-section-number">01</span>
+          <h2 class="detail-section-title">Empresa y contacto</h2>
+        </div>
+        <div class="detail-field"><div class="detail-label">descripción</div><div class="detail-value">${vPre(d.empresa?.descripcion_larga)}</div></div>
+        <div class="detail-field"><div class="detail-label">cargo</div><div class="detail-value">${v(d.contacto?.cargo)}</div></div>
+        <div class="detail-field"><div class="detail-label">teléfono</div><div class="detail-value">${v(d.contacto?.telefono)}</div></div>
+      </section>
+
+      <section>
+        <div class="detail-section-header">
+          <span class="detail-section-number">02</span>
+          <h2 class="detail-section-title">Identidad visual</h2>
+        </div>
+        <div class="detail-field"><div class="detail-label">tiene branding</div><div class="detail-value">${v(d.branding?.tiene_branding)}</div></div>
+        <div class="detail-field"><div class="detail-label">mood</div><div class="detail-value">${v(d.branding?.mood)}</div></div>
+        <div class="detail-field"><div class="detail-label">tipografías</div><div class="detail-value">${v(d.branding?.tipografias)}</div></div>
+        <div class="detail-field"><div class="detail-label">adjetivos</div><div class="detail-value">${v(d.branding?.adjetivos)}</div></div>
+        <div class="detail-field">
+          <div class="detail-label">paleta</div>
+          <div class="color-palette">
+            ${colorChip('principal', d.branding?.colores?.principal)}
+            ${colorChip('secundario', d.branding?.colores?.secundario)}
+            ${colorChip('acento', d.branding?.colores?.acento)}
+            ${colorChip('fondo', d.branding?.colores?.fondo)}
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="detail-section-header">
+          <span class="detail-section-number">03</span>
+          <h2 class="detail-section-title">Mensaje y estrategia</h2>
+        </div>
+        <div class="detail-field"><div class="detail-label">primera impresión</div><div class="detail-value">${vPre(d.mensaje?.primera_impresion)}</div></div>
+        <div class="detail-field"><div class="detail-label">mensaje central</div><div class="detail-value">${vPre(d.mensaje?.mensaje_central)}</div></div>
+        <div class="detail-field"><div class="detail-label">producto estrella</div><div class="detail-value">${v(d.mensaje?.producto_estrella)}</div></div>
+        <div class="detail-field"><div class="detail-label">tipo de sitio</div><div class="detail-value">${v(d.mensaje?.tipo_sitio)}</div></div>
+        <div class="detail-field"><div class="detail-label">cantidad de productos</div><div class="detail-value">${v(d.mensaje?.cantidad_productos)}</div></div>
+        <div class="detail-field"><div class="detail-label">faqs comunes</div><div class="detail-value">${vPre(d.mensaje?.preguntas_frecuentes)}</div></div>
+        <div class="detail-field"><div class="detail-label">objetivo de conversión</div><div class="detail-value">${vPre(d.contenido?.objetivo_conversion)}</div></div>
+        <div class="detail-field"><div class="detail-label">servicios</div><div class="detail-value">${vPre(d.contenido?.servicios)}</div></div>
+        <div class="detail-field"><div class="detail-label">clientes destacados</div><div class="detail-value">${v(d.contenido?.clientes_destacados)}</div></div>
+        <div class="detail-field"><div class="detail-label">secciones</div><div class="detail-value">${tags(d.contenido?.secciones)}${d.contenido?.secciones_extras ? `<div style="margin-top: 6px; color: var(--ink-soft); font-size: 13px">+ ${escapeHTML(d.contenido.secciones_extras)}</div>` : ''}</div></div>
+      </section>
+
+      <section>
+        <div class="detail-section-header">
+          <span class="detail-section-number">04</span>
+          <h2 class="detail-section-title">Activos y producción</h2>
+        </div>
+        <div class="detail-field"><div class="detail-label">logo editable</div><div class="detail-value">${v(d.activos?.logo_editable)}</div></div>
+        <div class="detail-field"><div class="detail-label">tiene fotos</div><div class="detail-value">${v(d.activos?.tiene_fotos)}</div></div>
+        <div class="detail-field"><div class="detail-label">apoyo visual</div><div class="detail-value">${v(d.activos?.apoyo_visual)}</div></div>
+        <div class="detail-field"><div class="detail-label">tiene textos</div><div class="detail-value">${v(d.activos?.tiene_textos)}</div></div>
+      </section>
+
+      <section>
+        <div class="detail-section-header">
+          <span class="detail-section-number">05</span>
+          <h2 class="detail-section-title">Referencias</h2>
+        </div>
+        <div class="ref-list">
+          ${refsHTML || '<div class="detail-value empty">Sin referencias.</div>'}
+        </div>
+        ${d.contenido?.anti_referencias ? `<div class="detail-field" style="margin-top: 16px"><div class="detail-label">páginas a evitar</div><div class="detail-value">${vPre(d.contenido.anti_referencias)}</div></div>` : ''}
+      </section>
+
+      <section>
+        <div class="detail-section-header">
+          <span class="detail-section-number">06</span>
+          <h2 class="detail-section-title">Aspectos técnicos</h2>
+        </div>
+        <div class="detail-field"><div class="detail-label">tiene dominio</div><div class="detail-value">${v(d.tecnico?.tiene_dominio)}</div></div>
+        <div class="detail-field"><div class="detail-label">dominio</div><div class="detail-value">${v(d.tecnico?.dominio)}</div></div>
+        <div class="detail-field"><div class="detail-label">tiene hosting</div><div class="detail-value">${v(d.tecnico?.tiene_hosting)}</div></div>
+        <div class="detail-field"><div class="detail-label">proveedor hosting</div><div class="detail-value">${v(d.tecnico?.hosting_proveedor)}</div></div>
+        <div class="detail-field"><div class="detail-label">accesos al sitio</div><div class="detail-value">${vPre(d.tecnico?.accesos)}</div></div>
+        <div class="detail-field"><div class="detail-label">integraciones</div><div class="detail-value">${tags(d.tecnico?.integraciones)}</div></div>
+        <div class="detail-field"><div class="detail-label">idiomas</div><div class="detail-value">${tags(d.tecnico?.idiomas)}</div></div>
+        <div class="detail-field"><div class="detail-label">fecha de lanzamiento</div><div class="detail-value">${v(d.tecnico?.fecha_lanzamiento)}</div></div>
+        <div class="detail-field"><div class="detail-label">notas adicionales</div><div class="detail-value">${vPre(d.tecnico?.notas)}</div></div>
+      </section>
+
+      <section>
+        <div class="detail-section-header">
+          <span class="detail-section-number">07</span>
+          <h2 class="detail-section-title">Redes sociales</h2>
+        </div>
+        ${Object.entries(d.contenido?.redes || {}).map(([k, v]) =>
+          v ? `<div class="detail-field"><div class="detail-label">${escapeHTML(k)}</div><div class="detail-value"><a href="${escapeHTML(v)}" target="_blank" rel="noopener">${escapeHTML(v)}</a></div></div>` : ''
+        ).join('') || '<div class="detail-value empty">Sin redes sociales.</div>'}
+      </section>
+    `;
+  }
+
+  function renderFiles(files) {
+    const container = document.getElementById('filesList');
+    if (!files || files.length === 0) {
+      container.innerHTML = '<div style="color: var(--ink-muted); font-family: \'Fraunces\', serif; font-style: italic; font-size: 13px; padding: 8px 0;">Sin archivos.</div>';
+      return;
+    }
+    container.innerHTML = files.map(f => `
+      <div class="file-item">
+        <div class="file-info">
+          <div class="file-name">${escapeHTML(f.file_name)}</div>
+          <div class="file-meta">${escapeHTML(f.category)} · ${fmtBytes(f.size_bytes)}</div>
+        </div>
+        <button class="file-download" data-path="${escapeHTML(f.storage_path)}" data-name="${escapeHTML(f.file_name)}">↓</button>
+      </div>
+    `).join('');
+    container.querySelectorAll('.file-download').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        await downloadFile(btn.dataset.path, btn.dataset.name);
+      });
+    });
+  }
+
+  async function downloadFile(storagePath, fileName) {
+    showLoading('descargando...');
+    const { data, error } = await supabaseClient.storage
+      .from('brief-files')
+      .createSignedUrl(storagePath, 60);
+    hideLoading();
+    if (error) {
+      showToast('error al descargar');
+      console.error(error);
+      return;
+    }
+    const a = document.createElement('a');
+    a.href = data.signedUrl;
+    a.download = fileName;
+    a.target = '_blank';
+    a.click();
+  }
+
+  async function updateMeta(params) {
+    if (!currentBrief) return;
+    const { error } = await supabaseClient.rpc('update_brief_meta', {
+      p_brief_id: currentBrief.id,
+      p_status: params.p_status || null,
+      p_assigned_to: params.p_assigned_to !== undefined ? params.p_assigned_to : null,
+      p_internal_notes: params.p_internal_notes !== undefined ? params.p_internal_notes : null
+    });
+    if (error) {
+      showToast('error al guardar');
+      console.error(error);
+      return false;
+    }
+    showToast('guardado');
+    return true;
+  }
+
+  document.getElementById('saveAssign').addEventListener('click', async () => {
+    const val = document.getElementById('assignSelect').value;
+    const ok = await updateMeta({ p_assigned_to: val });
+    if (ok && currentBrief) {
+      currentBrief.assigned_to = val;
+      loadBriefs();
+    }
+  });
+
+  document.getElementById('saveNotes').addEventListener('click', async () => {
+    const val = document.getElementById('internalNotes').value;
+    const ok = await updateMeta({ p_internal_notes: val });
+    if (ok && currentBrief) {
+      currentBrief.internal_notes = val;
+    }
+  });
+
+  document.getElementById('copyEditLink').addEventListener('click', () => {
+    if (!currentBrief) return;
+    // construye el link asumiendo que el formulario vive en el mismo dominio
+    // si no, ajustar manualmente la URL base
+    const baseURL = window.location.origin.replace('dashboard', 'brief');
+    const link = `${baseURL}/?token=${currentBrief.edit_token}`;
+    navigator.clipboard.writeText(link).then(() => {
+      showToast('link copiado');
+    }).catch(() => {
+      // fallback: alert con el link
+      alert('Link de edición:\n\n' + link);
+    });
+  });
+
+  // ============================================================
+  // INIT
+  // ============================================================
+  checkSession();
+</script>
+
+</body>
+</html>
