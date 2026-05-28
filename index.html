@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>movdi · client intake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&family=Roboto+Mono:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* AGRANDIR NARROW BLACK - custom font */
+  @font-face {
+    font-family: 'Agrandir Narrow Black';
+    src: url('https://res.cloudinary.com/duy1hjauz/raw/upload/v1779811203/Agrandir-NarrowBlack_twtlax.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #fe751d;
+    --input-bg: #ff8e3c;
+    --paper: #ff8e3c;
+    --ink: #1a1a1a;
+    --ink-soft: #3a3a3a;
+    --white: #ffffff;
+    --white-soft: rgba(255,255,255,0.7);
+    --line-translucent: rgba(255,255,255,0.3);
+    --line-strong: rgba(255,255,255,0.6);
+    --footer: #1a1a1a;
+    --success: #2d5f3f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    font-weight: 300;
+  }
+
+  /* subtle texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 56px 32px 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ============================================
+     HEADER · logo + intake label
+  ============================================ */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 32px;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--line-translucent);
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  .brand-logo {
+    height: 36px;
+    width: auto;
+    display: block;
+    transform: translate(-10px, 2px);
+    mix-blend-mode: multiply;
+  }
+
+  .brand-divider {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14px;
+    color: var(--white);
+    margin: 0 14px;
+    line-height: 1;
+  }
+
+  .brand-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .doc-meta {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--white-soft);
+    letter-spacing: 0.05em;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  /* ============================================
+     HERO · big title image
+  ============================================ */
+  .hero {
+    margin-bottom: 88px;
+    text-align: left;
+  }
+
+  .hero-title-img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 0 24px;
+    mix-blend-mode: multiply;
+  }
+
+  .hero p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 19px;
+    color: var(--white);
+    max-width: 600px;
+    line-height: 1.5;
+    letter-spacing: 0.005em;
+  }
+
+  /* ============================================
+     SECTIONS
+  ============================================ */
+  .section {
+    margin-bottom: 72px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+  .section:nth-child(5) { animation-delay: 0.5s; }
+  .section:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 36px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line-translucent);
+  }
+
+  .section-number {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 25px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .section-desc {
+    margin-left: auto;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--white);
+    max-width: 280px;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 600px) {
+    .section-header {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .section-desc {
+      margin-left: 0;
+      text-align: left;
+      max-width: 100%;
+      width: 100%;
+      padding-top: 4px;
+    }
+  }
+
+  /* ============================================
+     FORM FIELDS
+  ============================================ */
+  .field {
+    margin-bottom: 32px;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 600px) {
+    .field-row { grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  label {
+    display: block;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    margin-bottom: 12px;
+    color: var(--white);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  label .required {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  label .optional {
+    color: var(--white-soft);
+    font-style: italic;
+    margin-left: 6px;
+    font-family: 'Fraunces', serif;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .hint {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* INPUTS · UNIFIED STYLE */
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="tel"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 16px 18px;
+    background: var(--input-bg);
+    border: 1px solid var(--line-translucent);
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    border-radius: 0;
+    line-height: 1.4;
+  }
+
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  input[type="url"]::placeholder,
+  input[type="tel"]::placeholder,
+  textarea::placeholder {
+    color: var(--ink-soft);
+    font-weight: 300;
+    opacity: 0.7;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="url"]:focus,
+  input[type="tel"]:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--white);
+    background: var(--input-bg);
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 110px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* RADIO CARDS · UNIFIED */
+  .radio-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .radio-group { grid-template-columns: 1fr; }
+  }
+
+  .radio-card {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .radio-card input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .radio-card .card-inner {
+    padding: 18px 20px;
+    background: var(--input-bg);
+    border: 1px solid var(--line-translucent);
+    transition: all 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  .radio-card .card-title {
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  .radio-card .card-desc {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  .radio-card:hover .card-inner {
+    border-color: var(--white);
+  }
+
+  .radio-card input:checked + .card-inner {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+  }
+
+  .radio-card input:checked + .card-inner .card-title {
+    color: var(--white);
+  }
+
+  .radio-card input:checked + .card-inner .card-desc {
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* COLOR PICKER */
+  .color-picker-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 18px;
+  }
+
+  .color-picker-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .color-picker-item label {
+    margin-bottom: 0;
+  }
+
+  .color-input-wrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  input[type="color"] {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: 1px solid var(--line-translucent);
+    background: var(--input-bg);
+    cursor: pointer;
+    border-radius: 0;
+  }
+
+  .color-hex {
+    flex: 1;
+    font-family: 'Roboto Mono', monospace !important;
+    font-size: 13px !important;
+    text-transform: uppercase;
+  }
+
+  /* MOOD CARDS · UNIFIED */
+  .mood-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .mood-card {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .mood-card input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .mood-card .mood-inner {
+    padding: 22px 16px;
+    background: var(--input-bg);
+    border: 1px solid var(--line-translucent);
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  .mood-card .mood-name {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+
+  .mood-card .mood-tag {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    text-transform: lowercase;
+  }
+
+  .mood-card:hover .mood-inner {
+    transform: translateY(-2px);
+    border-color: var(--white);
+  }
+
+  .mood-card input:checked + .mood-inner {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .mood-card input:checked + .mood-inner .mood-name {
+    color: var(--white);
+  }
+
+  .mood-card input:checked + .mood-inner .mood-tag {
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* FILE UPLOAD · UNIFIED */
+  .file-upload {
+    position: relative;
+    display: block;
+    padding: 36px 24px;
+    background: var(--input-bg);
+    border: 1px dashed var(--line-strong);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .file-upload:hover {
+    background: var(--input-bg);
+    border-color: var(--white);
+    border-style: solid;
+  }
+
+  .file-upload input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .file-upload-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: block;
+    color: var(--ink);
+  }
+
+  .file-upload-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .file-upload-hint {
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 300;
+    margin-top: 4px;
+  }
+
+  .file-upload.has-file {
+    border-style: solid;
+    border-color: var(--ink);
+  }
+
+  .file-upload.has-file .file-upload-text::before {
+    content: '✓ ';
+    color: var(--ink);
+  }
+
+  /* CHECKBOXES · UNIFIED */
+  .checkbox-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--input-bg);
+    border: 1px solid var(--line-translucent);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .checkbox-item:hover {
+    border-color: var(--white);
+  }
+
+  .checkbox-item input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--ink);
+    flex-shrink: 0;
+  }
+
+  .checkbox-item input:checked ~ span {
+    font-weight: 500;
+  }
+
+  /* REFERENCE ITEMS · UNIFIED */
+  .reference-item {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 16px;
+    margin-bottom: 14px;
+    padding: 18px;
+    background: var(--input-bg);
+    border: 1px solid var(--line-translucent);
+  }
+
+  @media (max-width: 600px) {
+    .reference-item { grid-template-columns: 1fr; }
+  }
+
+  .reference-item input,
+  .reference-item textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line-translucent);
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  .reference-item input::placeholder,
+  .reference-item textarea::placeholder {
+    color: var(--ink-soft);
+    opacity: 0.7;
+  }
+
+  .reference-item input:focus,
+  .reference-item textarea:focus {
+    border-bottom-color: var(--white);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* ADD BUTTON */
+  .add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    background: transparent;
+    border: 1px solid var(--white);
+    color: var(--white);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+  }
+
+  .add-btn:hover {
+    background: var(--white);
+    color: var(--ink);
+  }
+
+  /* ============================================
+     SUBMIT AREA · DARK EDITORIAL SECTION
+  ============================================ */
+  .submit-area-wrap {
+    margin: 80px -32px 0;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .submit-area {
+    background: var(--footer);
+    color: var(--white);
+    padding: 88px 64px 88px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .submit-area::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: var(--bg);
+    border-radius: 50%;
+    opacity: 0.06;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+
+  .submit-iso {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 56px;
+    height: auto;
+    z-index: 3;
+  }
+
+  .submit-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+  }
+
+  .submit-status-badge {
+    margin-bottom: 24px;
+  }
+
+  .submit-title {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: clamp(48px, 7vw, 72px);
+    text-transform: uppercase;
+    letter-spacing: 0;
+    line-height: 0.95;
+    margin-bottom: 24px;
+    color: var(--white);
+  }
+
+  .submit-title em {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.85em;
+    text-transform: lowercase;
+    color: var(--bg);
+  }
+
+  .submit-description {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--white-soft);
+    max-width: 520px;
+    margin-bottom: 36px;
+    line-height: 1.5;
+  }
+
+  .submit-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 18px 32px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--white);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-weight: 400;
+    background: transparent;
+    color: var(--white);
+  }
+
+  .btn-primary {
+    background: var(--bg);
+    border-color: var(--bg);
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary:hover {
+    background: var(--white);
+    color: var(--ink);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--footer);
+    padding: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--white-soft);
+    text-align: center;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+  }
+
+  /* ============================================
+     TOAST · MODAL · LOADING
+  ============================================ */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--ink);
+    color: var(--white);
+    padding: 16px 28px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    transition: transform 0.3s ease;
+    z-index: 1100;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal {
+    background: var(--bg);
+    max-width: 560px;
+    width: 100%;
+    padding: 52px 44px;
+    position: relative;
+    animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes scaleUp {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .modal-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .modal h2 {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin-bottom: 14px;
+    line-height: 0.95;
+    color: var(--white);
+  }
+
+  .modal h2 em {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.8em;
+    text-transform: lowercase;
+    color: var(--ink);
+  }
+
+  .modal p {
+    font-family: 'Roboto', sans-serif;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-weight: 300;
+    font-size: 15px;
+  }
+
+  .modal-link {
+    background: var(--input-bg);
+    border: 1px solid var(--line-translucent);
+    padding: 16px;
+    margin-bottom: 16px;
+    word-break: break-all;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .modal-link-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .modal-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .modal-btn {
+    padding: 14px 24px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--white);
+    cursor: pointer;
+    background: transparent;
+    color: var(--white);
+    transition: all 0.2s ease;
+    font-weight: 400;
+  }
+
+  .modal-btn:hover {
+    background: var(--white);
+    color: var(--ink);
+  }
+
+  .modal-btn.primary {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--white);
+  }
+
+  .modal-btn.primary:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--ink);
+  }
+
+  /* LOADING */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(254, 117, 29, 0.96);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .loading-overlay.active { display: flex; }
+
+  .loading-spinner {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--line-translucent);
+    border-top-color: var(--white);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    color: var(--white);
+  }
+
+  /* STATUS BADGE */
+  .status-badge {
+    display: inline-block;
+    padding: 7px 14px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: lowercase;
+    font-weight: 500;
+  }
+
+  .status-badge.submitted {
+    background: var(--white);
+    color: var(--ink);
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779810978/logo_fondo_naranja_o2we37.png" alt="movdi" class="brand-logo" />
+      <span class="brand-divider">·</span>
+      <span class="brand-label">Client intake</span>
+    </div>
+    <div class="doc-meta">
+      v3.0 / brief de página web<br>
+      <span id="dateField"></span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779811131/FraseFormulario_dlnzvw.png" alt="Cuéntanos sobre tu marca" class="hero-title-img" />
+    <p>Este formulario nos ayuda a construir tu página web exactamente como la imaginas. Tómate tu tiempo. Entre más detalle compartas, más personalizada será la propuesta.</p>
+  </div>
+
+  <form id="intakeForm">
+
+    <!-- SECTION 1: EMPRESA -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2 class="section-title">Tu empresa</h2>
+        <span class="section-desc">Lo básico para conocernos</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Nombre de la empresa <span class="required">*</span></label>
+          <input type="text" name="company_name" required placeholder="Ej. movdi" />
+        </div>
+        <div class="field">
+          <label>Industria / sector <span class="required">*</span></label>
+          <input type="text" name="industry" required placeholder="Ej. gaming, marketing, salud" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>En una frase, ¿qué hace tu empresa? <span class="required">*</span></label>
+        <input type="text" name="elevator_pitch" required placeholder="Agencia de marketing especializada en gaming y tecnología" />
+      </div>
+
+      <div class="field">
+        <label>Cuéntanos un poco más <span class="optional">(opcional)</span></label>
+        <div class="hint">Historia, misión, lo que te hace diferente. Todo lo que quieras que sepamos.</div>
+        <textarea name="company_long" placeholder="Movdi lleva 11 años conectando marcas con creadores de contenido en el ecosistema gaming..."></textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Persona de contacto <span class="required">*</span></label>
+          <input type="text" name="contact_name" required />
+        </div>
+        <div class="field">
+          <label>Cargo / posición</label>
+          <input type="text" name="contact_role" />
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Email <span class="required">*</span></label>
+          <input type="email" name="contact_email" required />
+        </div>
+        <div class="field">
+          <label>WhatsApp / teléfono</label>
+          <input type="tel" name="contact_phone" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: BRANDING -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <h2 class="section-title">Identidad visual</h2>
+        <span class="section-desc">Cómo se ve y se siente tu marca</span>
+      </div>
+
+      <div class="field">
+        <label>¿Tienes un manual de marca o branding ya definido? <span class="required">*</span></label>
+        <div class="radio-group">
+          <label class="radio-card">
+            <input type="radio" name="has_branding" value="completo" />
+            <div class="card-inner">
+              <div class="card-title">Sí, completo</div>
+              <div class="card-desc">Logos, colores, tipografías, manual</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_branding" value="parcial" />
+            <div class="card-inner">
+              <div class="card-title">Solo logo</div>
+              <div class="card-desc">Tengo el logo pero nada más definido</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_branding" value="ninguno" />
+            <div class="card-inner">
+              <div class="card-title">Desde cero</div>
+              <div class="card-desc">No tengo nada, construyamos juntos</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_branding" value="rediseno" />
+            <div class="card-inner">
+              <div class="card-title">Rediseño</div>
+              <div class="card-desc">Quiero refrescar mi identidad actual</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Sube tu logo <span class="optional">(si lo tienes)</span></label>
+        <div class="hint">Formatos preferidos: SVG, PNG con fondo transparente. Si tienes versiones en color y monocromo, súbelos todos.</div>
+        <label class="file-upload" id="logoUploadLabel">
+          <input type="file" name="logo" id="logoFile" accept="image/*,.svg,.pdf,.ai" multiple />
+          <span class="file-upload-icon">↑</span>
+          <span class="file-upload-text">Arrastra o haz clic para subir</span>
+          <span class="file-upload-hint">SVG, PNG, PDF, AI · múltiples archivos ok</span>
+        </label>
+      </div>
+
+      <div class="field">
+        <label>Paleta de colores</label>
+        <div class="hint">Si ya tienes colores definidos, ponlos aquí. Si no, elige los que más te representen como marca. Los podemos refinar después.</div>
+        <div class="color-picker-group">
+          <div class="color-picker-item">
+            <label>Principal</label>
+            <div class="color-input-wrap">
+              <input type="color" name="color_primary" value="#1a1a1a" />
+              <input type="text" class="color-hex" name="color_primary_hex" value="#1A1A1A" />
+            </div>
+          </div>
+          <div class="color-picker-item">
+            <label>Secundario</label>
+            <div class="color-input-wrap">
+              <input type="color" name="color_secondary" value="#fe751d" />
+              <input type="text" class="color-hex" name="color_secondary_hex" value="#FE751D" />
+            </div>
+          </div>
+          <div class="color-picker-item">
+            <label>Acento</label>
+            <div class="color-input-wrap">
+              <input type="color" name="color_accent" value="#f4f1ec" />
+              <input type="text" class="color-hex" name="color_accent_hex" value="#F4F1EC" />
+            </div>
+          </div>
+          <div class="color-picker-item">
+            <label>Fondo</label>
+            <div class="color-input-wrap">
+              <input type="color" name="color_bg" value="#ffffff" />
+              <input type="text" class="color-hex" name="color_bg_hex" value="#FFFFFF" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>¿Qué mood o personalidad debe tener tu página?</label>
+        <div class="hint">Elige el que más resuene contigo. Si dudas entre varios, eso también nos dice algo.</div>
+        <div class="mood-grid">
+          <label class="mood-card">
+            <input type="radio" name="mood" value="minimalista" />
+            <div class="mood-inner">
+              <div class="mood-name">Minimalista</div>
+              <div class="mood-tag">limpio · espacioso</div>
+            </div>
+          </label>
+          <label class="mood-card">
+            <input type="radio" name="mood" value="editorial" />
+            <div class="mood-inner">
+              <div class="mood-name">Editorial</div>
+              <div class="mood-tag">revista · refinado</div>
+            </div>
+          </label>
+          <label class="mood-card">
+            <input type="radio" name="mood" value="vibrante" />
+            <div class="mood-inner">
+              <div class="mood-name">Vibrante</div>
+              <div class="mood-tag">energía · color</div>
+            </div>
+          </label>
+          <label class="mood-card">
+            <input type="radio" name="mood" value="tech" />
+            <div class="mood-inner">
+              <div class="mood-name">Tech</div>
+              <div class="mood-tag">moderno · digital</div>
+            </div>
+          </label>
+          <label class="mood-card">
+            <input type="radio" name="mood" value="organico" />
+            <div class="mood-inner">
+              <div class="mood-name">Orgánico</div>
+              <div class="mood-tag">cálido · natural</div>
+            </div>
+          </label>
+          <label class="mood-card">
+            <input type="radio" name="mood" value="luxury" />
+            <div class="mood-inner">
+              <div class="mood-name">Luxury</div>
+              <div class="mood-tag">elegante · premium</div>
+            </div>
+          </label>
+          <label class="mood-card">
+            <input type="radio" name="mood" value="playful" />
+            <div class="mood-inner">
+              <div class="mood-name">Playful</div>
+              <div class="mood-tag">divertido · juvenil</div>
+            </div>
+          </label>
+          <label class="mood-card">
+            <input type="radio" name="mood" value="brutalist" />
+            <div class="mood-inner">
+              <div class="mood-name">Brutalist</div>
+              <div class="mood-tag">crudo · audaz</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Tipografías <span class="optional">(si tienes preferencia)</span></label>
+        <div class="hint">¿Alguna fuente específica que use tu marca? O describe el estilo: serif elegante, sans-serif moderna, manuscrita, etc.</div>
+        <input type="text" name="typography" placeholder="Ej. Fraunces para títulos, Inter para texto" />
+      </div>
+
+      <div class="field">
+        <label>Palabras que describan tu marca <span class="optional">(3-5 adjetivos)</span></label>
+        <div class="hint">Ej: confiable, juvenil, premium, accesible, innovador, cálido...</div>
+        <input type="text" name="brand_adjectives" placeholder="Confiable, innovador, cercano" />
+      </div>
+    </section>
+
+    <!-- SECTION 3: MENSAJE Y CONTENIDO -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <h2 class="section-title">Mensaje y contenido</h2>
+        <span class="section-desc">Qué quieres comunicar y cómo</span>
+      </div>
+
+      <div class="field">
+        <label>¿Qué te gustaría que la gente entienda apenas entre al sitio? <span class="required">*</span></label>
+        <div class="hint">Imagina los primeros 5 segundos. ¿Qué debe quedar súper claro al instante?</div>
+        <textarea name="first_impression" required placeholder="Que somos la agencia más experimentada en gaming en México..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Qué es lo más importante que quieren comunicar de su marca? <span class="required">*</span></label>
+        <div class="hint">La idea central. Lo que te diferencia. Tu razón de existir.</div>
+        <textarea name="core_message" required placeholder="Conectamos marcas con audiencias auténticas a través de creadores"></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Qué producto o servicio quieren darle más fuerza?</label>
+        <div class="hint">Si tuvieras que elegir uno solo para destacar, ¿cuál sería?</div>
+        <input type="text" name="hero_product" placeholder="Ej. nuestro servicio de talent management" />
+      </div>
+
+      <div class="field">
+        <label>Servicios o productos que ofreces</label>
+        <div class="hint">Enuméralos. Uno por línea si puedes.</div>
+        <textarea name="services" placeholder="Influencer marketing&#10;Talent management&#10;Consultoría estratégica"></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿El sitio será informativo o también venderá? <span class="required">*</span></label>
+        <div class="radio-group">
+          <label class="radio-card">
+            <input type="radio" name="site_type" value="informativo" />
+            <div class="card-inner">
+              <div class="card-title">Informativo</div>
+              <div class="card-desc">Solo presenta la marca, no vende directo</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="site_type" value="lead_gen" />
+            <div class="card-inner">
+              <div class="card-title">Captación de leads</div>
+              <div class="card-desc">Contacto, agendar, cotizar</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="site_type" value="ecommerce" />
+            <div class="card-inner">
+              <div class="card-title">Ecommerce</div>
+              <div class="card-desc">Venta directa de productos</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="site_type" value="hibrido" />
+            <div class="card-inner">
+              <div class="card-title">Híbrido</div>
+              <div class="card-desc">Informativo + venta de algunos productos</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Cantidad de productos o servicios al inicio</label>
+        <div class="hint">¿Con cuántos vas a arrancar el sitio?</div>
+        <input type="text" name="product_count" placeholder="Ej. 5 servicios, 20 productos, etc." />
+      </div>
+
+      <div class="field">
+        <label>¿Qué acción quieres que tome la gente dentro del sitio? <span class="required">*</span></label>
+        <div class="hint">La acción principal. Agendar, comprar, suscribirse, contactarte por WhatsApp...</div>
+        <textarea name="conversion_goal" required placeholder="Quiero que agenden una demo conmigo o que me contacten por WhatsApp"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Preguntas que te hacen más seguido tus clientes</label>
+        <div class="hint">Estas suelen volverse las FAQs del sitio. Una por línea.</div>
+        <textarea name="common_questions" placeholder="¿Cuánto cuesta?&#10;¿Cómo es el proceso?&#10;¿Cuánto tardan en entregar?"></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Qué secciones debe tener tu página?</label>
+        <div class="hint">Selecciona todas las que apliquen. Puedes agregar otras abajo.</div>
+        <div class="checkbox-list">
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="hero" checked />
+            <span>Hero / portada</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="nosotros" checked />
+            <span>Sobre nosotros</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="servicios" checked />
+            <span>Servicios / productos</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="portafolio" />
+            <span>Portafolio / casos</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="equipo" />
+            <span>Equipo</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="testimonios" />
+            <span>Testimonios</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="blog" />
+            <span>Blog / noticias</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="contacto" checked />
+            <span>Contacto</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="faq" />
+            <span>Preguntas frecuentes</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sections" value="precios" />
+            <span>Precios / planes</span>
+          </label>
+        </div>
+        <div style="margin-top: 16px;">
+          <input type="text" name="sections_custom" placeholder="¿Alguna sección extra? Sepáralas con comas" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Casos o clientes destacados <span class="optional">(opcional)</span></label>
+        <div class="hint">Marcas con las que has trabajado, proyectos importantes, resultados que te enorgullecen.</div>
+        <textarea name="key_clients" placeholder="Telcel, Nescafé, Pepsi..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Redes sociales</label>
+        <div class="hint">Pega los links completos. Déjalo en blanco si no aplica.</div>
+        <div class="field-row">
+          <input type="url" name="social_instagram" placeholder="Instagram url" />
+          <input type="url" name="social_linkedin" placeholder="LinkedIn url" />
+        </div>
+        <div class="field-row" style="margin-top: 16px;">
+          <input type="url" name="social_tiktok" placeholder="TikTok url" />
+          <input type="url" name="social_x" placeholder="X / Twitter url" />
+        </div>
+        <div class="field-row" style="margin-top: 16px;">
+          <input type="url" name="social_youtube" placeholder="YouTube url" />
+          <input type="url" name="social_other" placeholder="Otra red" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: ACTIVOS -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">04</span>
+        <h2 class="section-title">Activos y producción</h2>
+        <span class="section-desc">Qué materiales tienes y cuáles necesitas</span>
+      </div>
+
+      <div class="field">
+        <label>¿Tienes los archivos editables del logo? <span class="required">*</span></label>
+        <div class="hint">Archivos vectoriales (.ai, .svg, .eps). Son los que nos permiten escalar y adaptar.</div>
+        <div class="radio-group">
+          <label class="radio-card">
+            <input type="radio" name="logo_editable" value="si" />
+            <div class="card-inner">
+              <div class="card-title">Sí, los tengo</div>
+              <div class="card-desc">.ai, .eps, .svg, fuente original</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="logo_editable" value="solo_png" />
+            <div class="card-inner">
+              <div class="card-title">Solo PNG/JPG</div>
+              <div class="card-desc">Tengo el logo pero no editable</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="logo_editable" value="no_se" />
+            <div class="card-inner">
+              <div class="card-title">No estoy segura</div>
+              <div class="card-desc">Tengo que revisar qué archivos tengo</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="logo_editable" value="no" />
+            <div class="card-inner">
+              <div class="card-title">No aplica</div>
+              <div class="card-desc">No tengo logo todavía</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>¿Ya cuentas con fotos de la marca o productos? <span class="required">*</span></label>
+        <div class="radio-group">
+          <label class="radio-card">
+            <input type="radio" name="has_photos" value="si_listas" />
+            <div class="card-inner">
+              <div class="card-title">Sí, listas</div>
+              <div class="card-desc">Fotos profesionales, suficientes para el sitio</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_photos" value="algunas" />
+            <div class="card-inner">
+              <div class="card-title">Algunas</div>
+              <div class="card-desc">Tengo pero hace falta producir más</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_photos" value="no_celular" />
+            <div class="card-inner">
+              <div class="card-title">Solo de celular</div>
+              <div class="card-desc">Tengo fotos pero no profesionales</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_photos" value="ninguna" />
+            <div class="card-inner">
+              <div class="card-title">Ninguna</div>
+              <div class="card-desc">Arrancamos desde cero</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>¿Necesitas apoyo con fotos o dirección visual?</label>
+        <div class="hint">Podemos ayudarte con shooting de producto, dirección de arte, banco de imágenes curado, etc.</div>
+        <div class="radio-group">
+          <label class="radio-card">
+            <input type="radio" name="needs_visual_support" value="si_fotos" />
+            <div class="card-inner">
+              <div class="card-title">Sí, necesito fotos</div>
+              <div class="card-desc">Apoyo con producción fotográfica</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="needs_visual_support" value="si_direccion" />
+            <div class="card-inner">
+              <div class="card-title">Sí, dirección de arte</div>
+              <div class="card-desc">Apoyo con estilo visual general</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="needs_visual_support" value="si_ambos" />
+            <div class="card-inner">
+              <div class="card-title">Sí, ambos</div>
+              <div class="card-desc">Fotos + dirección de arte</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="needs_visual_support" value="no" />
+            <div class="card-inner">
+              <div class="card-title">No, gracias</div>
+              <div class="card-desc">Resuelvo por mi cuenta</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>¿Ya tienes los textos del sitio o hay que crearlos? <span class="required">*</span></label>
+        <div class="radio-group">
+          <label class="radio-card">
+            <input type="radio" name="has_copy" value="listos" />
+            <div class="card-inner">
+              <div class="card-title">Listos</div>
+              <div class="card-desc">Tengo todos los textos escritos</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_copy" value="borrador" />
+            <div class="card-inner">
+              <div class="card-title">En borrador</div>
+              <div class="card-desc">Tengo ideas pero necesitan trabajo</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_copy" value="ideas" />
+            <div class="card-inner">
+              <div class="card-title">Solo ideas</div>
+              <div class="card-desc">Los puedo dictar pero no escribirlos</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_copy" value="ninguno" />
+            <div class="card-inner">
+              <div class="card-title">Desde cero</div>
+              <div class="card-desc">Necesito que se escriban todos</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Sube los archivos que ya tengas <span class="optional">(opcional)</span></label>
+        <div class="hint">Fotos, textos en PDF/Word, archivos editables del logo, manual de marca, lo que sea. Después podemos compartir un drive si son muchos.</div>
+        <label class="file-upload" id="assetsUploadLabel">
+          <input type="file" name="assets" id="assetsFile" multiple />
+          <span class="file-upload-icon">↑</span>
+          <span class="file-upload-text">Arrastra o haz clic para subir</span>
+          <span class="file-upload-hint">Cualquier formato · múltiples archivos ok</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- SECTION 5: REFERENCIAS -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">05</span>
+        <h2 class="section-title">Referencias</h2>
+        <span class="section-desc">Inspíranos con lo que te gusta</span>
+      </div>
+
+      <div class="field">
+        <label>Páginas web que te encanten <span class="required">*</span></label>
+        <div class="hint">Comparte 3-5 sitios que te inspiren. Puede ser por diseño, estructura, tono, lo que sea. Dinos qué te gusta de cada una.</div>
+
+        <div id="referencesList">
+          <div class="reference-item">
+            <input type="url" name="ref_url_1" placeholder="https://..." />
+            <textarea name="ref_note_1" placeholder="Qué me gusta de esta página..."></textarea>
+          </div>
+          <div class="reference-item">
+            <input type="url" name="ref_url_2" placeholder="https://..." />
+            <textarea name="ref_note_2" placeholder="Qué me gusta de esta página..."></textarea>
+          </div>
+          <div class="reference-item">
+            <input type="url" name="ref_url_3" placeholder="https://..." />
+            <textarea name="ref_note_3" placeholder="Qué me gusta de esta página..."></textarea>
+          </div>
+        </div>
+
+        <button type="button" class="add-btn" id="addReference">+ Agregar otra referencia</button>
+      </div>
+
+      <div class="field">
+        <label>Páginas que NO te gustan <span class="optional">(opcional)</span></label>
+        <div class="hint">A veces saber qué evitar es tan útil como saber qué buscar.</div>
+        <textarea name="anti_references" placeholder="Links o descripciones de lo que NO quieres..."></textarea>
+      </div>
+    </section>
+
+    <!-- SECTION 6: TÉCNICO -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">06</span>
+        <h2 class="section-title">Aspectos técnicos</h2>
+        <span class="section-desc">Dominio, hosting, accesos</span>
+      </div>
+
+      <div class="field">
+        <label>¿Ya tienes dominio? <span class="required">*</span></label>
+        <div class="radio-group">
+          <label class="radio-card">
+            <input type="radio" name="has_domain" value="si" />
+            <div class="card-inner">
+              <div class="card-title">Sí, ya lo tengo</div>
+              <div class="card-desc">Tengo dominio comprado</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_domain" value="no" />
+            <div class="card-inner">
+              <div class="card-title">No todavía</div>
+              <div class="card-desc">Necesito ayuda para conseguirlo</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Dominio actual o deseado</label>
+        <input type="text" name="domain" placeholder="Ej. miempresa.com" />
+      </div>
+
+      <div class="field">
+        <label>¿Ya cuentas con hosting o plataforma? <span class="required">*</span></label>
+        <div class="hint">Si ya pagas hosting o tu sitio actual vive en alguna plataforma (Wix, Squarespace, WordPress, etc.) cuéntanos.</div>
+        <div class="radio-group">
+          <label class="radio-card">
+            <input type="radio" name="has_hosting" value="si" />
+            <div class="card-inner">
+              <div class="card-title">Sí, tengo hosting</div>
+              <div class="card-desc">Ya pago un servicio</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_hosting" value="plataforma" />
+            <div class="card-inner">
+              <div class="card-title">En una plataforma</div>
+              <div class="card-desc">Wix, Squarespace, Shopify, etc.</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_hosting" value="no" />
+            <div class="card-inner">
+              <div class="card-title">No tengo</div>
+              <div class="card-desc">Necesito orientación</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_hosting" value="no_se" />
+            <div class="card-inner">
+              <div class="card-title">No estoy segura</div>
+              <div class="card-desc">Tengo que averiguar</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Nombre del hosting / plataforma actual <span class="optional">(si aplica)</span></label>
+        <input type="text" name="hosting_provider" placeholder="Ej. GoDaddy, Wix, HostGator, WordPress, etc." />
+      </div>
+
+      <div class="field">
+        <label>¿Quién tendrá acceso al sitio y correos corporativos? <span class="required">*</span></label>
+        <div class="hint">¿Quién va a poder editar el sitio, ver las analíticas, recibir correos del dominio? Nombres y emails idealmente.</div>
+        <textarea name="site_access" required placeholder="Daniela Ramírez (dani@empresa.com) — acceso total&#10;Asistente personal (ana@empresa.com) — solo edición de contenido"></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Necesitas alguna integración?</label>
+        <div class="checkbox-list">
+          <label class="checkbox-item">
+            <input type="checkbox" name="integrations" value="whatsapp" />
+            <span>WhatsApp business</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="integrations" value="calendly" />
+            <span>Calendly / agendamiento</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="integrations" value="newsletter" />
+            <span>Newsletter / Mailchimp</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="integrations" value="analytics" />
+            <span>Google Analytics</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="integrations" value="pixel" />
+            <span>Pixel de Meta / TikTok</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="integrations" value="forms" />
+            <span>Formularios de contacto</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="integrations" value="ecommerce" />
+            <span>Tienda / ecommerce</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="integrations" value="chat" />
+            <span>Chat en vivo</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="integrations" value="correos" />
+            <span>Correos corporativos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Idiomas de la página</label>
+        <div class="checkbox-list" style="grid-template-columns: repeat(3, 1fr);">
+          <label class="checkbox-item">
+            <input type="checkbox" name="languages" value="es" checked />
+            <span>Español</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="languages" value="en" />
+            <span>Inglés</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="languages" value="otro" />
+            <span>Otro</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Fecha aproximada para lanzar <span class="optional">(opcional)</span></label>
+        <input type="text" name="deadline" placeholder="Ej. en 6 semanas, antes del 1 de agosto" />
+      </div>
+
+      <div class="field">
+        <label>Algo más que quieras contarnos</label>
+        <textarea name="notes" placeholder="Cualquier detalle, preocupación, deseo o expectativa especial..."></textarea>
+      </div>
+    </section>
+  </form>
+</div>
+
+<!-- SUBMIT AREA · DARK EDITORIAL SECTION -->
+<div class="submit-area-wrap">
+  <div class="submit-area">
+    <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779810977/LOGO_ISO_tdmgn6.png" alt="movdi iso" class="submit-iso" />
+    <div class="submit-content">
+      <div class="submit-status-badge" id="submitStatusBadge"></div>
+      <h1 class="submit-title" id="submitTitle">Listo para <em>enviar.</em></h1>
+      <p class="submit-description" id="submitDescription">Guarda tu progreso si quieres seguir editándolo después, o envíalo a Movdi cuando esté listo.</p>
+      <div class="submit-buttons">
+        <button type="button" class="btn-primary" id="submitBrief">→ Enviar a Movdi</button>
+        <button type="button" class="btn-secondary" id="saveBrief">↗ Guardar progreso</button>
+        <button type="button" class="btn-secondary" id="downloadJsonBtn">↓ Descargar copia (JSON)</button>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    movdi · agencia de gaming, geek &amp; technology · cdmx
+  </footer>
+</div>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" id="loadingText">guardando...</div>
+</div>
+
+<!-- MODAL: GUARDADO -->
+<div class="modal-overlay" id="savedModal">
+  <div class="modal">
+    <div class="modal-icon">↗</div>
+    <h2>Progreso <em>guardado.</em></h2>
+    <p>Guarda este link en un lugar seguro. Con él podrás volver a editar tu brief cuando quieras.</p>
+
+    <span class="modal-link-label">Tu link único</span>
+    <div class="modal-link" id="savedLink">—</div>
+
+    <div class="modal-buttons">
+      <button type="button" class="modal-btn primary" id="copyLinkBtn">Copiar link</button>
+      <button type="button" class="modal-btn" id="closeSavedModal">Seguir editando</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ENVIADO -->
+<div class="modal-overlay" id="submittedModal">
+  <div class="modal">
+    <div class="modal-icon">✓</div>
+    <h2>Brief <em>enviado.</em></h2>
+    <p>Gracias por compartir todo este detalle. El equipo de Movdi va a revisarlo y se pondrá en contacto contigo pronto.</p>
+    <p>Si necesitas hacer algún ajuste, guarda este link:</p>
+
+    <span class="modal-link-label">Tu link de edición</span>
+    <div class="modal-link" id="submittedLink">—</div>
+
+    <div class="modal-buttons">
+      <button type="button" class="modal-btn primary" id="copyLinkSubmittedBtn">Copiar link</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">guardado</div>
+
+<script>
+  // ============================================================
+  // INIT
+  // ============================================================
+  const dateField = document.getElementById('dateField');
+  const today = new Date();
+  dateField.textContent = today.toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  // color sync
+  document.querySelectorAll('input[type="color"]').forEach(picker => {
+    const hexInput = picker.parentElement.querySelector('.color-hex');
+    picker.addEventListener('input', () => {
+      hexInput.value = picker.value.toUpperCase();
+    });
+    hexInput.addEventListener('input', () => {
+      if (/^#[0-9A-Fa-f]{6}$/.test(hexInput.value)) {
+        picker.value = hexInput.value;
+      }
+    });
+  });
+
+  // file upload visual
+  document.querySelectorAll('input[type="file"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const label = input.closest('.file-upload');
+      if (label && input.files.length > 0) {
+        label.classList.add('has-file');
+        const text = label.querySelector('.file-upload-text');
+        if (input.files.length === 1) {
+          text.textContent = input.files[0].name;
+        } else {
+          text.textContent = `${input.files.length} archivos seleccionados`;
+        }
+      }
+    });
+  });
+
+  // add references
+  let refCount = 3;
+  document.getElementById('addReference').addEventListener('click', () => {
+    refCount++;
+    const list = document.getElementById('referencesList');
+    const div = document.createElement('div');
+    div.className = 'reference-item';
+    div.innerHTML = `
+      <input type="url" name="ref_url_${refCount}" placeholder="https://..." />
+      <textarea name="ref_note_${refCount}" placeholder="Qué me gusta de esta página..."></textarea>
+    `;
+    list.appendChild(div);
+  });
+
+  // toast
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  // collect form data
+  function collectFormData() {
+    const form = document.getElementById('intakeForm');
+    const formData = new FormData(form);
+    const data = {
+      meta: {
+        version: '3.0',
+        generated_at: new Date().toISOString(),
+        movdi_intake: true
+      },
+      empresa: {},
+      contacto: {},
+      branding: { colores: {} },
+      mensaje: {},
+      contenido: {},
+      activos: {},
+      referencias: [],
+      tecnico: {}
+    };
+
+    data.empresa.nombre = formData.get('company_name') || '';
+    data.empresa.industria = formData.get('industry') || '';
+    data.empresa.pitch = formData.get('elevator_pitch') || '';
+    data.empresa.descripcion_larga = formData.get('company_long') || '';
+
+    data.contacto.nombre = formData.get('contact_name') || '';
+    data.contacto.cargo = formData.get('contact_role') || '';
+    data.contacto.email = formData.get('contact_email') || '';
+    data.contacto.telefono = formData.get('contact_phone') || '';
+
+    data.branding.tiene_branding = formData.get('has_branding') || '';
+    data.branding.colores.principal = formData.get('color_primary_hex') || formData.get('color_primary') || '';
+    data.branding.colores.secundario = formData.get('color_secondary_hex') || formData.get('color_secondary') || '';
+    data.branding.colores.acento = formData.get('color_accent_hex') || formData.get('color_accent') || '';
+    data.branding.colores.fondo = formData.get('color_bg_hex') || formData.get('color_bg') || '';
+    data.branding.mood = formData.get('mood') || '';
+    data.branding.tipografias = formData.get('typography') || '';
+    data.branding.adjetivos = formData.get('brand_adjectives') || '';
+    const logoFile = document.getElementById('logoFile');
+    if (logoFile.files.length > 0) {
+      data.branding.logos = Array.from(logoFile.files).map(f => ({ name: f.name, size: f.size, type: f.type }));
+    }
+
+    data.mensaje.primera_impresion = formData.get('first_impression') || '';
+    data.mensaje.mensaje_central = formData.get('core_message') || '';
+    data.mensaje.producto_estrella = formData.get('hero_product') || '';
+    data.mensaje.tipo_sitio = formData.get('site_type') || '';
+    data.mensaje.cantidad_productos = formData.get('product_count') || '';
+    data.mensaje.preguntas_frecuentes = formData.get('common_questions') || '';
+
+    const sections = formData.getAll('sections');
+    data.contenido.secciones = sections;
+    data.contenido.secciones_extras = formData.get('sections_custom') || '';
+    data.contenido.objetivo_conversion = formData.get('conversion_goal') || '';
+    data.contenido.servicios = formData.get('services') || '';
+    data.contenido.clientes_destacados = formData.get('key_clients') || '';
+    data.contenido.redes = {
+      instagram: formData.get('social_instagram') || '',
+      linkedin: formData.get('social_linkedin') || '',
+      tiktok: formData.get('social_tiktok') || '',
+      x: formData.get('social_x') || '',
+      youtube: formData.get('social_youtube') || '',
+      otra: formData.get('social_other') || ''
+    };
+
+    data.activos.logo_editable = formData.get('logo_editable') || '';
+    data.activos.tiene_fotos = formData.get('has_photos') || '';
+    data.activos.apoyo_visual = formData.get('needs_visual_support') || '';
+    data.activos.tiene_textos = formData.get('has_copy') || '';
+    const assetsFile = document.getElementById('assetsFile');
+    if (assetsFile && assetsFile.files.length > 0) {
+      data.activos.archivos = Array.from(assetsFile.files).map(f => ({ name: f.name, size: f.size, type: f.type }));
+    }
+
+    for (let i = 1; i <= refCount; i++) {
+      const url = formData.get(`ref_url_${i}`);
+      const note = formData.get(`ref_note_${i}`);
+      if (url || note) {
+        data.referencias.push({ url: url || '', notas: note || '' });
+      }
+    }
+    data.contenido.anti_referencias = formData.get('anti_references') || '';
+
+    data.tecnico.tiene_dominio = formData.get('has_domain') || '';
+    data.tecnico.dominio = formData.get('domain') || '';
+    data.tecnico.tiene_hosting = formData.get('has_hosting') || '';
+    data.tecnico.hosting_proveedor = formData.get('hosting_provider') || '';
+    data.tecnico.accesos = formData.get('site_access') || '';
+    data.tecnico.integraciones = formData.getAll('integrations');
+    data.tecnico.idiomas = formData.getAll('languages');
+    data.tecnico.fecha_lanzamiento = formData.get('deadline') || '';
+    data.tecnico.notas = formData.get('notes') || '';
+
+    return data;
+  }
+
+  // populate form from data
+  function populateForm(data) {
+    const setVal = (name, value) => {
+      const el = document.querySelector(`[name="${name}"]`);
+      if (el && value !== undefined) el.value = value;
+    };
+    const setRadio = (name, value) => {
+      const el = document.querySelector(`[name="${name}"][value="${value}"]`);
+      if (el) el.checked = true;
+    };
+    const setChecks = (name, values) => {
+      document.querySelectorAll(`[name="${name}"]`).forEach(el => {
+        el.checked = (values || []).includes(el.value);
+      });
+    };
+
+    if (data.empresa) {
+      setVal('company_name', data.empresa.nombre);
+      setVal('industry', data.empresa.industria);
+      setVal('elevator_pitch', data.empresa.pitch);
+      setVal('company_long', data.empresa.descripcion_larga);
+    }
+    if (data.contacto) {
+      setVal('contact_name', data.contacto.nombre);
+      setVal('contact_role', data.contacto.cargo);
+      setVal('contact_email', data.contacto.email);
+      setVal('contact_phone', data.contacto.telefono);
+    }
+    if (data.branding) {
+      setRadio('has_branding', data.branding.tiene_branding);
+      if (data.branding.colores) {
+        const map = { principal: 'color_primary', secundario: 'color_secondary', acento: 'color_accent', fondo: 'color_bg' };
+        Object.keys(map).forEach(key => {
+          if (data.branding.colores[key]) {
+            setVal(map[key], data.branding.colores[key]);
+            setVal(map[key] + '_hex', data.branding.colores[key]);
+          }
+        });
+      }
+      setRadio('mood', data.branding.mood);
+      setVal('typography', data.branding.tipografias);
+      setVal('brand_adjectives', data.branding.adjetivos);
+    }
+    if (data.mensaje) {
+      setVal('first_impression', data.mensaje.primera_impresion);
+      setVal('core_message', data.mensaje.mensaje_central);
+      setVal('hero_product', data.mensaje.producto_estrella);
+      setRadio('site_type', data.mensaje.tipo_sitio);
+      setVal('product_count', data.mensaje.cantidad_productos);
+      setVal('common_questions', data.mensaje.preguntas_frecuentes);
+    }
+    if (data.contenido) {
+      setChecks('sections', data.contenido.secciones);
+      setVal('sections_custom', data.contenido.secciones_extras);
+      setVal('conversion_goal', data.contenido.objetivo_conversion);
+      setVal('services', data.contenido.servicios);
+      setVal('key_clients', data.contenido.clientes_destacados);
+      if (data.contenido.redes) {
+        Object.entries({ instagram: 'social_instagram', linkedin: 'social_linkedin', tiktok: 'social_tiktok', x: 'social_x', youtube: 'social_youtube', otra: 'social_other' }).forEach(([k, name]) => {
+          setVal(name, data.contenido.redes[k]);
+        });
+      }
+      setVal('anti_references', data.contenido.anti_referencias);
+    }
+    if (data.activos) {
+      setRadio('logo_editable', data.activos.logo_editable);
+      setRadio('has_photos', data.activos.tiene_fotos);
+      setRadio('needs_visual_support', data.activos.apoyo_visual);
+      setRadio('has_copy', data.activos.tiene_textos);
+    }
+    if (data.referencias && Array.isArray(data.referencias)) {
+      const list = document.getElementById('referencesList');
+      list.innerHTML = '';
+      refCount = 0;
+      data.referencias.forEach((ref) => {
+        refCount++;
+        const div = document.createElement('div');
+        div.className = 'reference-item';
+        div.innerHTML = `
+          <input type="url" name="ref_url_${refCount}" value="${ref.url || ''}" placeholder="https://..." />
+          <textarea name="ref_note_${refCount}" placeholder="Qué me gusta de esta página...">${ref.notas || ''}</textarea>
+        `;
+        list.appendChild(div);
+      });
+      while (refCount < 3) {
+        refCount++;
+        const div = document.createElement('div');
+        div.className = 'reference-item';
+        div.innerHTML = `
+          <input type="url" name="ref_url_${refCount}" placeholder="https://..." />
+          <textarea name="ref_note_${refCount}" placeholder="Qué me gusta de esta página..."></textarea>
+        `;
+        list.appendChild(div);
+      }
+    }
+    if (data.tecnico) {
+      setRadio('has_domain', data.tecnico.tiene_dominio);
+      setVal('domain', data.tecnico.dominio);
+      setRadio('has_hosting', data.tecnico.tiene_hosting);
+      setVal('hosting_provider', data.tecnico.hosting_proveedor);
+      setVal('site_access', data.tecnico.accesos);
+      setChecks('integrations', data.tecnico.integraciones);
+      setChecks('languages', data.tecnico.idiomas);
+      setVal('deadline', data.tecnico.fecha_lanzamiento);
+      setVal('notes', data.tecnico.notas);
+    }
+  }
+
+  // ============================================================
+  // SUPABASE
+  // ============================================================
+  const SUPABASE_URL = 'https://zvkgnwbwqfgkftuvqjji.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_fYShY5IycwcxxRqz9BRrhg_imK_p6_B';
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  let currentBriefId = null;
+  let currentEditToken = null;
+  let isSubmitted = false;
+
+  function showLoading(text = 'guardando...') {
+    document.getElementById('loadingText').textContent = text;
+    document.getElementById('loadingOverlay').classList.add('active');
+  }
+  function hideLoading() {
+    document.getElementById('loadingOverlay').classList.remove('active');
+  }
+  function getEditURL(token) {
+    return `${window.location.origin}${window.location.pathname}?token=${token}`;
+  }
+
+  async function loadExistingBrief() {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    if (!token) return;
+
+    showLoading('cargando tu brief...');
+    try {
+      const { data, error } = await supabaseClient
+        .rpc('get_brief_by_token', { p_token: token });
+      if (error) throw error;
+      if (!data) throw new Error('no data');
+
+      currentBriefId = data.id;
+      currentEditToken = token;
+      isSubmitted = !!data.submitted_at;
+
+      populateForm(data.data || {});
+      updateSubmitArea();
+      showToast(isSubmitted ? 'brief enviado · puedes editarlo' : 'progreso cargado');
+    } catch (err) {
+      console.error(err);
+      showToast('link inválido o expirado');
+    } finally {
+      hideLoading();
+    }
+  }
+
+  function updateSubmitArea() {
+    const badge = document.getElementById('submitStatusBadge');
+    const title = document.getElementById('submitTitle');
+    const desc = document.getElementById('submitDescription');
+    const submitBtn = document.getElementById('submitBrief');
+
+    if (isSubmitted) {
+      badge.innerHTML = '<span class="status-badge submitted">✓ enviado</span>';
+      title.innerHTML = 'Brief <em>enviado.</em>';
+      desc.textContent = 'Ya recibimos tu brief. Si haces cambios, podemos verlos automáticamente. Solo dale guardar.';
+      submitBtn.style.display = 'none';
+    } else if (currentBriefId) {
+      badge.innerHTML = '<span class="status-badge">en borrador</span>';
+      title.innerHTML = 'Sigue <em>editando.</em>';
+      desc.textContent = 'Tus cambios se guardarán al dar clic. Cuando esté listo, envíalo a Movdi.';
+    }
+  }
+
+  async function uploadFiles(briefId) {
+    const uploads = [];
+
+    const logoFile = document.getElementById('logoFile');
+    if (logoFile && logoFile.files.length > 0) {
+      for (const file of logoFile.files) {
+        const path = `${briefId}/logo/${Date.now()}-${file.name}`;
+        const { error } = await supabaseClient.storage
+          .from('brief-files')
+          .upload(path, file, { upsert: false });
+        if (!error) {
+          uploads.push({
+            brief_id: briefId,
+            category: 'logo',
+            file_name: file.name,
+            storage_path: path,
+            mime_type: file.type,
+            size_bytes: file.size
+          });
+        }
+      }
+    }
+
+    const assetsFile = document.getElementById('assetsFile');
+    if (assetsFile && assetsFile.files.length > 0) {
+      for (const file of assetsFile.files) {
+        const path = `${briefId}/assets/${Date.now()}-${file.name}`;
+        const { error } = await supabaseClient.storage
+          .from('brief-files')
+          .upload(path, file, { upsert: false });
+        if (!error) {
+          uploads.push({
+            brief_id: briefId,
+            category: 'assets',
+            file_name: file.name,
+            storage_path: path,
+            mime_type: file.type,
+            size_bytes: file.size
+          });
+        }
+      }
+    }
+
+    if (uploads.length > 0) {
+      await supabaseClient.from('brief_files').insert(uploads);
+    }
+
+    return uploads.length;
+  }
+
+  async function saveBrief(submitted = false) {
+    const data = collectFormData();
+
+    if (!data.empresa.nombre || !data.contacto.email) {
+      showToast('falta nombre de empresa y email');
+      return null;
+    }
+
+    showLoading(submitted ? 'enviando a movdi...' : 'guardando progreso...');
+
+    try {
+      let briefId = currentBriefId;
+      let editToken = currentEditToken;
+
+      if (briefId && editToken) {
+        const { data: updatedId, error } = await supabaseClient
+          .rpc('update_brief_by_token', {
+            p_token: editToken,
+            p_data: data,
+            p_submitted: submitted
+          });
+        if (error) throw error;
+        briefId = updatedId;
+      } else {
+        const { data: inserted, error } = await supabaseClient
+          .from('briefs')
+          .insert({
+            data: data,
+            submitted_at: submitted ? new Date().toISOString() : null
+          })
+          .select('id, edit_token')
+          .single();
+        if (error) throw error;
+        briefId = inserted.id;
+        editToken = inserted.edit_token;
+        currentBriefId = briefId;
+        currentEditToken = editToken;
+      }
+
+      await uploadFiles(briefId);
+
+      if (submitted) isSubmitted = true;
+
+      return { briefId, editToken };
+    } catch (err) {
+      console.error(err);
+      showToast('error al guardar · revisa la consola');
+      return null;
+    } finally {
+      hideLoading();
+    }
+  }
+
+  // ============================================================
+  // BUTTONS
+  // ============================================================
+  document.getElementById('saveBrief').addEventListener('click', async () => {
+    const result = await saveBrief(false);
+    if (!result) return;
+    const url = getEditURL(result.editToken);
+    document.getElementById('savedLink').textContent = url;
+    document.getElementById('savedModal').classList.add('active');
+    updateSubmitArea();
+  });
+
+  document.getElementById('submitBrief').addEventListener('click', async () => {
+    const data = collectFormData();
+    const required = [
+      ['empresa.nombre', 'nombre de la empresa'],
+      ['empresa.industria', 'industria'],
+      ['empresa.pitch', 'qué hace tu empresa'],
+      ['contacto.nombre', 'nombre de contacto'],
+      ['contacto.email', 'email'],
+      ['mensaje.primera_impresion', 'primera impresión'],
+      ['mensaje.mensaje_central', 'mensaje central']
+    ];
+    const missing = [];
+    for (const [path, label] of required) {
+      const [a, b] = path.split('.');
+      if (!data[a] || !data[a][b]) missing.push(label);
+    }
+    if (missing.length > 0) {
+      hideLoading();
+      alert('Faltan campos obligatorios:\n\n• ' + missing.join('\n• '));
+      return;
+    }
+
+    const confirmed = confirm('¿Enviar el brief a Movdi? Después podrás seguir editándolo si guardas tu link.');
+    if (!confirmed) return;
+
+    const result = await saveBrief(true);
+    if (!result) return;
+    const url = getEditURL(result.editToken);
+    document.getElementById('submittedLink').textContent = url;
+    document.getElementById('submittedModal').classList.add('active');
+    updateSubmitArea();
+  });
+
+  document.getElementById('downloadJsonBtn').addEventListener('click', () => {
+    const data = collectFormData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const safeName = (data.empresa.nombre || 'cliente').toLowerCase().replace(/[^a-z0-9]/g, '-');
+    a.href = url;
+    a.download = `movdi-brief-${safeName}-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('copia descargada');
+  });
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('link copiado');
+    });
+  }
+  document.getElementById('copyLinkBtn').addEventListener('click', () => {
+    copyToClipboard(document.getElementById('savedLink').textContent);
+  });
+  document.getElementById('copyLinkSubmittedBtn').addEventListener('click', () => {
+    copyToClipboard(document.getElementById('submittedLink').textContent);
+  });
+  document.getElementById('closeSavedModal').addEventListener('click', () => {
+    document.getElementById('savedModal').classList.remove('active');
+  });
+
+  loadExistingBrief();
+</script>
+
+</body>
+</html>
