@@ -1176,6 +1176,150 @@
     color: var(--accent);
   }
 
+  /* DANGER ZONE */
+  .danger-panel {
+    border-color: rgba(239, 68, 68, 0.25) !important;
+    background: rgba(239, 68, 68, 0.04) !important;
+  }
+  .sidebar-btn.danger-btn {
+    background: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+  }
+  .sidebar-btn.danger-btn:hover {
+    background: var(--danger);
+    color: white;
+  }
+  .detail-view.active .danger-panel {
+    background: rgba(239, 68, 68, 0.06) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+  }
+  .detail-view.active .danger-panel .sidebar-panel-title {
+    color: #b91c1c !important;
+  }
+  .detail-view.active .sidebar-btn.danger-btn {
+    background: transparent;
+    border: 1px solid #b91c1c;
+    color: #b91c1c;
+  }
+  .detail-view.active .sidebar-btn.danger-btn:hover {
+    background: #b91c1c;
+    color: white;
+  }
+
+  /* CONFIRM MODAL */
+  .confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.92);
+    backdrop-filter: blur(10px);
+    z-index: 1200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .confirm-overlay.active { display: flex; }
+  .confirm-box {
+    background: var(--bg-elevated);
+    border: 1px solid var(--danger);
+    max-width: 480px;
+    width: 100%;
+    padding: 40px 36px;
+    border-radius: 12px;
+  }
+  .confirm-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .confirm-title {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .confirm-text {
+    font-family: 'Roboto', sans-serif;
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .confirm-target {
+    background: var(--bg);
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    color: var(--ink);
+    margin: 16px 0;
+    word-break: break-all;
+    border: 1px solid var(--line);
+  }
+  .confirm-input {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+  .confirm-input:focus {
+    outline: none;
+    border-color: var(--danger);
+  }
+  .confirm-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .confirm-btn {
+    padding: 14px 22px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 500;
+    border: 1px solid var(--line-strong);
+    background: transparent;
+    color: var(--ink-soft);
+    transition: all 0.2s;
+  }
+  .confirm-btn:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .confirm-btn.danger {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: white;
+  }
+  .confirm-btn.danger:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+  }
+  .confirm-btn.danger:disabled {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.3);
+    cursor: not-allowed;
+  }
+
   .file-item {
     display: flex;
     align-items: center;
@@ -1455,6 +1599,12 @@
             <button class="sidebar-btn secondary" id="copyEditLink">↗ Copiar link</button>
           </div>
 
+          <div class="sidebar-panel danger-panel" id="dangerPanel" style="display: none;">
+            <div class="sidebar-panel-title" style="color: #fca5a5;">Zona peligrosa</div>
+            <p style="font-family: 'Roboto', sans-serif; font-size: 12px; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.5;">Eliminar este brief borra todos sus datos y archivos. No se puede deshacer.</p>
+            <button class="sidebar-btn danger-btn" id="deleteBriefBtn">🗑 Eliminar brief</button>
+          </div>
+
         </aside>
       </div>
     </div>
@@ -1466,6 +1616,22 @@
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-spinner"></div>
   <div class="loading-text" id="loadingText">cargando...</div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div class="confirm-overlay" id="confirmDeleteOverlay">
+  <div class="confirm-box">
+    <div class="confirm-icon">⚠</div>
+    <h2 class="confirm-title">Eliminar brief</h2>
+    <p class="confirm-text">Esta acción <strong>no se puede deshacer</strong>. Se borrarán los datos del brief, los archivos adjuntos del cliente y todo su historial.</p>
+    <div class="confirm-target" id="confirmTarget">—</div>
+    <p class="confirm-text">Para confirmar, escribe <strong>ELIMINAR</strong> en mayúsculas:</p>
+    <input type="text" class="confirm-input" id="confirmInput" placeholder="ELIMINAR" autocomplete="off" />
+    <div class="confirm-buttons">
+      <button class="confirm-btn danger" id="confirmDeleteBtn" disabled>Eliminar permanentemente</button>
+      <button class="confirm-btn" id="cancelDeleteBtn">Cancelar</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast">guardado</div>
@@ -1912,6 +2078,9 @@
     } else {
       renderInternalBriefContent(d, formType, brief);
     }
+
+    // mostrar/ocultar panel de eliminar según rol
+    showDangerPanelIfAdmin();
   }
 
   function getInternalPitchText(d, formType) {
@@ -2441,6 +2610,80 @@
       // fallback: alert con el link
       alert('Link de edición:\n\n' + link);
     });
+  });
+
+  // ============================================================
+  // DELETE BRIEF (solo admins)
+  // ============================================================
+  function showDangerPanelIfAdmin() {
+    const panel = document.getElementById('dangerPanel');
+    if (panel && currentTeamMember && currentTeamMember.role === 'admin') {
+      panel.style.display = 'block';
+    } else if (panel) {
+      panel.style.display = 'none';
+    }
+  }
+
+  document.getElementById('deleteBriefBtn').addEventListener('click', () => {
+    if (!currentBrief) return;
+    // construir descripción del brief para el modal
+    const d = currentBrief.data || {};
+    const formType = currentBrief.form_type || 'client_web';
+    let label;
+    if (formType === 'client_web') {
+      label = d.empresa?.nombre || '(sin nombre)';
+    } else {
+      const ftMeta = allFormTypes.find(t => t.id === formType);
+      const ftName = ftMeta ? ftMeta.name.replace(/^Brief:\s*/i, '') : formType;
+      const solicitante = d.solicitante?.email || currentBrief.requester_email || '—';
+      label = `${ftName} · ${solicitante}`;
+    }
+    document.getElementById('confirmTarget').textContent = label;
+    document.getElementById('confirmInput').value = '';
+    document.getElementById('confirmDeleteBtn').disabled = true;
+    document.getElementById('confirmDeleteOverlay').classList.add('active');
+    setTimeout(() => document.getElementById('confirmInput').focus(), 100);
+  });
+
+  document.getElementById('confirmInput').addEventListener('input', (e) => {
+    document.getElementById('confirmDeleteBtn').disabled = e.target.value.trim() !== 'ELIMINAR';
+  });
+
+  document.getElementById('cancelDeleteBtn').addEventListener('click', () => {
+    document.getElementById('confirmDeleteOverlay').classList.remove('active');
+  });
+
+  document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+    if (!currentBrief) return;
+    const btn = document.getElementById('confirmDeleteBtn');
+    btn.disabled = true;
+    btn.textContent = 'Eliminando...';
+
+    const { data, error } = await supabaseClient.rpc('delete_brief', {
+      p_brief_id: currentBrief.id
+    });
+
+    if (error) {
+      console.error(error);
+      btn.disabled = false;
+      btn.textContent = 'Eliminar permanentemente';
+      alert('Error al eliminar: ' + (error.message || 'desconocido'));
+      return;
+    }
+
+    document.getElementById('confirmDeleteOverlay').classList.remove('active');
+    btn.textContent = 'Eliminar permanentemente';
+    showToast(`brief eliminado · ${data?.files_deleted || 0} archivo(s) borrados`);
+    closeDetail();
+    loadBriefs();
+    loadCounts();
+  });
+
+  // cerrar modal con Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('confirmDeleteOverlay').classList.contains('active')) {
+      document.getElementById('confirmDeleteOverlay').classList.remove('active');
+    }
   });
 
   // ============================================================
