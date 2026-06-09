@@ -85,6 +85,7 @@
     position: relative;
     border: 1px solid var(--line);
     z-index: 2;
+    border-radius: 16px;
   }
 
   .login-iso {
@@ -131,7 +132,6 @@
     font-family: 'Roboto Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.1em;
-    text-transform: lowercase;
     color: var(--ink-soft);
     margin-bottom: 8px;
   }
@@ -145,7 +145,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
     font-weight: 400;
-    border-radius: 0;
+    border-radius: 8px;
     transition: border-color 0.2s;
   }
 
@@ -162,11 +162,11 @@
     border: none;
     font-family: 'Roboto Mono', monospace;
     font-size: 12px;
-    text-transform: lowercase;
     letter-spacing: 0.1em;
     cursor: pointer;
     font-weight: 500;
     margin-top: 12px;
+    border-radius: 8px;
     transition: background 0.2s;
   }
 
@@ -182,6 +182,7 @@
     font-family: 'Roboto Mono', monospace;
     font-size: 12px;
     display: none;
+    border-radius: 6px;
   }
 
   .login-error.show { display: block; }
@@ -253,10 +254,10 @@
     padding: 8px 14px;
     font-family: 'Roboto Mono', monospace;
     font-size: 11px;
-    text-transform: lowercase;
     letter-spacing: 0.08em;
     cursor: pointer;
     transition: all 0.2s;
+    border-radius: 6px;
   }
 
   .logout-btn:hover {
@@ -325,6 +326,7 @@
     transition: all 0.2s;
     min-width: 130px;
     text-align: left;
+    border-radius: 12px;
   }
 
   .counter-pill:hover {
@@ -340,7 +342,6 @@
   .counter-label {
     font-family: 'Roboto Mono', monospace;
     font-size: 10px;
-    text-transform: lowercase;
     letter-spacing: 0.12em;
     color: var(--ink-soft);
     margin-bottom: 6px;
@@ -355,6 +356,7 @@
     font-weight: 900;
     font-size: 28px;
     line-height: 1;
+    color: var(--ink);
   }
 
   /* ============================================
@@ -373,7 +375,7 @@
     color: var(--ink);
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
-    border-radius: 0;
+    border-radius: 10px;
     transition: border-color 0.2s;
   }
 
@@ -400,6 +402,7 @@
     background: var(--bg-elevated);
     border: 1px solid var(--line);
     overflow: hidden;
+    border-radius: 12px;
   }
 
   .table-header {
@@ -411,7 +414,6 @@
     border-bottom: 1px solid var(--line);
     font-family: 'Roboto Mono', monospace;
     font-size: 10px;
-    text-transform: lowercase;
     letter-spacing: 0.12em;
     color: var(--ink-muted);
   }
@@ -485,9 +487,9 @@
     padding: 4px 10px;
     font-family: 'Roboto Mono', monospace;
     font-size: 10px;
-    text-transform: lowercase;
     letter-spacing: 0.1em;
     border: 1px solid var(--line-strong);
+    border-radius: 999px;
   }
 
   .status-tag.nuevo { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
@@ -535,6 +537,165 @@
 
   .detail-view.active { display: block; }
 
+  /* LIGHT MODE for detail view */
+  body:has(.detail-view.active) {
+    background: #e8e6e0;
+  }
+
+  .detail-view.active {
+    background: #e8e6e0;
+    min-height: calc(100vh - 60px);
+    margin: -40px -32px -80px;
+    padding: 40px 32px 80px;
+    color: rgba(0,0,0,0.9);
+  }
+
+  .detail-view.active .detail-back {
+    color: rgba(0,0,0,0.55);
+  }
+  .detail-view.active .detail-back:hover {
+    color: var(--accent);
+  }
+
+  .detail-view.active .detail-header {
+    border-bottom-color: rgba(0,0,0,0.12);
+  }
+
+  .detail-view.active .detail-company {
+    color: rgba(0,0,0,0.92);
+  }
+
+  .detail-view.active .detail-pitch {
+    color: rgba(0,0,0,0.6);
+  }
+
+  .detail-view.active .detail-meta {
+    color: rgba(0,0,0,0.55);
+  }
+  .detail-view.active .detail-meta-item .label {
+    color: rgba(0,0,0,0.45);
+  }
+  .detail-view.active .detail-meta-item .value {
+    color: rgba(0,0,0,0.85);
+  }
+
+  .detail-view.active .detail-section-header {
+    border-bottom-color: rgba(0,0,0,0.12);
+  }
+  .detail-view.active .detail-section-number {
+    color: rgba(0,0,0,0.4);
+  }
+  .detail-view.active .detail-section-title {
+    color: rgba(0,0,0,0.9);
+  }
+
+  .detail-view.active .detail-label {
+    color: rgba(0,0,0,0.5);
+  }
+  .detail-view.active .detail-value {
+    color: rgba(0,0,0,0.85);
+  }
+  .detail-view.active .detail-value.empty {
+    color: rgba(0,0,0,0.35);
+  }
+
+  .detail-view.active .color-swatch {
+    border-color: rgba(0,0,0,0.15);
+  }
+  .detail-view.active .color-hex {
+    color: rgba(0,0,0,0.65);
+  }
+
+  .detail-view.active .tag-item {
+    background: rgba(0,0,0,0.05);
+    border-color: rgba(0,0,0,0.12);
+    color: rgba(0,0,0,0.7);
+  }
+
+  .detail-view.active .ref-item {
+    background: rgba(0,0,0,0.04);
+    border-left-color: var(--accent);
+  }
+  .detail-view.active .ref-item .ref-num {
+    color: rgba(0,0,0,0.4);
+  }
+  .detail-view.active .ref-item .ref-note {
+    color: rgba(0,0,0,0.65);
+  }
+
+  /* sidebar in light mode */
+  .detail-view.active .sidebar-panel {
+    background: rgba(0,0,0,0.12);
+    border-color: rgba(0,0,0,0.08);
+    color: rgba(0,0,0,0.9);
+  }
+  .detail-view.active .sidebar-panel-title {
+    color: rgba(0,0,0,0.55);
+  }
+
+  .detail-view.active .status-option {
+    background: rgba(0,0,0,0.06);
+    color: rgba(0,0,0,0.7);
+  }
+  .detail-view.active .status-option:hover {
+    background: rgba(0,0,0,0.1);
+  }
+  .detail-view.active .status-option.active {
+    background: #1a1a1a;
+    color: #ff8e3c;
+    border-color: #1a1a1a;
+  }
+
+  .detail-view.active .sidebar-select,
+  .detail-view.active .sidebar-textarea {
+    background: rgba(0,0,0,0.06);
+    border-color: rgba(0,0,0,0.12);
+    color: rgba(0,0,0,0.85);
+  }
+  .detail-view.active .sidebar-select:focus,
+  .detail-view.active .sidebar-textarea:focus {
+    border-color: #1a1a1a;
+  }
+
+  /* Inverted buttons: black bg, accent text */
+  .detail-view.active .sidebar-btn {
+    background: #1a1a1a;
+    color: #ff8e3c;
+  }
+  .detail-view.active .sidebar-btn:hover {
+    background: #000;
+    color: #ffa563;
+  }
+  .detail-view.active .sidebar-btn.secondary {
+    background: transparent;
+    border: 1px solid #1a1a1a;
+    color: #1a1a1a;
+  }
+  .detail-view.active .sidebar-btn.secondary:hover {
+    background: #1a1a1a;
+    color: #ff8e3c;
+  }
+
+  .detail-view.active .file-item {
+    background: rgba(0,0,0,0.06);
+  }
+  .detail-view.active .file-name {
+    color: rgba(0,0,0,0.85);
+  }
+  .detail-view.active .file-meta {
+    color: rgba(0,0,0,0.45);
+  }
+  .detail-view.active .file-download {
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.2);
+    color: rgba(0,0,0,0.6);
+  }
+  .detail-view.active .file-download:hover {
+    background: #1a1a1a;
+    color: #ff8e3c;
+    border-color: #1a1a1a;
+  }
+
   .detail-back {
     display: inline-flex;
     align-items: center;
@@ -544,7 +705,6 @@
     color: var(--ink-soft);
     font-family: 'Roboto Mono', monospace;
     font-size: 12px;
-    text-transform: lowercase;
     letter-spacing: 0.08em;
     cursor: pointer;
     margin-bottom: 24px;
@@ -597,7 +757,6 @@
   .detail-meta-item .label {
     color: var(--ink-muted);
     font-size: 10px;
-    text-transform: lowercase;
     letter-spacing: 0.12em;
   }
 
@@ -653,7 +812,6 @@
   .detail-label {
     font-family: 'Roboto Mono', monospace;
     font-size: 10px;
-    text-transform: lowercase;
     letter-spacing: 0.12em;
     color: var(--ink-muted);
     margin-bottom: 6px;
@@ -722,7 +880,7 @@
     font-family: 'Roboto Mono', monospace;
     font-size: 11px;
     color: var(--ink-soft);
-    text-transform: lowercase;
+    border-radius: 999px;
   }
 
   .ref-list {
@@ -734,13 +892,13 @@
     background: var(--bg-elevated);
     border-left: 3px solid var(--accent);
     margin-bottom: 12px;
+    border-radius: 8px;
   }
 
   .ref-item .ref-num {
     font-family: 'Roboto Mono', monospace;
     font-size: 10px;
     color: var(--ink-muted);
-    text-transform: lowercase;
     letter-spacing: 0.1em;
     margin-bottom: 6px;
   }
@@ -777,12 +935,12 @@
     border: 1px solid var(--line);
     padding: 24px;
     margin-bottom: 16px;
+    border-radius: 12px;
   }
 
   .sidebar-panel-title {
     font-family: 'Roboto Mono', monospace;
     font-size: 10px;
-    text-transform: lowercase;
     letter-spacing: 0.15em;
     color: var(--ink-muted);
     margin-bottom: 14px;
@@ -800,12 +958,12 @@
     border: 1px solid transparent;
     font-family: 'Roboto Mono', monospace;
     font-size: 12px;
-    text-transform: lowercase;
     letter-spacing: 0.05em;
     cursor: pointer;
     transition: all 0.15s;
     color: var(--ink-soft);
     text-align: left;
+    border-radius: 8px;
   }
 
   .status-option:hover { background: var(--bg-hover); }
@@ -826,7 +984,7 @@
     color: var(--ink);
     font-family: 'Roboto', sans-serif;
     font-size: 13px;
-    border-radius: 0;
+    border-radius: 8px;
     transition: border-color 0.2s;
   }
 
@@ -850,11 +1008,11 @@
     border: none;
     font-family: 'Roboto Mono', monospace;
     font-size: 11px;
-    text-transform: lowercase;
     letter-spacing: 0.1em;
     cursor: pointer;
     margin-top: 12px;
     font-weight: 500;
+    border-radius: 8px;
     transition: background 0.2s;
   }
 
@@ -877,6 +1035,7 @@
     background: var(--bg-input);
     margin-bottom: 6px;
     gap: 8px;
+    border-radius: 8px;
   }
 
   .file-info {
@@ -897,7 +1056,6 @@
     font-family: 'Roboto Mono', monospace;
     font-size: 9px;
     color: var(--ink-muted);
-    text-transform: lowercase;
     letter-spacing: 0.05em;
     margin-top: 2px;
   }
@@ -912,6 +1070,7 @@
     cursor: pointer;
     flex-shrink: 0;
     transition: all 0.15s;
+    border-radius: 6px;
   }
 
   .file-download:hover {
@@ -949,7 +1108,6 @@
     font-family: 'Roboto Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.15em;
-    text-transform: lowercase;
     color: var(--ink-soft);
   }
 
@@ -964,10 +1122,10 @@
     font-family: 'Roboto Mono', monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
-    text-transform: lowercase;
     transition: transform 0.3s ease;
     z-index: 1100;
     font-weight: 500;
+    border-radius: 999px;
   }
 
   .toast.show { transform: translateX(-50%) translateY(0); }
@@ -993,16 +1151,16 @@
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
     <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779810977/LOGO_ISO_tdmgn6.png" alt="movdi" class="login-iso" />
-    <h1 class="login-title">Bienvenida <em>de vuelta.</em></h1>
+    <h1 class="login-title">Bienvenid@ <em>de vuelta.</em></h1>
     <p class="login-subtitle">Accede al dashboard interno para gestionar briefs de clientes.</p>
 
     <form id="loginForm">
       <div class="login-field">
-        <label>email</label>
+        <label>Email</label>
         <input type="email" id="loginEmail" required autocomplete="email" />
       </div>
       <div class="login-field">
-        <label>password</label>
+        <label>Password</label>
         <input type="password" id="loginPassword" required autocomplete="current-password" />
       </div>
       <button type="submit" class="login-btn" id="loginBtn">→ Entrar</button>
@@ -1045,12 +1203,12 @@
 
       <div class="briefs-table">
         <div class="table-header">
-          <div>empresa</div>
-          <div>contacto</div>
-          <div>recibido</div>
-          <div>asignado a</div>
-          <div>status</div>
-          <div>archivos</div>
+          <div>Empresa</div>
+          <div>Contacto</div>
+          <div>Recibido</div>
+          <div>Asignado a</div>
+          <div>Status</div>
+          <div>Archivos</div>
           <div></div>
         </div>
         <div id="briefsList">
@@ -1068,15 +1226,15 @@
         <p class="detail-pitch" id="detailPitch">—</p>
         <div class="detail-meta">
           <div class="detail-meta-item">
-            <span class="label">industria</span>
+            <span class="label">Industria</span>
             <span class="value" id="detailIndustry">—</span>
           </div>
           <div class="detail-meta-item">
-            <span class="label">recibido</span>
+            <span class="label">Recibido</span>
             <span class="value" id="detailDate">—</span>
           </div>
           <div class="detail-meta-item">
-            <span class="label">contacto</span>
+            <span class="label">Contacto</span>
             <span class="value" id="detailContact">—</span>
           </div>
         </div>
@@ -1090,12 +1248,12 @@
         <aside class="detail-sidebar">
 
           <div class="sidebar-panel">
-            <div class="sidebar-panel-title">status</div>
+            <div class="sidebar-panel-title">Status</div>
             <div class="status-selector" id="statusSelector"></div>
           </div>
 
           <div class="sidebar-panel">
-            <div class="sidebar-panel-title">asignado a</div>
+            <div class="sidebar-panel-title">Asignado a</div>
             <select class="sidebar-select" id="assignSelect">
               <option value="">— sin asignar —</option>
             </select>
@@ -1103,20 +1261,20 @@
           </div>
 
           <div class="sidebar-panel">
-            <div class="sidebar-panel-title">notas internas</div>
+            <div class="sidebar-panel-title">Notas internas</div>
             <textarea class="sidebar-textarea" id="internalNotes" placeholder="Notas privadas del equipo..."></textarea>
             <button class="sidebar-btn" id="saveNotes">Guardar notas</button>
           </div>
 
           <div class="sidebar-panel">
-            <div class="sidebar-panel-title">archivos del cliente</div>
+            <div class="sidebar-panel-title">Archivos del cliente</div>
             <div id="filesList">
               <div style="color: var(--ink-muted); font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; padding: 8px 0;">Sin archivos.</div>
             </div>
           </div>
 
           <div class="sidebar-panel">
-            <div class="sidebar-panel-title">link de edición del cliente</div>
+            <div class="sidebar-panel-title">Link de edición del cliente</div>
             <button class="sidebar-btn secondary" id="copyEditLink">↗ Copiar link</button>
           </div>
 
@@ -1307,7 +1465,7 @@
     // total
     const totalPill = document.createElement('button');
     totalPill.className = 'counter-pill' + (currentFilter === null ? ' active' : '');
-    totalPill.innerHTML = `<div class="counter-label">todos</div><div class="counter-value">${total}</div>`;
+    totalPill.innerHTML = `<div class="counter-label">Todos</div><div class="counter-value">${total}</div>`;
     totalPill.addEventListener('click', () => { currentFilter = null; loadCounts(); loadBriefs(); });
     container.appendChild(totalPill);
 
@@ -1315,7 +1473,7 @@
       const pill = document.createElement('button');
       pill.className = 'counter-pill' + (currentFilter === s.value ? ' active' : '');
       const cnt = counts[s.value] || 0;
-      pill.innerHTML = `<div class="counter-label">${escapeHTML(s.label.toLowerCase())}</div><div class="counter-value">${cnt}</div>`;
+      pill.innerHTML = `<div class="counter-label">${escapeHTML(s.label)}</div><div class="counter-value">${cnt}</div>`;
       pill.addEventListener('click', () => { currentFilter = s.value; loadCounts(); loadBriefs(); });
       container.appendChild(pill);
     });
@@ -1472,7 +1630,7 @@
       <div class="color-chip">
         <div class="color-swatch" style="background: ${escapeHTML(hex || '#000')}"></div>
         <div class="color-hex">${escapeHTML(hex || '—')}</div>
-        <div style="font-family: 'Roboto Mono', monospace; font-size: 9px; color: var(--ink-muted); text-transform: lowercase;">${label}</div>
+        <div style="font-family: 'Roboto Mono', monospace; font-size: 9px; color: var(--ink-muted);">${label}</div>
       </div>
     `;
 
@@ -1495,9 +1653,9 @@
           <span class="detail-section-number">01</span>
           <h2 class="detail-section-title">Empresa y contacto</h2>
         </div>
-        <div class="detail-field"><div class="detail-label">descripción</div><div class="detail-value">${vPre(d.empresa?.descripcion_larga)}</div></div>
-        <div class="detail-field"><div class="detail-label">cargo</div><div class="detail-value">${v(d.contacto?.cargo)}</div></div>
-        <div class="detail-field"><div class="detail-label">teléfono</div><div class="detail-value">${v(d.contacto?.telefono)}</div></div>
+        <div class="detail-field"><div class="detail-label">Descripción</div><div class="detail-value">${vPre(d.empresa?.descripcion_larga)}</div></div>
+        <div class="detail-field"><div class="detail-label">Cargo</div><div class="detail-value">${v(d.contacto?.cargo)}</div></div>
+        <div class="detail-field"><div class="detail-label">Teléfono</div><div class="detail-value">${v(d.contacto?.telefono)}</div></div>
       </section>
 
       <section>
@@ -1505,17 +1663,17 @@
           <span class="detail-section-number">02</span>
           <h2 class="detail-section-title">Identidad visual</h2>
         </div>
-        <div class="detail-field"><div class="detail-label">tiene branding</div><div class="detail-value">${v(d.branding?.tiene_branding)}</div></div>
-        <div class="detail-field"><div class="detail-label">mood</div><div class="detail-value">${v(d.branding?.mood)}</div></div>
-        <div class="detail-field"><div class="detail-label">tipografías</div><div class="detail-value">${v(d.branding?.tipografias)}</div></div>
-        <div class="detail-field"><div class="detail-label">adjetivos</div><div class="detail-value">${v(d.branding?.adjetivos)}</div></div>
+        <div class="detail-field"><div class="detail-label">Tiene branding</div><div class="detail-value">${v(d.branding?.tiene_branding)}</div></div>
+        <div class="detail-field"><div class="detail-label">Mood</div><div class="detail-value">${v(d.branding?.mood)}</div></div>
+        <div class="detail-field"><div class="detail-label">Tipografías</div><div class="detail-value">${v(d.branding?.tipografias)}</div></div>
+        <div class="detail-field"><div class="detail-label">Adjetivos</div><div class="detail-value">${v(d.branding?.adjetivos)}</div></div>
         <div class="detail-field">
-          <div class="detail-label">paleta</div>
+          <div class="detail-label">Paleta</div>
           <div class="color-palette">
-            ${colorChip('principal', d.branding?.colores?.principal)}
-            ${colorChip('secundario', d.branding?.colores?.secundario)}
-            ${colorChip('acento', d.branding?.colores?.acento)}
-            ${colorChip('fondo', d.branding?.colores?.fondo)}
+            ${colorChip('Principal', d.branding?.colores?.principal)}
+            ${colorChip('Secundario', d.branding?.colores?.secundario)}
+            ${colorChip('Acento', d.branding?.colores?.acento)}
+            ${colorChip('Fondo', d.branding?.colores?.fondo)}
           </div>
         </div>
       </section>
@@ -1525,16 +1683,16 @@
           <span class="detail-section-number">03</span>
           <h2 class="detail-section-title">Mensaje y estrategia</h2>
         </div>
-        <div class="detail-field"><div class="detail-label">primera impresión</div><div class="detail-value">${vPre(d.mensaje?.primera_impresion)}</div></div>
-        <div class="detail-field"><div class="detail-label">mensaje central</div><div class="detail-value">${vPre(d.mensaje?.mensaje_central)}</div></div>
-        <div class="detail-field"><div class="detail-label">producto estrella</div><div class="detail-value">${v(d.mensaje?.producto_estrella)}</div></div>
-        <div class="detail-field"><div class="detail-label">tipo de sitio</div><div class="detail-value">${v(d.mensaje?.tipo_sitio)}</div></div>
-        <div class="detail-field"><div class="detail-label">cantidad de productos</div><div class="detail-value">${v(d.mensaje?.cantidad_productos)}</div></div>
-        <div class="detail-field"><div class="detail-label">faqs comunes</div><div class="detail-value">${vPre(d.mensaje?.preguntas_frecuentes)}</div></div>
-        <div class="detail-field"><div class="detail-label">objetivo de conversión</div><div class="detail-value">${vPre(d.contenido?.objetivo_conversion)}</div></div>
-        <div class="detail-field"><div class="detail-label">servicios</div><div class="detail-value">${vPre(d.contenido?.servicios)}</div></div>
-        <div class="detail-field"><div class="detail-label">clientes destacados</div><div class="detail-value">${v(d.contenido?.clientes_destacados)}</div></div>
-        <div class="detail-field"><div class="detail-label">secciones</div><div class="detail-value">${tags(d.contenido?.secciones)}${d.contenido?.secciones_extras ? `<div style="margin-top: 6px; color: var(--ink-soft); font-size: 13px">+ ${escapeHTML(d.contenido.secciones_extras)}</div>` : ''}</div></div>
+        <div class="detail-field"><div class="detail-label">Primera impresión</div><div class="detail-value">${vPre(d.mensaje?.primera_impresion)}</div></div>
+        <div class="detail-field"><div class="detail-label">Mensaje central</div><div class="detail-value">${vPre(d.mensaje?.mensaje_central)}</div></div>
+        <div class="detail-field"><div class="detail-label">Producto estrella</div><div class="detail-value">${v(d.mensaje?.producto_estrella)}</div></div>
+        <div class="detail-field"><div class="detail-label">Tipo de sitio</div><div class="detail-value">${v(d.mensaje?.tipo_sitio)}</div></div>
+        <div class="detail-field"><div class="detail-label">Cantidad de productos</div><div class="detail-value">${v(d.mensaje?.cantidad_productos)}</div></div>
+        <div class="detail-field"><div class="detail-label">FAQs comunes</div><div class="detail-value">${vPre(d.mensaje?.preguntas_frecuentes)}</div></div>
+        <div class="detail-field"><div class="detail-label">Objetivo de conversión</div><div class="detail-value">${vPre(d.contenido?.objetivo_conversion)}</div></div>
+        <div class="detail-field"><div class="detail-label">Servicios</div><div class="detail-value">${vPre(d.contenido?.servicios)}</div></div>
+        <div class="detail-field"><div class="detail-label">Clientes destacados</div><div class="detail-value">${v(d.contenido?.clientes_destacados)}</div></div>
+        <div class="detail-field"><div class="detail-label">Secciones</div><div class="detail-value">${tags(d.contenido?.secciones)}${d.contenido?.secciones_extras ? `<div style="margin-top: 6px; color: var(--ink-soft); font-size: 13px">+ ${escapeHTML(d.contenido.secciones_extras)}</div>` : ''}</div></div>
       </section>
 
       <section>
@@ -1542,10 +1700,10 @@
           <span class="detail-section-number">04</span>
           <h2 class="detail-section-title">Activos y producción</h2>
         </div>
-        <div class="detail-field"><div class="detail-label">logo editable</div><div class="detail-value">${v(d.activos?.logo_editable)}</div></div>
-        <div class="detail-field"><div class="detail-label">tiene fotos</div><div class="detail-value">${v(d.activos?.tiene_fotos)}</div></div>
-        <div class="detail-field"><div class="detail-label">apoyo visual</div><div class="detail-value">${v(d.activos?.apoyo_visual)}</div></div>
-        <div class="detail-field"><div class="detail-label">tiene textos</div><div class="detail-value">${v(d.activos?.tiene_textos)}</div></div>
+        <div class="detail-field"><div class="detail-label">Logo editable</div><div class="detail-value">${v(d.activos?.logo_editable)}</div></div>
+        <div class="detail-field"><div class="detail-label">Tiene fotos</div><div class="detail-value">${v(d.activos?.tiene_fotos)}</div></div>
+        <div class="detail-field"><div class="detail-label">Apoyo visual</div><div class="detail-value">${v(d.activos?.apoyo_visual)}</div></div>
+        <div class="detail-field"><div class="detail-label">Tiene textos</div><div class="detail-value">${v(d.activos?.tiene_textos)}</div></div>
       </section>
 
       <section>
@@ -1556,7 +1714,7 @@
         <div class="ref-list">
           ${refsHTML || '<div class="detail-value empty">Sin referencias.</div>'}
         </div>
-        ${d.contenido?.anti_referencias ? `<div class="detail-field" style="margin-top: 16px"><div class="detail-label">páginas a evitar</div><div class="detail-value">${vPre(d.contenido.anti_referencias)}</div></div>` : ''}
+        ${d.contenido?.anti_referencias ? `<div class="detail-field" style="margin-top: 16px"><div class="detail-label">Páginas a evitar</div><div class="detail-value">${vPre(d.contenido.anti_referencias)}</div></div>` : ''}
       </section>
 
       <section>
@@ -1564,15 +1722,15 @@
           <span class="detail-section-number">06</span>
           <h2 class="detail-section-title">Aspectos técnicos</h2>
         </div>
-        <div class="detail-field"><div class="detail-label">tiene dominio</div><div class="detail-value">${v(d.tecnico?.tiene_dominio)}</div></div>
-        <div class="detail-field"><div class="detail-label">dominio</div><div class="detail-value">${v(d.tecnico?.dominio)}</div></div>
-        <div class="detail-field"><div class="detail-label">tiene hosting</div><div class="detail-value">${v(d.tecnico?.tiene_hosting)}</div></div>
-        <div class="detail-field"><div class="detail-label">proveedor hosting</div><div class="detail-value">${v(d.tecnico?.hosting_proveedor)}</div></div>
-        <div class="detail-field"><div class="detail-label">accesos al sitio</div><div class="detail-value">${vPre(d.tecnico?.accesos)}</div></div>
-        <div class="detail-field"><div class="detail-label">integraciones</div><div class="detail-value">${tags(d.tecnico?.integraciones)}</div></div>
-        <div class="detail-field"><div class="detail-label">idiomas</div><div class="detail-value">${tags(d.tecnico?.idiomas)}</div></div>
-        <div class="detail-field"><div class="detail-label">fecha de lanzamiento</div><div class="detail-value">${v(d.tecnico?.fecha_lanzamiento)}</div></div>
-        <div class="detail-field"><div class="detail-label">notas adicionales</div><div class="detail-value">${vPre(d.tecnico?.notas)}</div></div>
+        <div class="detail-field"><div class="detail-label">Tiene dominio</div><div class="detail-value">${v(d.tecnico?.tiene_dominio)}</div></div>
+        <div class="detail-field"><div class="detail-label">Dominio</div><div class="detail-value">${v(d.tecnico?.dominio)}</div></div>
+        <div class="detail-field"><div class="detail-label">Tiene hosting</div><div class="detail-value">${v(d.tecnico?.tiene_hosting)}</div></div>
+        <div class="detail-field"><div class="detail-label">Proveedor hosting</div><div class="detail-value">${v(d.tecnico?.hosting_proveedor)}</div></div>
+        <div class="detail-field"><div class="detail-label">Accesos al sitio</div><div class="detail-value">${vPre(d.tecnico?.accesos)}</div></div>
+        <div class="detail-field"><div class="detail-label">Integraciones</div><div class="detail-value">${tags(d.tecnico?.integraciones)}</div></div>
+        <div class="detail-field"><div class="detail-label">Idiomas</div><div class="detail-value">${tags(d.tecnico?.idiomas)}</div></div>
+        <div class="detail-field"><div class="detail-label">Fecha de lanzamiento</div><div class="detail-value">${v(d.tecnico?.fecha_lanzamiento)}</div></div>
+        <div class="detail-field"><div class="detail-label">Notas adicionales</div><div class="detail-value">${vPre(d.tecnico?.notas)}</div></div>
       </section>
 
       <section>
@@ -1580,9 +1738,12 @@
           <span class="detail-section-number">07</span>
           <h2 class="detail-section-title">Redes sociales</h2>
         </div>
-        ${Object.entries(d.contenido?.redes || {}).map(([k, v]) =>
-          v ? `<div class="detail-field"><div class="detail-label">${escapeHTML(k)}</div><div class="detail-value"><a href="${escapeHTML(v)}" target="_blank" rel="noopener">${escapeHTML(v)}</a></div></div>` : ''
-        ).join('') || '<div class="detail-value empty">Sin redes sociales.</div>'}
+        ${Object.entries(d.contenido?.redes || {}).map(([k, v]) => {
+          if (!v) return '';
+          const labelMap = { instagram: 'Instagram', linkedin: 'LinkedIn', tiktok: 'TikTok', x: 'X / Twitter', youtube: 'YouTube', otra: 'Otra red' };
+          const label = labelMap[k] || (k.charAt(0).toUpperCase() + k.slice(1));
+          return `<div class="detail-field"><div class="detail-label">${escapeHTML(label)}</div><div class="detail-value"><a href="${escapeHTML(v)}" target="_blank" rel="noopener">${escapeHTML(v)}</a></div></div>`;
+        }).join('') || '<div class="detail-value empty">Sin redes sociales.</div>'}
       </section>
     `;
   }
