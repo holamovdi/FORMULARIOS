@@ -499,6 +499,155 @@
   .status-tag.entregado { background: rgba(74, 222, 128, 0.12); border-color: var(--success); color: var(--success); }
   .status-tag.archivado { background: transparent; border-color: var(--line); color: var(--ink-muted); }
 
+  /* URGENCY BADGE */
+  .urgency-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    border-radius: 999px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .urgency-badge.estandar { display: none; }
+  .urgency-badge.urgente {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+  }
+  .urgency-badge.mismo_dia {
+    background: rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+    border: 1px solid var(--danger);
+  }
+
+  /* AREA BADGE */
+  .area-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+  }
+  .area-badge.dean { background: rgba(168, 85, 247, 0.12); color: #c4b5fd; border-color: rgba(168, 85, 247, 0.3); }
+  .area-badge.mariana { background: rgba(59, 130, 246, 0.12); color: #93c5fd; border-color: rgba(59, 130, 246, 0.3); }
+  .area-badge.ambos { background: rgba(251, 191, 36, 0.12); color: #fde68a; border-color: rgba(251, 191, 36, 0.3); }
+
+  /* FORM TYPE TAG */
+  .form-type-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--accent);
+    border: 1px solid var(--accent-soft);
+  }
+
+  /* FILTER ROW */
+  .filter-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 180px;
+  }
+  .filter-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.1em;
+  }
+  .filter-select {
+    padding: 10px 14px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .filter-select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .filter-clear {
+    align-self: flex-end;
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-clear:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* REQUESTER INFO */
+  .requester-info {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    margin-top: 2px;
+    letter-spacing: 0.03em;
+  }
+
+  /* CHANGES LIST (for digital briefs detail) */
+  .changes-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .change-row {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--bg-elevated);
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    align-items: flex-start;
+  }
+  .detail-view.active .change-row {
+    background: rgba(0,0,0,0.05);
+    border-color: rgba(0,0,0,0.1);
+  }
+  .change-num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  .change-text {
+    flex: 1;
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .detail-view.active .change-text { color: rgba(0,0,0,0.85); }
+
   .submitted-marker {
     display: inline-block;
     width: 8px;
@@ -1201,6 +1350,34 @@
         <input type="text" id="searchInput" placeholder="Buscar por empresa, contacto, email, industria..." />
       </div>
 
+      <div class="filter-row">
+        <div class="filter-group">
+          <label class="filter-label">Tipo de formulario</label>
+          <select class="filter-select" id="filterFormType">
+            <option value="">Todos los formularios</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Área asignada</label>
+          <select class="filter-select" id="filterArea">
+            <option value="">Todas</option>
+            <option value="dean">Dean — Diseño</option>
+            <option value="mariana">Mariana — Comunicación</option>
+            <option value="ambos">Ambos</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Urgencia</label>
+          <select class="filter-select" id="filterUrgency">
+            <option value="">Todas</option>
+            <option value="estandar">Estándar</option>
+            <option value="urgente">Urgente</option>
+            <option value="mismo_dia">Mismo día</option>
+          </select>
+        </div>
+        <button class="filter-clear" id="filterClear">Limpiar filtros</button>
+      </div>
+
       <div class="briefs-table">
         <div class="table-header">
           <div>Empresa</div>
@@ -1316,8 +1493,12 @@
   let currentTeamMember = null;
   let currentBrief = null;
   let allTeamMembers = [];
+  let allFormTypes = [];
   let currentFilter = null; // status filter
   let currentSearch = '';
+  let currentFormTypeFilter = '';
+  let currentAreaFilter = '';
+  let currentUrgencyFilter = '';
   let listData = [];
 
   // ============================================================
@@ -1404,8 +1585,38 @@
     document.getElementById('userName').textContent = currentTeamMember.name || currentTeamMember.email;
 
     populateAssignSelect();
+    await loadFormTypes();
     await loadBriefs();
     await loadCounts();
+  }
+
+  async function loadFormTypes() {
+    const { data, error } = await supabaseClient.rpc('list_form_types', { p_category: null, p_only_active: true });
+    if (error) {
+      console.error('Error loading form_types:', error);
+      return;
+    }
+    allFormTypes = data || [];
+    const sel = document.getElementById('filterFormType');
+    sel.innerHTML = '<option value="">Todos los formularios</option>';
+    // agrupar por categoría
+    const byCategory = {};
+    allFormTypes.forEach(ft => {
+      if (!byCategory[ft.category]) byCategory[ft.category] = [];
+      byCategory[ft.category].push(ft);
+    });
+    const catLabels = { cliente: 'Clientes externos', digital: 'Briefs internos · Digital', interno_otros: 'Otros internos' };
+    Object.keys(byCategory).forEach(cat => {
+      const group = document.createElement('optgroup');
+      group.label = catLabels[cat] || cat;
+      byCategory[cat].forEach(ft => {
+        const opt = document.createElement('option');
+        opt.value = ft.id;
+        opt.textContent = (ft.number ? ft.number + ' · ' : '') + ft.name.replace(/^Brief:\s*/i, '');
+        group.appendChild(opt);
+      });
+      sel.appendChild(group);
+    });
   }
 
   function showLoginError(msg) {
@@ -1486,6 +1697,9 @@
     const { data, error } = await supabaseClient.rpc('list_briefs', {
       p_status: currentFilter,
       p_search: currentSearch || null,
+      p_form_type: currentFormTypeFilter || null,
+      p_assignee_area: currentAreaFilter || null,
+      p_urgency: currentUrgencyFilter || null,
       p_limit: 100,
       p_offset: 0
     });
@@ -1508,16 +1722,34 @@
         ? '<span class="submitted-marker"></span>'
         : '<span class="draft-marker" title="borrador"></span>';
       const assigned = b.assigned_to ? escapeHTML(b.assigned_to) : '<span style="color: var(--ink-muted)">—</span>';
+      const isInternal = b.form_type && b.form_type !== 'client_web';
+
+      // primary line: nombre del brief o empresa
+      const primaryLine = isInternal
+        ? formTypeLabel(b.form_type)
+        : escapeHTML(b.company_name || '(sin nombre)');
+
+      // secondary line: solicitante o industria
+      const secondaryLine = isInternal
+        ? `Solicitante: ${escapeHTML(b.requester_email || '—')}`
+        : escapeHTML(b.industry || '');
+
+      // contacto: para internos no aplica; mostramos área
+      const contactCell = isInternal
+        ? (b.assignee_area ? `<span class="area-badge ${b.assignee_area}">${areaLabel(b.assignee_area)}</span>` : '<span style="color: var(--ink-muted)">—</span>')
+        : `${escapeHTML(b.contact_name || '—')}<div class="contact-email">${escapeHTML(b.contact_email || '')}</div>`;
+
+      const urgencyBadge = b.urgency && b.urgency !== 'estandar'
+        ? `<span class="urgency-badge ${b.urgency}">${urgencyLabel(b.urgency)}</span>`
+        : '';
+
       return `
         <div class="table-row" data-id="${b.id}">
           <div class="col-company">
-            ${marker}${escapeHTML(b.company_name || '(sin nombre)')}
-            <div class="company-industry">${escapeHTML(b.industry || '')}</div>
+            ${marker}${primaryLine}${urgencyBadge}
+            <div class="company-industry">${secondaryLine}</div>
           </div>
-          <div class="col-contact">
-            ${escapeHTML(b.contact_name || '—')}
-            <div class="contact-email">${escapeHTML(b.contact_email || '')}</div>
-          </div>
+          <div class="col-contact">${contactCell}</div>
           <div class="col-date">${fmtDate(b.submitted_at || b.created_at)}</div>
           <div class="col-assigned">${assigned}</div>
           <div><span class="status-tag ${b.status}">${escapeHTML(statusLabel(b.status))}</span></div>
@@ -1532,6 +1764,17 @@
     });
   }
 
+  function urgencyLabel(u) {
+    return { estandar: 'estándar', urgente: 'urgente', mismo_dia: 'mismo día' }[u] || u;
+  }
+  function areaLabel(a) {
+    return { dean: 'Dean', mariana: 'Mariana', ambos: 'Ambos' }[a] || a;
+  }
+  function formTypeLabel(ft) {
+    const t = allFormTypes.find(t => t.id === ft);
+    return t ? escapeHTML(t.name.replace(/^Brief:\s*/i, '')) : escapeHTML(ft);
+  }
+
   let searchTimer = null;
   document.getElementById('searchInput').addEventListener('input', (e) => {
     clearTimeout(searchTimer);
@@ -1539,6 +1782,32 @@
       currentSearch = e.target.value.trim();
       loadBriefs();
     }, 300);
+  });
+
+  document.getElementById('filterFormType').addEventListener('change', (e) => {
+    currentFormTypeFilter = e.target.value;
+    loadBriefs();
+  });
+  document.getElementById('filterArea').addEventListener('change', (e) => {
+    currentAreaFilter = e.target.value;
+    loadBriefs();
+  });
+  document.getElementById('filterUrgency').addEventListener('change', (e) => {
+    currentUrgencyFilter = e.target.value;
+    loadBriefs();
+  });
+  document.getElementById('filterClear').addEventListener('click', () => {
+    currentFormTypeFilter = '';
+    currentAreaFilter = '';
+    currentUrgencyFilter = '';
+    currentSearch = '';
+    currentFilter = null;
+    document.getElementById('filterFormType').value = '';
+    document.getElementById('filterArea').value = '';
+    document.getElementById('filterUrgency').value = '';
+    document.getElementById('searchInput').value = '';
+    loadBriefs();
+    loadCounts();
   });
 
   function populateAssignSelect() {
@@ -1583,12 +1852,33 @@
 
   function renderDetail(brief) {
     const d = brief.data || {};
+    const formType = brief.form_type || 'client_web';
+    const isInternal = formType !== 'client_web';
 
-    document.getElementById('detailCompany').textContent = d.empresa?.nombre || '(sin nombre)';
-    document.getElementById('detailPitch').textContent = d.empresa?.pitch || '';
-    document.getElementById('detailIndustry').textContent = d.empresa?.industria || '—';
-    document.getElementById('detailDate').textContent = fmtDateTime(brief.submitted_at || brief.created_at);
-    document.getElementById('detailContact').textContent = `${d.contacto?.nombre || '—'} · ${d.contacto?.email || '—'}`;
+    // header dinámico según tipo
+    if (isInternal) {
+      const ftMeta = allFormTypes.find(t => t.id === formType);
+      document.getElementById('detailCompany').textContent = ftMeta ? ftMeta.name.replace(/^Brief:\s*/i, '') : 'Brief interno';
+      // pitch slot lo usamos para mostrar info clave del brief interno
+      document.getElementById('detailPitch').textContent = getInternalPitchText(d, formType);
+
+      // meta: cambiamos los 3 campos
+      document.getElementById('detailIndustry').textContent = ftMeta ? `${ftMeta.number || ''} · ${ftMeta.category || ''}` : '—';
+      document.getElementById('detailDate').textContent = fmtDateTime(brief.submitted_at || brief.created_at);
+      const requester = d.solicitante?.nombre || d.solicitante?.email || brief.requester_email || '—';
+      const role = d.solicitante?.rol ? ' · ' + d.solicitante.rol : '';
+      document.getElementById('detailContact').textContent = requester + role;
+
+      // pongo urgencia y área como meta extra arriba si aplica
+      addMetaExtras(brief);
+    } else {
+      document.getElementById('detailCompany').textContent = d.empresa?.nombre || '(sin nombre)';
+      document.getElementById('detailPitch').textContent = d.empresa?.pitch || '';
+      document.getElementById('detailIndustry').textContent = d.empresa?.industria || '—';
+      document.getElementById('detailDate').textContent = fmtDateTime(brief.submitted_at || brief.created_at);
+      document.getElementById('detailContact').textContent = `${d.contacto?.nombre || '—'} · ${d.contacto?.email || '—'}`;
+      removeMetaExtras();
+    }
 
     // STATUS SELECTOR
     const statusSel = document.getElementById('statusSelector');
@@ -1616,8 +1906,325 @@
     // FILES
     renderFiles(brief.files || []);
 
-    // CONTENT
-    renderDetailContent(d);
+    // CONTENT — switch según tipo
+    if (formType === 'client_web') {
+      renderDetailContent(d);
+    } else {
+      renderInternalBriefContent(d, formType, brief);
+    }
+  }
+
+  function getInternalPitchText(d, formType) {
+    // primera línea del detalle (lo más representativo)
+    switch (formType) {
+      case 'digital_01_pitch':
+        return d.pitch?.objetivo || d.cliente?.nombre || 'Pitch deck';
+      case 'digital_02_rrss_talento':
+        return d.talento?.nombre ? `Talento: ${d.talento.nombre}` : 'Pieza RRSS de talento';
+      case 'digital_03_rrss_movdi':
+        return d.pieza?.objetivo || 'Pieza RRSS de movdi';
+      case 'digital_04_ideacion':
+        return d.descripcion_corta || d.que_necesitas || 'Ideación';
+      case 'digital_05_ajuste':
+        return d.pieza_original_link ? 'Ajuste sobre pieza ya entregada' : 'Ajuste de pieza';
+      case 'digital_06_email_talento':
+        return d.talento?.nombre ? `Email de ${d.talento.nombre}` : 'Email de talento';
+      case 'digital_07_roster_web':
+        return d.talento?.nombre ? `Roster/Web · ${d.talento.nombre}` : 'Actualización roster / web';
+      default:
+        return '';
+    }
+  }
+
+  function addMetaExtras(brief) {
+    // agrega urgencia y área como pills bajo el header si no existen
+    let extras = document.getElementById('detailMetaExtras');
+    if (!extras) {
+      extras = document.createElement('div');
+      extras.id = 'detailMetaExtras';
+      extras.style.cssText = 'display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;';
+      document.querySelector('.detail-meta').after(extras);
+    }
+    const parts = [];
+    if (brief.urgency && brief.urgency !== 'estandar') {
+      parts.push(`<span class="urgency-badge ${brief.urgency}" style="margin-left:0; font-size: 11px; padding: 5px 12px;">${urgencyLabel(brief.urgency)}</span>`);
+    }
+    if (brief.assignee_area) {
+      parts.push(`<span class="area-badge ${brief.assignee_area}" style="font-size: 11px; padding: 5px 12px;">${areaLabel(brief.assignee_area)}</span>`);
+    }
+    extras.innerHTML = parts.join('');
+    extras.style.display = parts.length ? 'flex' : 'none';
+  }
+
+  function removeMetaExtras() {
+    const extras = document.getElementById('detailMetaExtras');
+    if (extras) extras.style.display = 'none';
+  }
+
+  // ============================================================
+  // RENDERIZADO DE BRIEFS INTERNOS (por tipo)
+  // ============================================================
+  function renderInternalBriefContent(d, formType, brief) {
+    const c = document.getElementById('detailContent');
+    const empty = '<span class="empty">sin completar</span>';
+    const val = (v) => v ? escapeHTML(v) : empty;
+    const valPre = (v) => v ? `<span style="white-space: pre-wrap">${escapeHTML(v)}</span>` : empty;
+    const tags = (arr) => {
+      if (!arr || !arr.length) return empty;
+      return `<div class="tag-list">${arr.map(t => `<span class="tag-item">${escapeHTML(t)}</span>`).join('')}</div>`;
+    };
+
+    const sec = (num, title, fields) => `
+      <section>
+        <div class="detail-section-header">
+          <span class="detail-section-number">${num}</span>
+          <h2 class="detail-section-title">${title}</h2>
+        </div>
+        ${fields}
+      </section>
+    `;
+    const f = (label, value) => `<div class="detail-field"><div class="detail-label">${label}</div><div class="detail-value">${value}</div></div>`;
+
+    // SOLICITANTE (común a todos los briefs internos)
+    const solicitante = sec('01', 'Solicitante',
+      f('Nombre', val(d.solicitante?.nombre)) +
+      f('Email', val(d.solicitante?.email)) +
+      f('Rol', val(d.solicitante?.rol))
+    );
+
+    // URGENCIA Y META
+    const meta = sec('02', 'Asignación y urgencia',
+      f('Va a', val(brief.assignee_area ? areaLabel(brief.assignee_area) : null)) +
+      f('Urgencia', val(urgencyLabel(brief.urgency))) +
+      (d.urgency_justification ? f('Justificación', valPre(d.urgency_justification)) : '') +
+      (d.urgency_approved_by ? f('Aprobado por', val(d.urgency_approved_by)) : '')
+    );
+
+    let body = '';
+
+    if (formType === 'digital_07_roster_web') {
+      const cambios = (d.cambios || []).length
+        ? `<div class="changes-detail">${d.cambios.map((c, i) => `
+            <div class="change-row">
+              <span class="change-num">${String(i+1).padStart(2,'0')}</span>
+              <div class="change-text">${escapeHTML(c)}</div>
+            </div>`).join('')}</div>`
+        : empty;
+
+      body =
+        sec('03', 'Tipo de actualización',
+          f('Tipos', tags((d.tipos_actualizacion || []).map(t => ({
+            agregar_talento: 'Agregar talento',
+            editar_talento: 'Editar talento',
+            eliminar_talento: 'Eliminar talento',
+            actualizacion_web: 'Actualización web'
+          })[t] || t)))
+        ) +
+        sec('04', 'Sobre el talento',
+          f('Nombre', val(d.talento?.nombre)) +
+          f('Usuario', val(d.talento?.usuario)) +
+          f('Nicho', val(d.talento?.nicho)) +
+          f('Estado', val(d.talento?.estado === 'nuevo' ? 'Nuevo' : (d.talento?.estado === 'existente' ? 'Actualización' : null))) +
+          (d.talento?.foto ? f('Foto', `<a href="${escapeHTML(d.talento.foto)}" target="_blank" rel="noopener">${escapeHTML(d.talento.foto)}</a>`) : '')
+        ) +
+        sec('05', 'Cambios específicos',
+          `<div class="detail-field"><div class="detail-label">Lista de cambios</div>${cambios}</div>` +
+          (d.web?.seccion || d.web?.foto || d.web?.texto ? `
+            <div class="detail-field"><div class="detail-label">Web</div>
+              <div class="detail-value">
+                ${d.web?.seccion ? `<div><strong>Sección:</strong> ${escapeHTML(d.web.seccion)}</div>` : ''}
+                ${d.web?.texto ? `<div style="margin-top: 8px"><strong>Texto:</strong><br>${escapeHTML(d.web.texto)}</div>` : ''}
+                ${d.web?.foto ? `<div style="margin-top: 8px"><strong>Foto:</strong> <a href="${escapeHTML(d.web.foto)}" target="_blank">${escapeHTML(d.web.foto)}</a></div>` : ''}
+              </div>
+            </div>
+          ` : '')
+        );
+    }
+    else if (formType === 'digital_01_pitch') {
+      body =
+        sec('03', 'Cliente',
+          f('Cliente / marca', val(d.cliente?.nombre)) +
+          f('Industria', val(d.cliente?.industria)) +
+          f('Relación con movdi', val(d.cliente?.relacion)) +
+          f('Contexto', valPre(d.cliente?.contexto))
+        ) +
+        sec('04', 'Pitch',
+          f('Escenario', val(d.escenario === 'A' ? 'A · Solo diseño' : (d.escenario === 'B' ? 'B · Idea + diseño' : null))) +
+          f('Pedido por', val(d.pedido_por)) +
+          f('Objetivo', valPre(d.pitch?.objetivo)) +
+          f('Audiencia', val(d.pitch?.audiencia)) +
+          f('Propuesta concreta', valPre(d.pitch?.propuesta))
+        ) +
+        sec('05', 'Contenido',
+          f('Info a incluir', valPre(d.contenido?.info)) +
+          f('Cases / ejemplos', valPre(d.contenido?.cases))
+        ) +
+        sec('06', 'Logística y referencias',
+          f('Referencias visuales', valPre((d.referencias || []).join('\n'))) +
+          f('Fecha de presentación al cliente', val(d.logistica?.fecha_presentacion)) +
+          f('Fecha en que necesita el deck', val(d.logistica?.fecha_deck))
+        ) +
+        (d.restricciones ? sec('07', 'Restricciones',
+          f('NO decir', valPre(d.restricciones?.no_decir)) +
+          f('Competencia a evitar', val(d.restricciones?.competencia)) +
+          f('Info confidencial', valPre(d.restricciones?.confidencial))
+        ) : '');
+    }
+    else if (formType === 'digital_02_rrss_talento' || formType === 'digital_03_rrss_movdi') {
+      const esTalento = formType === 'digital_02_rrss_talento';
+      body =
+        (esTalento ? sec('03', 'Sobre el talento',
+          f('Talento', val(d.talento?.nombre)) +
+          f('Link de redes', val(d.talento?.link)) +
+          f('Publica en cuenta de', val(d.talento?.publica_en))
+        ) : '') +
+        sec(esTalento ? '04' : '03', 'La pieza',
+          f('Escenario', val(d.escenario === 'A' ? 'A · Solo diseño' : (d.escenario === 'B' ? 'B · Idea + diseño' : null))) +
+          f('Objetivo', valPre(d.pieza?.objetivo)) +
+          f('Plataforma', val(d.pieza?.plataforma)) +
+          f('Formato', val(d.pieza?.formato)) +
+          (esTalento ? f('Es campaña pagada con marca', val(d.pieza?.es_campana)) : '') +
+          (!esTalento ? f('Línea de comunicación', val(d.pieza?.linea)) : '')
+        ) +
+        (!esTalento ? sec('04', 'Audiencia',
+          f('Dirigida a', val(d.audiencia))
+        ) : '') +
+        sec('05', 'Contenido',
+          f('Acontecimiento / tema', val(d.contenido?.acontecimiento)) +
+          f('Fechas / horario / lugar', valPre(d.contenido?.fechas)) +
+          (esTalento ? f('¿Copy aprobado por talento?', val(d.contenido?.copy_aprobado)) : '') +
+          f('Copy / idea / link doc', valPre(d.contenido?.copy)) +
+          (!esTalento ? f('Texto dentro de la pieza', valPre(d.contenido?.texto_pieza)) : '') +
+          (!esTalento ? f('Call to action', val(d.contenido?.cta)) : '') +
+          (!esTalento ? f('Hashtags', val(d.contenido?.hashtags)) : '')
+        ) +
+        sec('06', 'Referencias y assets',
+          f('Referencias visuales', valPre((d.referencias || []).join('\n'))) +
+          f('Assets gráficos disponibles', val(d.assets?.link)) +
+          (esTalento ? f('Foto / video específico', val(d.assets?.foto_especifica)) : '') +
+          (!esTalento ? f('Material de apoyo', val(d.assets?.material_apoyo)) : '')
+        ) +
+        sec('07', 'Logística',
+          f('Fecha de publicación', val(d.logistica?.fecha_publicacion)) +
+          f('Fecha pieza terminada', val(d.logistica?.fecha_terminada))
+        ) +
+        (d.restricciones ? sec('08', 'Restricciones',
+          f('NO decir / mostrar', valPre(d.restricciones?.no_decir)) +
+          (esTalento ? f('Competencia que no puede aparecer', val(d.restricciones?.competencia)) : '') +
+          (esTalento ? f('Exclusividades vigentes', valPre(d.restricciones?.exclusividades)) : '') +
+          (!esTalento ? f('Info confidencial', valPre(d.restricciones?.confidencial)) : '')
+        ) : '');
+    }
+    else if (formType === 'digital_04_ideacion') {
+      body =
+        sec('03', 'Qué necesitas',
+          f('Tipo de ideación', tags(d.tipos_ideacion || [])) +
+          f('Descripción en una frase', valPre(d.descripcion_corta))
+        ) +
+        sec('04', 'Contexto',
+          f('Para qué es', valPre(d.contexto?.para_que)) +
+          f('Nombre / tema / proyecto', val(d.contexto?.nombre)) +
+          f('Fechas / horario / lugar', valPre(d.contexto?.fechas)) +
+          f('Cliente / marca / talento', val(d.contexto?.involucrado)) +
+          f('Material de apoyo', val(d.contexto?.material)) +
+          f('¿Va a aterrizar en pieza visual?', val(d.contexto?.pieza_posterior))
+        ) +
+        sec('05', 'Objetivo y audiencia',
+          f('Qué queremos lograr', valPre(d.objetivo)) +
+          f('A quién va dirigida', valPre(d.audiencia?.quien)) +
+          f('Qué les importa / mueve / aburre', valPre(d.audiencia?.intereses))
+        ) +
+        sec('06', 'Ingredientes',
+          f('Ya está decidido y no se mueve', valPre(d.inputs?.fijo)) +
+          f('Ideas previas descartadas', valPre(d.inputs?.descartadas)) +
+          f('Referencias / inspiración', valPre(d.inputs?.referencias))
+        ) +
+        sec('07', 'Restricciones',
+          f('Tono que SÍ queremos', val(d.restricciones?.tono_si)) +
+          f('Tono que NO queremos', val(d.restricciones?.tono_no)) +
+          f('Lo que NO se puede proponer', valPre(d.restricciones?.no_proponer))
+        ) +
+        sec('08', 'Entregable',
+          f('Formato del entregable', val(d.entregable?.formato)) +
+          f('Cantidad de direcciones', val(d.entregable?.cantidad)) +
+          f('Fecha en que necesitas el entregable', val(d.logistica?.fecha_entregable)) +
+          (d.logistica?.task_diseno ? f('Enlaza a diseño', val(d.logistica?.fecha_diseno || 'sí')) : '')
+        );
+    }
+    else if (formType === 'digital_05_ajuste') {
+      const cambios = (d.cambios_lista || []).length
+        ? `<div class="changes-detail">${d.cambios_lista.map((c, i) => `
+            <div class="change-row">
+              <span class="change-num">${String(i+1).padStart(2,'0')}</span>
+              <div class="change-text">${escapeHTML(c)}</div>
+            </div>`).join('')}</div>`
+        : empty;
+      body =
+        sec('03', 'Pieza original',
+          f('Link a pieza original', d.original?.link ? `<a href="${escapeHTML(d.original.link)}" target="_blank">${escapeHTML(d.original.link)}</a>` : empty) +
+          f('Fecha de entrega original', val(d.original?.fecha_entrega)) +
+          f('¿Ya se publicó?', val(d.original?.estado === 'publicada' ? `Publicada el ${d.original?.fecha_publicacion || '—'}` : 'En revisión'))
+        ) +
+        sec('04', 'Cambios',
+          `<div class="detail-field"><div class="detail-label">Cambios específicos</div>${cambios}</div>` +
+          (d.cambio_copy?.activo ? f('Texto nuevo aprobado', valPre(d.cambio_copy?.texto)) : '') +
+          (d.cambio_grafico?.activo ? f('Assets nuevos', val(d.cambio_grafico?.link)) : '')
+        ) +
+        sec('05', 'Razón del cambio',
+          f('Razón', val({
+            error_brief: 'Error en brief original',
+            cambio_cliente: 'Cambio del cliente / talento',
+            cambio_interno: 'Cambio interno de movdi',
+            error_ejecucion: 'Error de ejecución',
+            adaptacion_formato: 'Adaptación a nuevo formato'
+          }[d.razon] || d.razon)) +
+          f('Explicación', valPre(d.razon_detalle))
+        ) +
+        sec('06', 'Logística',
+          f('Fecha en que necesita el ajuste', val(d.logistica?.fecha_ajuste)) +
+          f('¿Cambió fecha de publicación?', val(d.logistica?.cambio_fecha_pub))
+        );
+    }
+    else if (formType === 'digital_06_email_talento') {
+      body =
+        sec('03', 'Tipo de email',
+          f('Tipo', val(d.tipo_email === 'nuevo_talento' ? 'Email de nuevo talento' : (d.tipo_email === 'especifico' ? 'Email específico' : null)))
+        ) +
+        sec('04', 'Talento',
+          f('Nombre', val(d.talento?.nombre)) +
+          f('Usuario / @', val(d.talento?.usuario)) +
+          f('Plataforma principal', val(d.talento?.plataforma)) +
+          f('Nicho', val(d.talento?.nicho))
+        ) +
+        sec('05', 'Contenido',
+          f('Info relevante a comunicar', valPre(d.contenido?.info)) +
+          (d.tipo_email === 'nuevo_talento' ? f('Link del video de presentación', d.contenido?.video ? `<a href="${escapeHTML(d.contenido.video)}" target="_blank">${escapeHTML(d.contenido.video)}</a>` : empty) : '') +
+          (d.tipo_email === 'especifico' ? f('Logro / proyecto a destacar', valPre(d.contenido?.logro)) : '') +
+          (d.tipo_email === 'especifico' ? f('Fechas / datos relevantes', val(d.contenido?.fechas)) : '')
+        ) +
+        sec('06', 'Audiencia',
+          f('A quién va dirigido', val({
+            marcas: 'Marcas / clientes potenciales',
+            base_general: 'Base general de contactos',
+            segmento: 'Segmento específico: ' + (d.audiencia_segmento || '')
+          }[d.audiencia] || d.audiencia))
+        ) +
+        sec('07', 'Assets y logística',
+          f('Foto del talento', val(d.assets?.foto)) +
+          f('Material de apoyo', valPre(d.assets?.material)) +
+          f('Fecha email listo', val(d.logistica?.fecha_listo)) +
+          f('Fecha de envío', val(d.logistica?.fecha_envio))
+        ) +
+        (d.restricciones ? sec('08', 'Restricciones',
+          f('NO mencionar', valPre(d.restricciones?.no_mencionar)) +
+          f('Exclusividades / conflictos', valPre(d.restricciones?.exclusividades))
+        ) : '');
+    }
+    else {
+      body = `<section><div class="detail-value">No hay un renderer específico para este tipo de brief: <code>${escapeHTML(formType)}</code>. Datos crudos:</div><pre style="background: var(--bg-elevated); padding: 16px; border-radius: 8px; font-family: 'Roboto Mono', monospace; font-size: 11px; overflow: auto; margin-top: 16px;">${escapeHTML(JSON.stringify(d, null, 2))}</pre></section>`;
+    }
+
+    c.innerHTML = solicitante + meta + body;
   }
 
   function renderDetailContent(d) {
