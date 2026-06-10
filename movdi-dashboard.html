@@ -678,6 +678,277 @@
   }
 
   /* ============================================
+     TEAM VIEW
+  ============================================ */
+  .team-view {
+    display: none;
+  }
+  .team-view.active { display: block; }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .team-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    padding: 24px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .team-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .team-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .team-info { flex: 1; min-width: 0; }
+  .team-name {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .team-email {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    word-break: break-all;
+  }
+
+  .team-role-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+  }
+  .team-role-badge.admin { background: rgba(254, 117, 29, 0.15); color: var(--accent); border-color: var(--accent); }
+  .team-role-badge.editor { background: rgba(59, 130, 246, 0.12); color: #93c5fd; border-color: rgba(59, 130, 246, 0.3); }
+  .team-role-badge.viewer { background: rgba(255,255,255,0.06); color: var(--ink-soft); }
+
+  .team-card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+
+  .team-action-btn {
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.15s;
+    flex: 1;
+  }
+  .team-action-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .team-action-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
+
+  .team-notify-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+
+  /* INVITE FORM */
+  .invite-card {
+    background: var(--bg-elevated);
+    border: 1px dashed var(--accent);
+    padding: 32px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+
+  .invite-card-title {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .invite-card-desc {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .invite-form {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+
+  @media (max-width: 900px) {
+    .invite-form { grid-template-columns: 1fr 1fr; }
+  }
+
+  .invite-field { display: flex; flex-direction: column; gap: 6px; }
+  .invite-field label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.1em;
+  }
+  .invite-field input,
+  .invite-field select {
+    padding: 10px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+  .invite-field input:focus,
+  .invite-field select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .invite-submit {
+    padding: 12px 20px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .invite-submit:hover { background: var(--accent-hover); }
+  .invite-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* CREDENTIALS MODAL */
+  .credentials-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.92);
+    backdrop-filter: blur(10px);
+    z-index: 1200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .credentials-overlay.active { display: flex; }
+  .credentials-box {
+    background: var(--bg-elevated);
+    border: 1px solid var(--accent);
+    max-width: 520px;
+    width: 100%;
+    padding: 40px 36px;
+    border-radius: 12px;
+  }
+  .credentials-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .credentials-title {
+    font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .credentials-text {
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .credentials-box .cred-block {
+    background: var(--bg);
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    margin-bottom: 12px;
+  }
+  .cred-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+  }
+  .cred-value {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    word-break: break-all;
+  }
+  .credentials-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .credentials-actions button {
+    padding: 12px 18px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+
+  /* ============================================
      DETAIL VIEW
   ============================================ */
   .detail-view {
@@ -1473,6 +1744,7 @@
     </div>
     <div class="topbar-user">
       <span class="user-name" id="userName">—</span>
+      <button class="logout-btn" id="teamBtn" style="display:none;">Equipo</button>
       <button class="logout-btn" id="logoutBtn">Salir</button>
     </div>
   </div>
@@ -1535,6 +1807,51 @@
         <div id="briefsList">
           <div class="empty-state">Cargando briefs...</div>
         </div>
+      </div>
+    </div>
+
+    <!-- ===== TEAM VIEW ===== -->
+    <div class="team-view" id="teamView">
+      <button class="detail-back" id="teamBack">← Volver a la lista</button>
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Equipo <em>interno.</em></h1>
+          <p class="page-subtitle">Gestiona quién tiene acceso al dashboard y con qué permisos.</p>
+        </div>
+      </div>
+
+      <div class="invite-card">
+        <div class="invite-card-title">Invitar nuevo miembro</div>
+        <p class="invite-card-desc">Crea el acceso en este momento. Después comparte el email y password con la persona por whatsapp o slack para que entre.</p>
+
+        <div class="invite-form">
+          <div class="invite-field">
+            <label>Email</label>
+            <input type="email" id="inviteEmail" placeholder="persona@movdi.mx" />
+          </div>
+          <div class="invite-field">
+            <label>Nombre</label>
+            <input type="text" id="inviteName" placeholder="Nombre completo" />
+          </div>
+          <div class="invite-field">
+            <label>Rol</label>
+            <select id="inviteRole">
+              <option value="editor">Editor</option>
+              <option value="admin">Admin</option>
+              <option value="viewer">Viewer</option>
+            </select>
+          </div>
+          <div class="invite-field">
+            <label>Password temporal</label>
+            <input type="text" id="invitePassword" placeholder="Auto-generado" />
+          </div>
+          <button class="invite-submit" id="inviteSubmit">+ Crear acceso</button>
+        </div>
+      </div>
+
+      <div class="team-grid" id="teamGrid">
+        <div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--ink-muted); font-family: 'Fraunces', serif; font-style: italic;">Cargando equipo...</div>
       </div>
     </div>
 
@@ -1616,6 +1933,33 @@
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-spinner"></div>
   <div class="loading-text" id="loadingText">cargando...</div>
+</div>
+
+<!-- CREDENTIALS MODAL (después de crear miembro) -->
+<div class="credentials-overlay" id="credentialsOverlay">
+  <div class="credentials-box">
+    <div class="credentials-icon">✓</div>
+    <h2 class="credentials-title">Acceso creado</h2>
+    <p class="credentials-text">Comparte estas credenciales con la persona de forma segura (whatsapp directo, slack DM). El password puede cambiarlo después desde el login.</p>
+
+    <div class="cred-block">
+      <div class="cred-label">Email</div>
+      <div class="cred-value" id="credEmail">—</div>
+    </div>
+    <div class="cred-block">
+      <div class="cred-label">Password temporal</div>
+      <div class="cred-value" id="credPassword">—</div>
+    </div>
+    <div class="cred-block">
+      <div class="cred-label">URL del dashboard</div>
+      <div class="cred-value" id="credURL">—</div>
+    </div>
+
+    <div class="credentials-actions">
+      <button class="sidebar-btn" id="copyCredentialsBtn" style="background: var(--accent); color: var(--bg); border: none;">↗ Copiar todo</button>
+      <button class="sidebar-btn secondary" id="closeCredentialsBtn" style="background: transparent; border: 1px solid var(--line-strong); color: var(--ink-soft);">Cerrar</button>
+    </div>
+  </div>
 </div>
 
 <!-- CONFIRM DELETE MODAL -->
@@ -1751,6 +2095,7 @@
     document.getElementById('userName').textContent = currentTeamMember.name || currentTeamMember.email;
 
     populateAssignSelect();
+    showTeamBtnIfAdmin();
     await loadFormTypes();
     await loadBriefs();
     await loadCounts();
@@ -2683,6 +3028,222 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && document.getElementById('confirmDeleteOverlay').classList.contains('active')) {
       document.getElementById('confirmDeleteOverlay').classList.remove('active');
+    }
+  });
+
+  // ============================================================
+  // TEAM MANAGEMENT
+  // ============================================================
+  function generatePassword() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+    let pwd = '';
+    for (let i = 0; i < 12; i++) pwd += chars[Math.floor(Math.random() * chars.length)];
+    return pwd;
+  }
+
+  function showTeamBtnIfAdmin() {
+    const btn = document.getElementById('teamBtn');
+    if (currentTeamMember && currentTeamMember.role === 'admin') {
+      btn.style.display = 'inline-block';
+    } else {
+      btn.style.display = 'none';
+    }
+  }
+
+  function openTeamView() {
+    document.getElementById('listView').style.display = 'none';
+    document.getElementById('detailView').classList.remove('active');
+    document.getElementById('teamView').classList.add('active');
+    document.getElementById('invitePassword').value = generatePassword();
+    loadTeamGrid();
+    window.scrollTo(0, 0);
+  }
+
+  function closeTeamView() {
+    document.getElementById('teamView').classList.remove('active');
+    document.getElementById('listView').style.display = 'block';
+  }
+
+  document.getElementById('teamBtn').addEventListener('click', openTeamView);
+  document.getElementById('teamBack').addEventListener('click', closeTeamView);
+
+  async function loadTeamGrid() {
+    const grid = document.getElementById('teamGrid');
+    const { data, error } = await supabaseClient.rpc('list_team_members');
+    if (error) {
+      grid.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--danger); font-family: 'Roboto Mono', monospace; font-size: 12px;">Error: ${escapeHTML(error.message)}</div>`;
+      return;
+    }
+    allTeamMembers = data || [];
+    populateAssignSelect(); // refresh assignee dropdown too
+
+    if (allTeamMembers.length === 0) {
+      grid.innerHTML = '<div style="grid-column: 1/-1; padding: 40px; text-align: center;">Sin miembros.</div>';
+      return;
+    }
+
+    grid.innerHTML = allTeamMembers.map(m => {
+      const initials = (m.name || m.email || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+      const isMe = m.id === currentUser?.id;
+      return `
+        <div class="team-card">
+          <div class="team-card-header">
+            <div class="team-avatar">${escapeHTML(initials)}</div>
+            <div class="team-info">
+              <div class="team-name">${escapeHTML(m.name || '(sin nombre)')}${isMe ? ' <span style="font-size:11px;color:var(--ink-muted);font-weight:400">(tú)</span>' : ''}</div>
+              <div class="team-email">${escapeHTML(m.email)}</div>
+            </div>
+            <span class="team-role-badge ${m.role}">${escapeHTML(m.role)}</span>
+          </div>
+          ${isMe ? '' : `
+          <div class="team-card-actions">
+            <button class="team-action-btn" data-action="role" data-id="${m.id}" data-role="${m.role}">Cambiar rol</button>
+            <button class="team-action-btn danger" data-action="remove" data-id="${m.id}" data-name="${escapeHTML(m.name || m.email)}">Quitar</button>
+          </div>
+          `}
+        </div>
+      `;
+    }).join('');
+
+    grid.querySelectorAll('[data-action="role"]').forEach(btn => {
+      btn.addEventListener('click', () => changeRoleAction(btn.dataset.id, btn.dataset.role));
+    });
+    grid.querySelectorAll('[data-action="remove"]').forEach(btn => {
+      btn.addEventListener('click', () => removeAction(btn.dataset.id, btn.dataset.name));
+    });
+  }
+
+  async function changeRoleAction(memberId, currentRole) {
+    const roles = ['admin', 'editor', 'viewer'];
+    const next = prompt(`Rol actual: ${currentRole}\n\n¿Nuevo rol? (admin / editor / viewer)`, currentRole);
+    if (!next || !roles.includes(next.trim().toLowerCase())) {
+      if (next) alert('Rol inválido');
+      return;
+    }
+    const { error } = await supabaseClient.rpc('update_team_member', {
+      p_user_id: memberId,
+      p_role: next.trim().toLowerCase()
+    });
+    if (error) {
+      alert('Error: ' + error.message);
+      return;
+    }
+    showToast('rol actualizado');
+    loadTeamGrid();
+  }
+
+  async function removeAction(memberId, memberName) {
+    if (!confirm(`¿Quitar a ${memberName} del equipo?\n\nNo podrá entrar al dashboard, pero su usuario de login sigue existiendo.`)) return;
+    const { error } = await supabaseClient.rpc('remove_team_member', { p_user_id: memberId });
+    if (error) {
+      alert('Error: ' + error.message);
+      return;
+    }
+    showToast('miembro removido');
+    loadTeamGrid();
+  }
+
+  // Generar password al cargar el dashboard también
+  document.getElementById('inviteEmail').addEventListener('focus', () => {
+    if (!document.getElementById('invitePassword').value) {
+      document.getElementById('invitePassword').value = generatePassword();
+    }
+  });
+
+  // INVITE: crear usuario en Auth + agregar a team_members
+  document.getElementById('inviteSubmit').addEventListener('click', async () => {
+    const email = document.getElementById('inviteEmail').value.trim().toLowerCase();
+    const name = document.getElementById('inviteName').value.trim();
+    const role = document.getElementById('inviteRole').value;
+    const password = document.getElementById('invitePassword').value.trim();
+
+    if (!email || !name || !password) {
+      alert('Llena email, nombre y password.');
+      return;
+    }
+    if (password.length < 8) {
+      alert('La password debe tener al menos 8 caracteres.');
+      return;
+    }
+
+    const btn = document.getElementById('inviteSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Creando...';
+
+    try {
+      // 1. Crear en auth.users con signUp
+      const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { name },
+          emailRedirectTo: undefined
+        }
+      });
+
+      if (signUpError) throw signUpError;
+      const newUserId = signUpData.user?.id;
+      if (!newUserId) throw new Error('No se obtuvo el ID del nuevo usuario');
+
+      // 2. signUp puede haber cerrado la sesión actual o cambiado el usuario activo
+      // forzamos restaurar la sesión del admin
+      // (en Supabase moderno, signUp puede mantener sesión actual, pero por seguridad re-validamos)
+
+      // 3. Agregar a team_members
+      const { error: addError } = await supabaseClient.rpc('add_team_member', {
+        p_user_id: newUserId,
+        p_email: email,
+        p_name: name,
+        p_role: role,
+        p_notify: true
+      });
+
+      if (addError) {
+        // El signUp ya creó el usuario en Auth; no podemos deshacerlo fácil desde el frontend.
+        // Mostramos error claro al admin para que arregle manualmente si pasa.
+        throw new Error('Usuario creado en Auth pero falló al agregar al equipo: ' + addError.message);
+      }
+
+      // 4. Mostrar credenciales para compartir
+      document.getElementById('credEmail').textContent = email;
+      document.getElementById('credPassword').textContent = password;
+      document.getElementById('credURL').textContent = window.location.origin + window.location.pathname;
+      document.getElementById('credentialsOverlay').classList.add('active');
+
+      // 5. Limpiar form
+      document.getElementById('inviteEmail').value = '';
+      document.getElementById('inviteName').value = '';
+      document.getElementById('inviteRole').value = 'editor';
+      document.getElementById('invitePassword').value = generatePassword();
+
+      // 6. Recargar la lista
+      loadTeamGrid();
+
+    } catch (err) {
+      console.error(err);
+      alert('Error al crear acceso: ' + (err.message || 'desconocido'));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '+ Crear acceso';
+    }
+  });
+
+  document.getElementById('copyCredentialsBtn').addEventListener('click', () => {
+    const email = document.getElementById('credEmail').textContent;
+    const password = document.getElementById('credPassword').textContent;
+    const url = document.getElementById('credURL').textContent;
+    const text = `MOVDI · Acceso al dashboard\n\nEmail: ${email}\nPassword: ${password}\nURL: ${url}\n\nPuedes cambiar tu password desde el login después.`;
+    navigator.clipboard.writeText(text).then(() => showToast('credenciales copiadas'));
+  });
+
+  document.getElementById('closeCredentialsBtn').addEventListener('click', () => {
+    document.getElementById('credentialsOverlay').classList.remove('active');
+  });
+
+  // cerrar credentials modal con Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('credentialsOverlay').classList.contains('active')) {
+      document.getElementById('credentialsOverlay').classList.remove('active');
     }
   });
 
