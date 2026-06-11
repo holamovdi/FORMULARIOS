@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!Doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
+<meta charset="Utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>movdi · client intake</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -193,8 +193,7 @@
     font-weight: 900;
     font-size: 25px;
     letter-spacing: 0;
-    text-transform: uppercase;
-    color: var(--white);
+    color: var(--ink);
     line-height: 1;
   }
 
@@ -293,7 +292,7 @@
     font-weight: 400;
     color: var(--ink);
     transition: all 0.2s ease;
-    border-radius: 0;
+    border-radius: 8px;
     line-height: 1.4;
   }
 
@@ -305,6 +304,7 @@
     color: var(--ink-soft);
     font-weight: 300;
     opacity: 0.7;
+    border-radius: 8px;
   }
 
   input[type="text"]:focus,
@@ -317,6 +317,7 @@
     border-color: var(--white);
     background: var(--input-bg);
     box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
+    border-radius: 8px;
   }
 
   textarea {
@@ -355,6 +356,11 @@
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     color: var(--ink);
+    border-radius: 8px;
+    min-height: 84px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .radio-card .card-title {
@@ -425,7 +431,6 @@
     flex: 1;
     font-family: 'Roboto Mono', monospace !important;
     font-size: 13px !important;
-    text-transform: uppercase;
   }
 
   /* MOOD CARDS · UNIFIED */
@@ -451,13 +456,17 @@
     border: 1px solid var(--line-translucent);
     text-align: center;
     transition: all 0.2s ease;
+    border-radius: 8px;
+    min-height: 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .mood-card .mood-name {
     font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
     font-weight: 900;
     font-size: 17px;
-    text-transform: uppercase;
     letter-spacing: 0;
     color: var(--ink);
     margin-bottom: 6px;
@@ -700,7 +709,6 @@
     font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
     font-weight: 900;
     font-size: clamp(48px, 7vw, 72px);
-    text-transform: uppercase;
     letter-spacing: 0;
     line-height: 0.95;
     margin-bottom: 24px;
@@ -856,7 +864,6 @@
     font-family: 'Agrandir Narrow Black', 'Roboto', sans-serif;
     font-weight: 900;
     font-size: 40px;
-    text-transform: uppercase;
     letter-spacing: 0;
     margin-bottom: 14px;
     line-height: 0.95;
@@ -999,7 +1006,7 @@
 
 <div class="container">
 
-  <!-- HEADER -->
+  <!-- Header -->
   <header class="header">
     <div class="brand">
       <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779810978/logo_fondo_naranja_o2we37.png" alt="movdi" class="brand-logo" />
@@ -1012,7 +1019,7 @@
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- Hero -->
   <div class="hero">
     <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779811131/FraseFormulario_dlnzvw.png" alt="Cuéntanos sobre tu marca" class="hero-title-img" />
     <p>Este formulario nos ayuda a construir tu página web exactamente como la imaginas. Tómate tu tiempo. Entre más detalle compartas, más personalizada será la propuesta.</p>
@@ -1020,7 +1027,7 @@
 
   <form id="intakeForm">
 
-    <!-- SECTION 1: EMPRESA -->
+    <!-- Section 1: Empresa -->
     <section class="section">
       <div class="section-header">
         <span class="section-number">01</span>
@@ -1073,7 +1080,7 @@
       </div>
     </section>
 
-    <!-- SECTION 2: BRANDING -->
+    <!-- Section 2: Branding -->
     <section class="section">
       <div class="section-header">
         <span class="section-number">02</span>
@@ -1116,14 +1123,9 @@
       </div>
 
       <div class="field">
-        <label>Sube tu logo <span class="optional">(si lo tienes)</span></label>
-        <div class="hint">Formatos preferidos: SVG, PNG con fondo transparente. Si tienes versiones en color y monocromo, súbelos todos.</div>
-        <label class="file-upload" id="logoUploadLabel">
-          <input type="file" name="logo" id="logoFile" accept="image/*,.svg,.pdf,.ai" multiple />
-          <span class="file-upload-icon">↑</span>
-          <span class="file-upload-text">Arrastra o haz clic para subir</span>
-          <span class="file-upload-hint">SVG, PNG, PDF, AI · múltiples archivos ok</span>
-        </label>
+        <label>Link de carpeta de Drive con logo y assets de marca <span class="optional">(si lo tienes)</span></label>
+        <div class="hint">Pega aquí el link de la carpeta de Google Drive con tu logo (preferido Svg, Png con fondo transparente). Asegúrate de que sea accesible para nuestro equipo.</div>
+        <input type="url" name="logo_drive" id="logoDrive" placeholder="https://drive.google.com/..." pattern="https?://.*" />
       </div>
 
       <div class="field">
@@ -1155,7 +1157,7 @@
             <label>Fondo</label>
             <div class="color-input-wrap">
               <input type="color" name="color_bg" value="#ffffff" />
-              <input type="text" class="color-hex" name="color_bg_hex" value="#FFFFFF" />
+              <input type="text" class="color-hex" name="color_bg_hex" value="#Ffffff" />
             </div>
           </div>
         </div>
@@ -1237,7 +1239,7 @@
       </div>
     </section>
 
-    <!-- SECTION 3: MENSAJE Y CONTENIDO -->
+    <!-- Section 3: Mensaje Y Contenido -->
     <section class="section">
       <div class="section-header">
         <span class="section-number">03</span>
@@ -1395,7 +1397,7 @@
       </div>
     </section>
 
-    <!-- SECTION 4: ACTIVOS -->
+    <!-- Section 4: Activos -->
     <section class="section">
       <div class="section-header">
         <span class="section-number">04</span>
@@ -1417,7 +1419,7 @@
           <label class="radio-card">
             <input type="radio" name="logo_editable" value="solo_png" />
             <div class="card-inner">
-              <div class="card-title">Solo PNG/JPG</div>
+              <div class="card-title">Solo Png/Jpg</div>
               <div class="card-desc">Tengo el logo pero no editable</div>
             </div>
           </label>
@@ -1542,18 +1544,13 @@
       </div>
 
       <div class="field">
-        <label>Sube los archivos que ya tengas <span class="optional">(opcional)</span></label>
-        <div class="hint">Fotos, textos en PDF/Word, archivos editables del logo, manual de marca, lo que sea. Después podemos compartir un drive si son muchos.</div>
-        <label class="file-upload" id="assetsUploadLabel">
-          <input type="file" name="assets" id="assetsFile" multiple />
-          <span class="file-upload-icon">↑</span>
-          <span class="file-upload-text">Arrastra o haz clic para subir</span>
-          <span class="file-upload-hint">Cualquier formato · múltiples archivos ok</span>
-        </label>
+        <label>Link de carpeta de Drive con assets adicionales <span class="optional">(opcional)</span></label>
+        <div class="hint">Pega aquí el link de la carpeta de Google Drive con fotos, textos, manual de marca, materiales de inspiración o cualquier archivo que sume al brief. Asegúrate de que la carpeta sea accesible para nuestro equipo.</div>
+        <input type="url" name="assets_drive" id="assetsDrive" placeholder="https://drive.google.com/..." pattern="https?://.*" />
       </div>
     </section>
 
-    <!-- SECTION 5: REFERENCIAS -->
+    <!-- Section 5: Referencias -->
     <section class="section">
       <div class="section-header">
         <span class="section-number">05</span>
@@ -1590,7 +1587,7 @@
       </div>
     </section>
 
-    <!-- SECTION 6: TÉCNICO -->
+    <!-- Section 6: Técnico -->
     <section class="section">
       <div class="section-header">
         <span class="section-number">06</span>
@@ -1742,7 +1739,7 @@
   </form>
 </div>
 
-<!-- SUBMIT AREA · DARK EDITORIAL SECTION -->
+<!-- Submit Area · Dark Editorial Section -->
 <div class="submit-area-wrap">
   <div class="submit-area">
     <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779810977/LOGO_ISO_tdmgn6.png" alt="movdi iso" class="submit-iso" />
@@ -1753,7 +1750,7 @@
       <div class="submit-buttons">
         <button type="button" class="btn-primary" id="submitBrief">→ Enviar a Movdi</button>
         <button type="button" class="btn-secondary" id="saveBrief">↗ Guardar progreso</button>
-        <button type="button" class="btn-secondary" id="downloadJsonBtn">↓ Descargar copia (JSON)</button>
+        <button type="button" class="btn-secondary" id="downloadJsonBtn">↓ Descargar copia (Json)</button>
       </div>
     </div>
   </div>
@@ -1762,13 +1759,13 @@
   </footer>
 </div>
 
-<!-- LOADING OVERLAY -->
+<!-- Loading Overlay -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-spinner"></div>
   <div class="loading-text" id="loadingText">guardando...</div>
 </div>
 
-<!-- MODAL: GUARDADO -->
+<!-- Modal: Guardado -->
 <div class="modal-overlay" id="savedModal">
   <div class="modal">
     <div class="modal-icon">↗</div>
@@ -1785,7 +1782,7 @@
   </div>
 </div>
 
-<!-- MODAL: ENVIADO -->
+<!-- Modal: Enviado -->
 <div class="modal-overlay" id="submittedModal">
   <div class="modal">
     <div class="modal-icon">✓</div>
@@ -1901,10 +1898,7 @@
     data.branding.mood = formData.get('mood') || '';
     data.branding.tipografias = formData.get('typography') || '';
     data.branding.adjetivos = formData.get('brand_adjectives') || '';
-    const logoFile = document.getElementById('logoFile');
-    if (logoFile.files.length > 0) {
-      data.branding.logos = Array.from(logoFile.files).map(f => ({ name: f.name, size: f.size, type: f.type }));
-    }
+    data.branding.logo_drive = formData.get('logo_drive') || '';
 
     data.mensaje.primera_impresion = formData.get('first_impression') || '';
     data.mensaje.mensaje_central = formData.get('core_message') || '';
@@ -1932,10 +1926,7 @@
     data.activos.tiene_fotos = formData.get('has_photos') || '';
     data.activos.apoyo_visual = formData.get('needs_visual_support') || '';
     data.activos.tiene_textos = formData.get('has_copy') || '';
-    const assetsFile = document.getElementById('assetsFile');
-    if (assetsFile && assetsFile.files.length > 0) {
-      data.activos.archivos = Array.from(assetsFile.files).map(f => ({ name: f.name, size: f.size, type: f.type }));
-    }
+    data.activos.assets_drive = formData.get('assets_drive') || '';
 
     for (let i = 1; i <= refCount; i++) {
       const url = formData.get(`ref_url_${i}`);
@@ -2137,60 +2128,6 @@
     }
   }
 
-  async function uploadFiles(briefId) {
-    const uploads = [];
-
-    const logoFile = document.getElementById('logoFile');
-    if (logoFile && logoFile.files.length > 0) {
-      for (const file of logoFile.files) {
-        const path = `${briefId}/logo/${Date.now()}-${file.name}`;
-        const { error } = await supabaseClient.storage
-          .from('brief-files')
-          .upload(path, file, { upsert: false });
-        if (!error) {
-          uploads.push({
-            brief_id: briefId,
-            category: 'logo',
-            file_name: file.name,
-            storage_path: path,
-            mime_type: file.type,
-            size_bytes: file.size
-          });
-        }
-      }
-    }
-
-    const assetsFile = document.getElementById('assetsFile');
-    if (assetsFile && assetsFile.files.length > 0) {
-      for (const file of assetsFile.files) {
-        const path = `${briefId}/assets/${Date.now()}-${file.name}`;
-        const { error } = await supabaseClient.storage
-          .from('brief-files')
-          .upload(path, file, { upsert: false });
-        if (!error) {
-          uploads.push({
-            brief_id: briefId,
-            category: 'assets',
-            file_name: file.name,
-            storage_path: path,
-            mime_type: file.type,
-            size_bytes: file.size
-          });
-        }
-      }
-    }
-
-    if (uploads.length > 0) {
-      const { error: filesError } = await supabaseClient.from('brief_files').insert(uploads);
-      if (filesError) {
-        // los archivos ya están en storage, solo no se registraron en la tabla
-        console.warn('archivos subidos pero no registrados en brief_files:', filesError.message);
-      }
-    }
-
-    return uploads.length;
-  }
-
   async function saveBrief(submitted = false) {
     const data = collectFormData();
 
@@ -2237,8 +2174,6 @@
           if (submitError) throw submitError;
         }
       }
-
-      await uploadFiles(briefId);
 
       if (submitted) isSubmitted = true;
 
