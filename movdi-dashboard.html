@@ -2517,42 +2517,90 @@
     let body = '';
 
     if (formType === 'digital_07_roster_web') {
-      const cambios = (d.cambios || []).length
-        ? `<div class="changes-detail">${d.cambios.map((c, i) => `
-            <div class="change-row">
-              <span class="change-num">${String(i+1).padStart(2,'0')}</span>
-              <div class="change-text">${escapeHTML(c)}</div>
-            </div>`).join('')}</div>`
-        : empty;
+      const tipo = d.tipo_actualizacion || '';
 
-      body =
-        sec('03', 'Tipo de actualización',
-          f('Tipos', tags((d.tipos_actualizacion || []).map(t => ({
-            agregar_talento: 'Agregar talento',
-            editar_talento: 'Editar talento',
-            eliminar_talento: 'Eliminar talento',
-            actualizacion_web: 'Actualización web'
-          })[t] || t)))
-        ) +
-        sec('04', 'Sobre el talento',
-          f('Nombre', val(d.talento?.nombre)) +
-          f('Usuario', val(d.talento?.usuario)) +
-          f('Nicho', val(d.talento?.nicho)) +
-          f('Estado', val(d.talento?.estado === 'nuevo' ? 'Nuevo' : (d.talento?.estado === 'existente' ? 'Actualización' : null))) +
-          (d.talento?.foto ? f('Foto', `<a href="${escapeHTML(d.talento.foto)}" target="_blank" rel="noopener">${escapeHTML(d.talento.foto)}</a>`) : '')
-        ) +
-        sec('05', 'Cambios específicos',
-          `<div class="detail-field"><div class="detail-label">Lista de cambios</div>${cambios}</div>` +
-          (d.web?.seccion || d.web?.foto || d.web?.texto ? `
-            <div class="detail-field"><div class="detail-label">Web</div>
-              <div class="detail-value">
-                ${d.web?.seccion ? `<div><strong>Sección:</strong> ${escapeHTML(d.web.seccion)}</div>` : ''}
-                ${d.web?.texto ? `<div style="margin-top: 8px"><strong>Texto:</strong><br>${escapeHTML(d.web.texto)}</div>` : ''}
-                ${d.web?.foto ? `<div style="margin-top: 8px"><strong>Foto:</strong> <a href="${escapeHTML(d.web.foto)}" target="_blank">${escapeHTML(d.web.foto)}</a></div>` : ''}
+      if (tipo === 'roster') {
+        const cambios = (d.cambios || []).length
+          ? `<div class="changes-detail">${d.cambios.map((c, i) => `
+              <div class="change-row">
+                <span class="change-num">${String(i+1).padStart(2,'0')}</span>
+                <div class="change-text">${escapeHTML(c)}</div>
+              </div>`).join('')}</div>`
+          : empty;
+
+        body =
+          sec('03', 'Tipo de actualización',
+            f('Tipo', val('Actualización de roster'))
+          ) +
+          sec('04', 'Acciones sobre el roster',
+            f('Acciones', tags((d.acciones_roster || []).map(t => ({
+              agregar_talento: 'Agregar talento',
+              editar_talento: 'Editar talento',
+              eliminar_talento: 'Eliminar talento'
+            })[t] || t)))
+          ) +
+          sec('05', 'Sobre el talento',
+            f('Nombre', val(d.talento?.nombre)) +
+            f('Usuario', val(d.talento?.usuario)) +
+            f('Nicho', val(d.talento?.nicho)) +
+            f('Estado', val(d.talento?.estado === 'nuevo' ? 'Nuevo' : (d.talento?.estado === 'existente' ? 'Actualización' : null))) +
+            (d.talento?.drive ? f('Carpeta de Drive', `<a href="${escapeHTML(d.talento.drive)}" target="_blank" rel="noopener">${escapeHTML(d.talento.drive)}</a>`) : '')
+          ) +
+          sec('06', 'Cambios específicos',
+            `<div class="detail-field"><div class="detail-label">Lista de cambios</div>${cambios}</div>`
+          );
+      } else if (tipo === 'web') {
+        body =
+          sec('03', 'Tipo de actualización',
+            f('Tipo', val('Actualización del sitio web'))
+          ) +
+          sec('04', 'Sección del sitio',
+            f('Sección', val(d.web?.seccion === 'otra' ? `Otra: ${d.web?.seccion_otra || '—'}` : d.web?.seccion))
+          ) +
+          sec('05', 'Cambios en el sitio',
+            f('Descripción del cambio', valPre(d.web?.descripcion)) +
+            f('Texto nuevo', valPre(d.web?.texto)) +
+            (d.web?.drive ? f('Carpeta de Drive', `<a href="${escapeHTML(d.web.drive)}" target="_blank" rel="noopener">${escapeHTML(d.web.drive)}</a>`) : '')
+          );
+      } else {
+        // brief antiguo (estructura v1) — fallback para no romper compatibilidad
+        const cambios = (d.cambios || []).length
+          ? `<div class="changes-detail">${d.cambios.map((c, i) => `
+              <div class="change-row">
+                <span class="change-num">${String(i+1).padStart(2,'0')}</span>
+                <div class="change-text">${escapeHTML(c)}</div>
+              </div>`).join('')}</div>`
+          : empty;
+
+        body =
+          sec('03', 'Tipo de actualización (formato antiguo)',
+            f('Tipos', tags((d.tipos_actualizacion || []).map(t => ({
+              agregar_talento: 'Agregar talento',
+              editar_talento: 'Editar talento',
+              eliminar_talento: 'Eliminar talento',
+              actualizacion_web: 'Actualización web'
+            })[t] || t)))
+          ) +
+          sec('04', 'Sobre el talento',
+            f('Nombre', val(d.talento?.nombre)) +
+            f('Usuario', val(d.talento?.usuario)) +
+            f('Nicho', val(d.talento?.nicho)) +
+            f('Estado', val(d.talento?.estado === 'nuevo' ? 'Nuevo' : (d.talento?.estado === 'existente' ? 'Actualización' : null))) +
+            (d.talento?.foto ? f('Foto', `<a href="${escapeHTML(d.talento.foto)}" target="_blank" rel="noopener">${escapeHTML(d.talento.foto)}</a>`) : '')
+          ) +
+          sec('05', 'Cambios específicos',
+            `<div class="detail-field"><div class="detail-label">Lista de cambios</div>${cambios}</div>` +
+            (d.web?.seccion || d.web?.foto || d.web?.texto ? `
+              <div class="detail-field"><div class="detail-label">Web</div>
+                <div class="detail-value">
+                  ${d.web?.seccion ? `<div><strong>Sección:</strong> ${escapeHTML(d.web.seccion)}</div>` : ''}
+                  ${d.web?.texto ? `<div style="margin-top: 8px"><strong>Texto:</strong><br>${escapeHTML(d.web.texto)}</div>` : ''}
+                  ${d.web?.foto ? `<div style="margin-top: 8px"><strong>Foto:</strong> <a href="${escapeHTML(d.web.foto)}" target="_blank">${escapeHTML(d.web.foto)}</a></div>` : ''}
+                </div>
               </div>
-            </div>
-          ` : '')
-        );
+            ` : '')
+          );
+      }
     }
     else if (formType === 'digital_01_pitch') {
       body =
@@ -2788,6 +2836,7 @@
         <div class="detail-field"><div class="detail-label">Mood</div><div class="detail-value">${v(d.branding?.mood)}</div></div>
         <div class="detail-field"><div class="detail-label">Tipografías</div><div class="detail-value">${v(d.branding?.tipografias)}</div></div>
         <div class="detail-field"><div class="detail-label">Adjetivos</div><div class="detail-value">${v(d.branding?.adjetivos)}</div></div>
+        ${d.branding?.logo_drive ? `<div class="detail-field"><div class="detail-label">Carpeta de Drive (logo y assets de marca)</div><div class="detail-value"><a href="${escapeHTML(d.branding.logo_drive)}" target="_blank" rel="noopener">${escapeHTML(d.branding.logo_drive)}</a></div></div>` : ''}
         <div class="detail-field">
           <div class="detail-label">Paleta</div>
           <div class="color-palette">
@@ -2825,6 +2874,7 @@
         <div class="detail-field"><div class="detail-label">Tiene fotos</div><div class="detail-value">${v(d.activos?.tiene_fotos)}</div></div>
         <div class="detail-field"><div class="detail-label">Apoyo visual</div><div class="detail-value">${v(d.activos?.apoyo_visual)}</div></div>
         <div class="detail-field"><div class="detail-label">Tiene textos</div><div class="detail-value">${v(d.activos?.tiene_textos)}</div></div>
+        ${d.activos?.assets_drive ? `<div class="detail-field"><div class="detail-label">Carpeta de Drive (assets adicionales)</div><div class="detail-value"><a href="${escapeHTML(d.activos.assets_drive)}" target="_blank" rel="noopener">${escapeHTML(d.activos.assets_drive)}</a></div></div>` : ''}
       </section>
 
       <section>
