@@ -193,6 +193,7 @@
     font-weight: 900;
     font-size: 25px;
     letter-spacing: 0;
+    text-transform: uppercase;
     color: var(--ink);
     line-height: 1;
   }
@@ -424,7 +425,7 @@
     border: 1px solid var(--line-translucent);
     background: var(--input-bg);
     cursor: pointer;
-    border-radius: 0;
+    border-radius: 8px;
   }
 
   .color-hex {
@@ -457,10 +458,12 @@
     text-align: center;
     transition: all 0.2s ease;
     border-radius: 8px;
-    min-height: 88px;
+    min-height: 100px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 
   .mood-card .mood-name {
@@ -468,6 +471,7 @@
     font-weight: 900;
     font-size: 17px;
     letter-spacing: 0;
+    text-transform: uppercase;
     color: var(--ink);
     margin-bottom: 6px;
     line-height: 1;
@@ -575,6 +579,8 @@
     font-size: 14px;
     color: var(--ink);
     font-weight: 400;
+    border-radius: 8px;
+    min-height: 56px;
   }
 
   .checkbox-item:hover {
@@ -602,6 +608,7 @@
     padding: 18px;
     background: var(--input-bg);
     border: 1px solid var(--line-translucent);
+    border-radius: 8px;
   }
 
   @media (max-width: 600px) {
@@ -647,6 +654,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     margin-top: 10px;
+    border-radius: 8px;
   }
 
   .add-btn:hover {
@@ -710,6 +718,7 @@
     font-weight: 900;
     font-size: clamp(48px, 7vw, 72px);
     letter-spacing: 0;
+    text-transform: uppercase;
     line-height: 0.95;
     margin-bottom: 24px;
     color: var(--white);
@@ -754,6 +763,7 @@
     font-weight: 400;
     background: transparent;
     color: var(--white);
+    border-radius: 8px;
   }
 
   .btn-primary {
@@ -805,6 +815,7 @@
     text-transform: lowercase;
     transition: transform 0.3s ease;
     z-index: 1100;
+    border-radius: 999px;
   }
 
   .toast.show {
@@ -840,6 +851,7 @@
     padding: 52px 44px;
     position: relative;
     animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 16px;
   }
 
   @keyframes scaleUp {
@@ -865,6 +877,7 @@
     font-weight: 900;
     font-size: 40px;
     letter-spacing: 0;
+    text-transform: uppercase;
     margin-bottom: 14px;
     line-height: 0.95;
     color: var(--white);
@@ -928,6 +941,7 @@
     color: var(--white);
     transition: all 0.2s ease;
     font-weight: 400;
+    border-radius: 8px;
   }
 
   .modal-btn:hover {
@@ -993,6 +1007,7 @@
     letter-spacing: 0.1em;
     text-transform: lowercase;
     font-weight: 500;
+    border-radius: 999px;
   }
 
   .status-badge.submitted {
@@ -1085,7 +1100,7 @@
       <div class="section-header">
         <span class="section-number">02</span>
         <h2 class="section-title">Identidad visual</h2>
-        <span class="section-desc">Cómo se ve y se siente tu marca</span>
+        <span class="section-desc">¿Cómo se ve y se siente tu marca?</span>
       </div>
 
       <div class="field">
@@ -1244,7 +1259,7 @@
       <div class="section-header">
         <span class="section-number">03</span>
         <h2 class="section-title">Mensaje y contenido</h2>
-        <span class="section-desc">Qué quieres comunicar y cómo</span>
+        <span class="section-desc">¿Qué quieres comunicar y cómo?</span>
       </div>
 
       <div class="field">
@@ -1402,7 +1417,7 @@
       <div class="section-header">
         <span class="section-number">04</span>
         <h2 class="section-title">Activos y producción</h2>
-        <span class="section-desc">Qué materiales tienes y cuáles necesitas</span>
+        <span class="section-desc">¿Qué materiales tienes y cuáles necesitas?</span>
       </div>
 
       <div class="field">
