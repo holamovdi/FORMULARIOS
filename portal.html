@@ -590,6 +590,10 @@
       </div>
       <button type="submit" class="login-btn" id="loginBtn">→ Entrar</button>
       <div class="login-error" id="loginError"></div>
+      <div class="login-error" id="loginInfo" style="display:none; background: rgba(21,128,61,0.15); border: 1px solid rgba(21,128,61,0.4); color: #14532d;"></div>
+      <div style="text-align: center; margin-top: 18px;">
+        <a href="#" id="forgotPasswordLink" style="font-family: 'Roboto Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--line);">¿Olvidaste tu contraseña?</a>
+      </div>
     </form>
   </div>
 </div>
@@ -739,6 +743,37 @@
       return;
     }
     await onLoginSuccess(data.user);
+  });
+
+  // ============================================================
+  // RECUPERACIÓN DE CONTRASEÑA
+  // ============================================================
+  document.getElementById('forgotPasswordLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const errEl = document.getElementById('loginError');
+    const infoEl = document.getElementById('loginInfo');
+    errEl.classList.remove('show');
+    infoEl.style.display = 'none';
+
+    if (!email) {
+      showLoginError('Escribe tu email arriba y luego da clic en "¿Olvidaste tu contraseña?"');
+      return;
+    }
+
+    const redirectURL = window.location.origin + '/reset-password.html';
+
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectURL
+    });
+
+    if (error) {
+      showLoginError(error.message || 'No se pudo enviar el email.');
+      return;
+    }
+
+    infoEl.textContent = '✓ Si tu email está registrado, recibirás un correo con el link para restablecer tu contraseña en los próximos minutos.';
+    infoEl.style.display = 'block';
   });
 
   document.getElementById('logoutBtn').addEventListener('click', async () => {
