@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>movdi · brief 01 · pitch deck</title>
+<title>movdi · brief 02 · rrss talento</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&family=Roboto+Mono:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -111,7 +111,7 @@
 <div class="auth-required" id="authRequired" style="display: none;">
   <div class="auth-box">
     <h2>Acceso restringido</h2>
-    <p>Este brief es interno. Necesitas iniciar sesión con tu correo de movdi.</p>
+    <p>Este brief es interno. Necesitas iniciar sesión.</p>
     <a href="portal.html">→ Ir al portal</a>
   </div>
 </div>
@@ -121,228 +121,140 @@
 <div class="topbar">
   <div class="topbar-brand">
     <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779810977/LOGO_ISO_tdmgn6.png" alt="movdi" class="topbar-iso" />
-    <div class="topbar-title"><em>movdi</em> · brief 01</div>
+    <div class="topbar-title"><em>movdi</em> · brief 02</div>
   </div>
   <a href="portal.html" class="back-link">← Portal</a>
 </div>
 
 <div class="container">
-
   <div class="hero">
-    <div class="hero-meta">01 · Brief interno</div>
-    <h1 class="hero-title">Pitch <em>deck.</em></h1>
-    <p class="hero-desc">Para solicitar pitches y press completas. Si tienes el contenido listo, va directo a Dean. Si necesitas estructurarlo primero, va a Mariana.</p>
-    <div class="info-pill" id="slaPill">📊 SLA estándar 5 días hábiles</div>
+    <div class="hero-meta">02 · Brief interno</div>
+    <h1 class="hero-title">Pieza RRSS <em>de talento.</em></h1>
+    <p class="hero-desc">Para piezas que se publican en cuentas de talentos o de movdi referenciando a un talento. Si el copy ya está listo, va a Dean. Si necesitas estructurarlo, va a Mariana.</p>
+    <div class="info-pill" id="slaPill">📱 SLA estándar 48 horas</div>
   </div>
 
   <form id="briefForm">
 
     <section class="section">
-      <div class="section-header">
-        <span class="section-number">01</span>
-        <h2 class="section-title">Información básica</h2>
-        <span class="section-desc">Quién pide y desde dónde</span>
-      </div>
+      <div class="section-header"><span class="section-number">01</span><h2 class="section-title">Información básica</h2><span class="section-desc">Quién pide</span></div>
       <div class="field-row">
-        <div class="field">
-          <label>Solicitante <span class="required">*</span></label>
-          <input type="text" name="solicitante_nombre" id="solicitante_nombre" required placeholder="Tu nombre completo" />
-        </div>
-        <div class="field">
-          <label>Rol</label>
-          <input type="text" name="solicitante_rol" placeholder="Personal manager / ejecutivo" />
-        </div>
-      </div>
-      <div class="field">
-        <label>¿Este pitch fue pedido por el cliente o es proactivo de movdi?</label>
-        <div class="radio-group">
-          <label class="radio-card">
-            <input type="radio" name="pedido_por" value="cliente" />
-            <div class="card-inner"><div class="card-title">Pedido por cliente</div><div class="card-desc">El cliente lo solicitó explícitamente</div></div>
-          </label>
-          <label class="radio-card">
-            <input type="radio" name="pedido_por" value="proactivo" />
-            <div class="card-inner"><div class="card-title">Proactivo de movdi</div><div class="card-desc">Iniciativa nuestra</div></div>
-          </label>
-        </div>
+        <div class="field"><label>Solicitante <span class="required">*</span></label><input type="text" name="solicitante_nombre" id="solicitante_nombre" required placeholder="Tu nombre completo" /></div>
+        <div class="field"><label>Rol</label><input type="text" name="solicitante_rol" placeholder="Personal manager / ejecutivo" /></div>
       </div>
     </section>
 
     <section class="section">
-      <div class="section-header">
-        <span class="section-number">02</span>
-        <h2 class="section-title">Escenario</h2>
-        <span class="section-desc">Define a quién va</span>
-      </div>
+      <div class="section-header"><span class="section-number">02</span><h2 class="section-title">Escenario</h2><span class="section-desc">Define a quién va</span></div>
       <div class="field">
         <label>Selecciona el escenario <span class="required">*</span></label>
         <div class="radio-group">
-          <label class="radio-card">
-            <input type="radio" name="escenario" value="A" required />
-            <div class="card-inner"><div class="card-title">A · Solo diseño</div><div class="card-desc">Ya tengo contenido y estructura resueltos · va a Dean</div></div>
-          </label>
-          <label class="radio-card">
-            <input type="radio" name="escenario" value="B" required />
-            <div class="card-inner"><div class="card-title">B · Idea + diseño</div><div class="card-desc">Necesito estructurar primero · va a Mariana y luego a Dean</div></div>
-          </label>
+          <label class="radio-card"><input type="radio" name="escenario" value="A" required /><div class="card-inner"><div class="card-title">A · Solo diseño</div><div class="card-desc">Tengo copy y estructura listos · va a Dean</div></div></label>
+          <label class="radio-card"><input type="radio" name="escenario" value="B" required /><div class="card-inner"><div class="card-title">B · Idea + diseño</div><div class="card-desc">Necesito estructurar primero · va a Mariana y luego a Dean</div></div></label>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="section-header">
-        <span class="section-number">03</span>
-        <h2 class="section-title">Sobre el cliente</h2>
-        <span class="section-desc">A quién le vamos a presentar</span>
+      <div class="section-header"><span class="section-number">03</span><h2 class="section-title">Sobre el talento</h2><span class="section-desc">Quién protagoniza</span></div>
+      <div class="field-row">
+        <div class="field"><label>Talento <span class="required">*</span></label><input type="text" name="talento_nombre" required placeholder="Nombre del talento" /></div>
+        <div class="field"><label>Link de redes <span class="required">*</span></label><input type="url" name="talento_link" required placeholder="instagram / tiktok / plataforma" /></div>
       </div>
+      <div class="field">
+        <label>¿La pieza se publica en cuenta de talento o de movdi? <span class="required">*</span></label>
+        <div class="radio-group">
+          <label class="radio-card"><input type="radio" name="publica_en" value="talento" required /><div class="card-inner"><div class="card-title">Cuenta de talento</div></div></label>
+          <label class="radio-card"><input type="radio" name="publica_en" value="movdi" required /><div class="card-inner"><div class="card-title">Cuenta de movdi</div></div></label>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header"><span class="section-number">04</span><h2 class="section-title">Sobre la pieza</h2><span class="section-desc">El qué</span></div>
+      <div class="field"><label>Objetivo <span class="required">*</span></label><textarea name="pieza_objetivo" required></textarea></div>
       <div class="field-row">
         <div class="field">
-          <label>Cliente / marca <span class="required">*</span></label>
-          <input type="text" name="cliente_nombre" required placeholder="Ej. Telcel" />
+          <label>Plataforma <span class="required">*</span></label>
+          <select name="pieza_plataforma" required>
+            <option value="">— Seleccionar —</option>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="otra">Otra</option>
+          </select>
         </div>
         <div class="field">
-          <label>Industria / categoría <span class="required">*</span></label>
-          <input type="text" name="cliente_industria" required placeholder="Ej. Telecomunicaciones" />
+          <label>Formato <span class="required">*</span></label>
+          <select name="pieza_formato" required>
+            <option value="">— Seleccionar —</option>
+            <option value="carrusel">Carrusel</option>
+            <option value="post_estatico">Post estático</option>
+            <option value="story">Story</option>
+            <option value="otro">Otro</option>
+          </select>
         </div>
       </div>
       <div class="field">
-        <label>Relación actual con movdi <span class="required">*</span></label>
-        <input type="text" name="cliente_relacion" required placeholder="Ej. Cliente recurrente, primer contacto, cliente histórico..." />
-      </div>
-      <div class="field">
-        <label>Contexto del cliente <span class="required">*</span></label>
-        <div class="hint">Qué está pasando con ellos, qué nos pidieron, qué necesitan entender.</div>
-        <textarea name="cliente_contexto" required></textarea>
+        <label>¿Es parte de una campaña pagada con marca?</label>
+        <div class="radio-group">
+          <label class="radio-card"><input type="radio" name="es_campana" value="si" /><div class="card-inner"><div class="card-title">Sí</div></div></label>
+          <label class="radio-card"><input type="radio" name="es_campana" value="no" /><div class="card-inner"><div class="card-title">No</div></div></label>
+        </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="section-header">
-        <span class="section-number">04</span>
-        <h2 class="section-title">Sobre el pitch</h2>
-        <span class="section-desc">El qué y para qué</span>
-      </div>
+      <div class="section-header"><span class="section-number">05</span><h2 class="section-title">Contenido</h2><span class="section-desc">Qué dice y por qué</span></div>
+      <div class="field"><label>Nombre del acontecimiento o tipo de contenido <span class="required">*</span></label><input type="text" name="contenido_acontecimiento" required placeholder="Ej. Anuncio de gira, post de logro..." /></div>
+      <div class="field"><label>Fechas, horario y lugar relevantes <span class="optional">(si aplica)</span></label><textarea name="contenido_fechas"></textarea></div>
       <div class="field">
-        <label>Objetivo del pitch <span class="required">*</span></label>
-        <textarea name="pitch_objetivo" required placeholder="Qué queremos que pase después de esta presentación..."></textarea>
+        <label>¿El copy debe ser aprobado por el talento? <span class="required">*</span></label>
+        <div class="radio-group">
+          <label class="radio-card"><input type="radio" name="copy_aprobado" value="si" required /><div class="card-inner"><div class="card-title">Sí</div><div class="card-desc">Esperar aprobación</div></div></label>
+          <label class="radio-card"><input type="radio" name="copy_aprobado" value="no" required /><div class="card-inner"><div class="card-title">No</div><div class="card-desc">Ya autorizado por movdi</div></div></label>
+        </div>
       </div>
-      <div class="field">
-        <label>Audiencia que va a ver el pitch <span class="required">*</span></label>
-        <input type="text" name="pitch_audiencia" required placeholder="Ej. CMO, equipo de marketing, dirección general..." />
-      </div>
-      <div class="field">
-        <label>¿Qué propuesta concreta vamos a hacer? <span class="required">*</span></label>
-        <textarea name="pitch_propuesta" required></textarea>
-      </div>
+      <div class="field"><label>Idea, copy o link de doc <span class="required">*</span></label><textarea name="contenido_copy" required></textarea></div>
     </section>
 
     <section class="section">
-      <div class="section-header">
-        <span class="section-number">05</span>
-        <h2 class="section-title">Info para construir el contenido</h2>
-        <span class="section-desc">Llena solo si escenario A</span>
-      </div>
+      <div class="section-header"><span class="section-number">06</span><h2 class="section-title">Referencias y assets</h2><span class="section-desc">Para que Dean ejecute</span></div>
       <div class="field">
-        <label>Info a incluir en el deck</label>
-        <div class="hint">Puedes escribirla aquí o pegar el link de un documento aprobado por Marianis o Dani.</div>
-        <textarea name="contenido_info"></textarea>
-      </div>
-      <div class="field">
-        <label>Cases o ejemplos a incluir</label>
-        <textarea name="contenido_cases" placeholder="Casos pasados de éxito, ejemplos, datos..."></textarea>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <span class="section-number">06</span>
-        <h2 class="section-title">Referencias y assets</h2>
-        <span class="section-desc">Para que Dean ejecute</span>
-      </div>
-      <div class="field">
-        <label>Referencias visuales <span class="required">*</span></label>
-        <div class="hint">Links a sitios, decks, piezas que te inspiren.</div>
+        <label>Referencias visuales</label>
         <div class="ref-list" id="refList">
           <div class="ref-item"><span class="ref-num">01</span><input type="url" name="ref_1" placeholder="https://..." /></div>
           <div class="ref-item"><span class="ref-num">02</span><input type="url" name="ref_2" placeholder="https://..." /></div>
         </div>
         <button type="button" class="add-btn" id="addRefBtn">+ Agregar referencia</button>
       </div>
-      <div class="field">
-        <label>Link de carpeta de elementos gráficos <span class="optional">(opcional pero recomendado)</span></label>
-        <div class="hint">Logos, fotos, paleta de colores, ilustraciones. Drive o Dropbox.</div>
-        <input type="url" name="assets_link" placeholder="https://drive.google.com/..." />
-      </div>
-      <div class="field">
-        <label>Link de presentación existente <span class="optional">(si es rediseño)</span></label>
-        <input type="url" name="rediseno_link" placeholder="https://..." />
-      </div>
+      <div class="field"><label>Assets gráficos disponibles <span class="optional">(link a carpeta)</span></label><input type="url" name="assets_link" placeholder="https://drive.google.com/..." /></div>
+      <div class="field"><label>¿Foto/video específico ya tomado? <span class="optional">(link si aplica)</span></label><input type="url" name="foto_especifica" placeholder="https://..." /></div>
     </section>
 
     <section class="section">
-      <div class="section-header">
-        <span class="section-number">07</span>
-        <h2 class="section-title">Logística</h2>
-        <span class="section-desc">Cuándo lo necesitas</span>
-      </div>
+      <div class="section-header"><span class="section-number">07</span><h2 class="section-title">Logística</h2><span class="section-desc">Cuándo lo necesitas</span></div>
       <div class="field-row">
-        <div class="field">
-          <label>Fecha de presentación al cliente <span class="required">*</span></label>
-          <input type="date" name="fecha_presentacion" required />
-        </div>
-        <div class="field">
-          <label>Fecha en que necesito el deck terminado <span class="required">*</span></label>
-          <input type="date" name="fecha_deck" required />
-        </div>
+        <div class="field"><label>Fecha de publicación <span class="required">*</span></label><input type="date" name="fecha_publicacion" required /></div>
+        <div class="field"><label>Fecha pieza terminada <span class="required">*</span></label><input type="date" name="fecha_terminada" required /></div>
       </div>
     </section>
 
     <section class="section">
-      <div class="section-header">
-        <span class="section-number">08</span>
-        <h2 class="section-title">Restricciones</h2>
-        <span class="section-desc">Lo que NO se puede</span>
-      </div>
-      <div class="field">
-        <label>Lo que NO se puede decir</label>
-        <textarea name="restr_no_decir"></textarea>
-      </div>
-      <div class="field">
-        <label>Competencia que NO se puede mencionar</label>
-        <input type="text" name="restr_competencia" />
-      </div>
-      <div class="field">
-        <label>Info confidencial de talentos a cuidar</label>
-        <textarea name="restr_confidencial"></textarea>
-      </div>
+      <div class="section-header"><span class="section-number">08</span><h2 class="section-title">Restricciones</h2><span class="section-desc">Lo que NO se puede</span></div>
+      <div class="field"><label>Lo que NO se puede decir o mostrar</label><textarea name="restr_no_decir"></textarea></div>
+      <div class="field"><label>Marcas competencia que no pueden aparecer</label><input type="text" name="restr_competencia" /></div>
+      <div class="field"><label>Exclusividades vigentes del talento</label><textarea name="restr_exclusividades"></textarea></div>
     </section>
 
     <section class="section">
-      <div class="section-header">
-        <span class="section-number">09</span>
-        <h2 class="section-title">Urgencia</h2>
-        <span class="section-desc">El SLA arranca con el brief completo</span>
-      </div>
+      <div class="section-header"><span class="section-number">09</span><h2 class="section-title">Urgencia</h2><span class="section-desc">SLA arranca con brief completo</span></div>
       <div class="field">
         <div class="radio-group">
-          <label class="radio-card">
-            <input type="radio" name="urgency" value="estandar" checked />
-            <div class="card-inner"><div class="card-title">Estándar</div><div class="card-desc">5 días hábiles</div></div>
-          </label>
-          <label class="radio-card">
-            <input type="radio" name="urgency" value="urgente" />
-            <div class="card-inner"><div class="card-title">Urgente</div><div class="card-desc">2 días hábiles · requiere aprobación</div></div>
-          </label>
+          <label class="radio-card"><input type="radio" name="urgency" value="estandar" checked /><div class="card-inner"><div class="card-title">Estándar</div><div class="card-desc">48 horas</div></div></label>
+          <label class="radio-card"><input type="radio" name="urgency" value="urgente" /><div class="card-inner"><div class="card-title">Express</div><div class="card-desc">24 horas · requiere aprobación</div></div></label>
         </div>
       </div>
-      <div class="field">
-        <label>Justificación de urgencia <span class="optional">(si urgente)</span></label>
-        <textarea name="urgency_justification" placeholder="Por qué es urgente..."></textarea>
-      </div>
-      <div class="field">
-        <label>Aprobado por <span class="optional">(si urgente)</span></label>
-        <input type="text" name="urgency_approved_by" placeholder="Nombre de quien aprobó la urgencia" />
-      </div>
+      <div class="field"><label>Aprobado por <span class="optional">(si express)</span></label><input type="text" name="urgency_approved_by" /></div>
     </section>
 
   </form>
@@ -352,7 +264,7 @@
   <div class="submit-area">
     <img src="https://res.cloudinary.com/duy1hjauz/image/upload/q_auto/f_auto/v1779810977/LOGO_ISO_tdmgn6.png" alt="movdi" class="submit-iso" />
     <h2 class="submit-title">Brief listo para <em>enviar.</em></h2>
-    <p class="submit-desc">Al enviarlo, digital recibirá la notificación y arrancará el SLA. Asegúrate de que toda la info esté completa.</p>
+    <p class="submit-desc">Al enviarlo, digital recibirá la notificación y arrancará el SLA.</p>
     <div class="submit-buttons">
       <button type="button" class="btn-primary" id="submitBrief">→ Enviar a digital</button>
       <button type="button" class="btn-secondary" id="saveBrief">↗ Guardar borrador</button>
@@ -363,45 +275,27 @@
 
 </div>
 
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="loading-spinner"></div>
-  <div class="loading-text" id="loadingText">cargando...</div>
-</div>
-
-<div class="modal-overlay" id="successModal">
-  <div class="modal">
-    <div class="modal-icon">✓</div>
-    <h2>Brief <em>enviado.</em></h2>
-    <p>Digital ya recibió tu solicitud. Vas a ver el seguimiento en el dashboard.</p>
-    <div class="modal-buttons">
-      <button type="button" class="modal-btn primary" onclick="window.location.href='portal.html'">Volver al portal</button>
-      <button type="button" class="modal-btn" onclick="window.location.href='movdi-dashboard.html'">Ir al dashboard</button>
-    </div>
-  </div>
-</div>
-
+<div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"></div><div class="loading-text" id="loadingText">cargando...</div></div>
+<div class="modal-overlay" id="successModal"><div class="modal"><div class="modal-icon">✓</div><h2>Brief <em>enviado.</em></h2><p>Digital ya recibió tu solicitud.</p><div class="modal-buttons"><button type="button" class="modal-btn primary" onclick="window.location.href='portal.html'">Volver al portal</button><button type="button" class="modal-btn" onclick="window.location.href='movdi-dashboard.html'">Ir al dashboard</button></div></div></div>
 <div class="toast" id="toast">guardado</div>
 
 <script>
   const SUPABASE_URL = 'https://zvkgnwbwqfgkftuvqjji.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_fYShY5IycwcxxRqz9BRrhg_imK_p6_B';
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: true, autoRefreshToken: true } });
-  const FORM_TYPE = 'digital_01_pitch';
-  let currentUser = null;
-  let currentTeamMember = null;
-  let refCount = 2;
+  const FORM_TYPE = 'digital_02_rrss_talento';
+  let currentUser = null, currentTeamMember = null, refCount = 2;
 
-  function showLoading(text = 'cargando...') { document.getElementById('loadingText').textContent = text; document.getElementById('loadingOverlay').classList.add('active'); }
+  function showLoading(t='cargando...') { document.getElementById('loadingText').textContent = t; document.getElementById('loadingOverlay').classList.add('active'); }
   function hideLoading() { document.getElementById('loadingOverlay').classList.remove('active'); }
-  function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+  function showToast(m) { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
 
   async function checkSession() {
     const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session) { document.getElementById('authRequired').style.display = 'flex'; return; }
     currentUser = session.user;
-    const { data, error } = await supabaseClient.rpc('list_team_members');
-    if (error || !data) { document.getElementById('authRequired').style.display = 'flex'; return; }
-    currentTeamMember = data.find(m => m.id === currentUser.id);
+    const { data } = await supabaseClient.rpc('list_team_members');
+    currentTeamMember = (data || []).find(m => m.id === currentUser.id);
     if (!currentTeamMember) { document.getElementById('authRequired').style.display = 'flex'; return; }
     document.getElementById('mainContent').style.display = 'block';
     // Pre-llenar solicitante solo si el nombre del team_member no es genérico
@@ -428,36 +322,14 @@
     return {
       meta: { version: '1.0', form_type: FORM_TYPE, generated_at: new Date().toISOString() },
       solicitante: { nombre: currentTeamMember.name || '', email: currentTeamMember.email || '', rol: fd.get('solicitante_rol') || '' },
-      pedido_por: fd.get('pedido_por') || '',
       escenario: fd.get('escenario') || '',
-      cliente: {
-        nombre: fd.get('cliente_nombre') || '',
-        industria: fd.get('cliente_industria') || '',
-        relacion: fd.get('cliente_relacion') || '',
-        contexto: fd.get('cliente_contexto') || ''
-      },
-      pitch: {
-        objetivo: fd.get('pitch_objetivo') || '',
-        audiencia: fd.get('pitch_audiencia') || '',
-        propuesta: fd.get('pitch_propuesta') || ''
-      },
-      contenido: {
-        info: fd.get('contenido_info') || '',
-        cases: fd.get('contenido_cases') || ''
-      },
-      referencias: referencias,
-      assets_link: fd.get('assets_link') || '',
-      rediseno_link: fd.get('rediseno_link') || '',
-      logistica: {
-        fecha_presentacion: fd.get('fecha_presentacion') || '',
-        fecha_deck: fd.get('fecha_deck') || ''
-      },
-      restricciones: {
-        no_decir: fd.get('restr_no_decir') || '',
-        competencia: fd.get('restr_competencia') || '',
-        confidencial: fd.get('restr_confidencial') || ''
-      },
-      urgency_justification: fd.get('urgency_justification') || '',
+      talento: { nombre: fd.get('talento_nombre') || '', link: fd.get('talento_link') || '', publica_en: fd.get('publica_en') || '' },
+      pieza: { objetivo: fd.get('pieza_objetivo') || '', plataforma: fd.get('pieza_plataforma') || '', formato: fd.get('pieza_formato') || '', es_campana: fd.get('es_campana') || '' },
+      contenido: { acontecimiento: fd.get('contenido_acontecimiento') || '', fechas: fd.get('contenido_fechas') || '', copy_aprobado: fd.get('copy_aprobado') || '', copy: fd.get('contenido_copy') || '' },
+      referencias,
+      assets: { link: fd.get('assets_link') || '', foto_especifica: fd.get('foto_especifica') || '' },
+      logistica: { fecha_publicacion: fd.get('fecha_publicacion') || '', fecha_terminada: fd.get('fecha_terminada') || '' },
+      restricciones: { no_decir: fd.get('restr_no_decir') || '', competencia: fd.get('restr_competencia') || '', exclusividades: fd.get('restr_exclusividades') || '' },
       urgency_approved_by: fd.get('urgency_approved_by') || ''
     };
   }
@@ -465,41 +337,24 @@
   async function saveBrief(isSubmit = false) {
     const data = collectData();
     const urgency = document.querySelector('input[name="urgency"]:checked')?.value || 'estandar';
-    const escenario = data.escenario;
-    const assigneeArea = escenario === 'A' ? 'dean' : (escenario === 'B' ? 'ambos' : null);
-
+    const assigneeArea = data.escenario === 'A' ? 'dean' : (data.escenario === 'B' ? 'ambos' : null);
     if (isSubmit) {
-      if (!data.escenario) { alert('Selecciona el escenario (A o B).'); return; }
-      if (!data.cliente.nombre || !data.pitch.objetivo) { alert('Faltan campos obligatorios.'); return; }
+      if (!data.escenario || !data.talento.nombre || !data.pieza.objetivo) { alert('Faltan campos obligatorios.'); return; }
     }
-
-    showLoading(isSubmit ? 'enviando a digital...' : 'guardando...');
+    showLoading(isSubmit ? 'enviando...' : 'guardando...');
     try {
-      const { data: inserted, error } = await supabaseClient.rpc('create_brief', {
-        p_data: data, p_form_type: FORM_TYPE, p_assignee_area: assigneeArea, p_urgency: urgency
-      });
+      const { error } = await supabaseClient.rpc('create_brief', { p_data: data, p_form_type: FORM_TYPE, p_assignee_area: assigneeArea, p_urgency: urgency });
       if (error) throw error;
       if (isSubmit) document.getElementById('successModal').classList.add('active');
       else showToast('borrador guardado');
-    } catch (err) {
-      console.error('ERROR:', err);
-      alert('Error: ' + (err.message || 'desconocido'));
-    } finally { hideLoading(); }
+    } catch (err) { console.error(err); alert('Error: ' + (err.message || 'desconocido')); }
+    finally { hideLoading(); }
   }
 
   document.getElementById('submitBrief').addEventListener('click', () => saveBrief(true));
   document.getElementById('saveBrief').addEventListener('click', () => saveBrief(false));
-
-  // actualizar SLA pill según urgencia
-  document.querySelectorAll('input[name="urgency"]').forEach(r => {
-    r.addEventListener('change', e => {
-      const pill = document.getElementById('slaPill');
-      pill.textContent = e.target.value === 'urgente' ? '⚡ Urgente · 2 días hábiles' : '📊 SLA estándar 5 días hábiles';
-    });
-  });
-
+  document.querySelectorAll('input[name="urgency"]').forEach(r => r.addEventListener('change', e => { document.getElementById('slaPill').textContent = e.target.value === 'urgente' ? '⚡ Express · 24 horas' : '📱 SLA estándar 48 horas'; }));
   checkSession();
 </script>
-
 </body>
 </html>
