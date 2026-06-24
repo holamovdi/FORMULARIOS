@@ -176,7 +176,7 @@
       <div class="field-row">
         <div class="field">
           <label>Solicitante <span class="required">*</span></label>
-          <input type="text" name="solicitante_nombre" id="solicitante_nombre" required readonly />
+          <input type="text" name="solicitante_nombre" id="solicitante_nombre" required placeholder="Tu nombre completo" />
         </div>
         <div class="field">
           <label>Rol</label>
@@ -437,7 +437,13 @@
       return;
     }
     document.getElementById('mainContent').style.display = 'block';
-    document.getElementById('solicitante_nombre').value = currentTeamMember.name || currentTeamMember.email;
+    // Pre-llenar solicitante solo si el nombre del team_member no es genérico
+    // (cuentas como 'equipo', 'hola' indican cuenta compartida → cada PM debe poner su nombre real)
+    const genericNames = ['equipo', 'hola', 'team', 'movdi'];
+    const tmName = (currentTeamMember.name || '').toLowerCase().trim();
+    if (tmName && !genericNames.includes(tmName)) {
+      document.getElementById('solicitante_nombre').value = currentTeamMember.name;
+    }
   }
 
   // ============================================
